@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace MIA_Main
+namespace MiaMain
 {
-    abstract class DBHelper
+    public abstract class DBHelper
     {
         public SqlConnection Connection { get; private set; }
         public string TableName { get; set; }
@@ -18,7 +18,7 @@ namespace MIA_Main
             Connection = new SqlConnection(connectionString);
         }
         
-        internal Dictionary<int, DataItem> GetDataItemsDictionary(List<string> tableFields)
+        public Dictionary<int, DataItem> GetDataItemsDictionary(List<string> tableFields)
         {
             var devicesDictionary = new Dictionary<int, DataItem>();
             using (Connection)

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MIA_Main
+namespace MiaMain
 {
-    class DBHelperCompanies : DBHelper
+    public class DBHelperCompanies : DBHelper
     {
         public DBHelperCompanies(string connectionString) : base(connectionString)
         {
