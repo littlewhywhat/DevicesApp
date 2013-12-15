@@ -35,8 +35,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataItem\Company.cs" />
     <Compile Include="DBHelper.cs" />
-    <Compile Include="Device.cs" />
+    <Compile Include="DataItem\Device.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

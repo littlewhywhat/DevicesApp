@@ -22,44 +22,36 @@ namespace MIA_Main
             using (Connection)
             {
                 Connection.Open();
-                
-                using (var reader = GetDeviceInfoCommand(tableFields).ExecuteReader())
+                using (var reader = GetDataReader(tableFields))
                 {
-                    
                     while (reader.Read())
                     {
-                        var device = new Device();
-                        tableFields.ForEach((fieldName) =>
-                        {
-                            var deviceProperty = device.GetType().GetProperty(fieldName);
-                            deviceProperty.SetValue(device, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
-                        });
-                        devicesDictionary.Add(device.Id, device);
-                        
+                        var device = FillDevice(reader, new Device());
+                        devicesDictionary.Add(device.Id, device);   
                     }
                 }
             }
             return devicesDictionary;                
         }
 
-        private SqlCommand GetDeviceInfoCommand(List<string> tableFields)
+        public Device FillDevice(SqlDataReader reader, Device device)
         {
-            SqlCommand command = new SqlCommand("SELECT Id, Info FROM Devices", Connection);
-            
-            var param = new SqlParameter();
-            param.ParameterName = "Id";
-            
-            param.Size = 50;
-            
-            param.Direction = ParameterDirection.Output;
-            var param1 = new SqlParameter();
-            param1.ParameterName = "Info";
-            
-            param1.Size = 50;
-            param1.Direction = ParameterDirection.Output;
-            command.Parameters.Add(param);
-            command.Parameters.Add(param1);
-            return command;
+            Enumerable.Range(0, reader.FieldCount).ForEach(index =>
+            {
+                var fieldName = reader.GetName(index);
+                var deviceProperty = device.GetType().GetProperty(fieldName);
+                deviceProperty.SetValue(device, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
+            });
+            return device;
+        }
+
+        private string GetDataCommandText(List<string> tableFields)
+        {
+            return String.Format("SELECT {0} FROM Devices", string.Join(",", tableFields));            
+        }
+        private SqlDataReader GetDataReader(List<string> tableFields)
+        {
+            return new SqlCommand(GetDataCommandText(tableFields), Connection).ExecuteReader();
         }
     }
 }
