@@ -10,11 +10,7 @@ namespace MIA_Main
     {
         public int Id { get; set; }
         public string Info { get; set; }
-        public Device();
-        public Device(int id)
-        {
-            Id = id;
-        }
+        
         
     }
 }
