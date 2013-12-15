@@ -8,17 +8,19 @@ using System.Data;
 
 namespace MIA_Main
 {
-    public class DBHelper
+    abstract class DBHelper
     {
         public SqlConnection Connection { get; private set; }
+        public string TableName { get; set; }
+
         public DBHelper(string connectionString)
         {
             Connection = new SqlConnection(connectionString);
         }
         
-        internal Dictionary<int, Device> GetDevicesDictionary(List<string> tableFields)
+        internal Dictionary<int, DataItem> GetDataItemsDictionary(List<string> tableFields)
         {
-            var devicesDictionary = new Dictionary<int, Device>();
+            var devicesDictionary = new Dictionary<int, DataItem>();
             using (Connection)
             {
                 Connection.Open();
@@ -26,15 +28,16 @@ namespace MIA_Main
                 {
                     while (reader.Read())
                     {
-                        var device = FillDevice(reader, new Device());
-                        devicesDictionary.Add(device.Id, device);   
+                        var dataItem = FillDataItem(reader, GetDataItem() );
+                        devicesDictionary.Add(dataItem.Id, dataItem);   
                     }
                 }
             }
             return devicesDictionary;                
         }
+        protected abstract DataItem GetDataItem();
 
-        public Device FillDevice(SqlDataReader reader, Device device)
+        public DataItem FillDataItem(SqlDataReader reader, DataItem device)
         {
             Enumerable.Range(0, reader.FieldCount).ForEach(index =>
             {
@@ -47,11 +50,12 @@ namespace MIA_Main
 
         private string GetDataCommandText(List<string> tableFields)
         {
-            return String.Format("SELECT {0} FROM Devices", string.Join(",", tableFields));            
+            return String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), TableName);            
         }
         private SqlDataReader GetDataReader(List<string> tableFields)
         {
             return new SqlCommand(GetDataCommandText(tableFields), Connection).ExecuteReader();
         }
+
     }
 }

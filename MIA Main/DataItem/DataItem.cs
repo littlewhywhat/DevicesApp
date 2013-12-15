@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MIA_Main
 {
-    public class Device : DataItem
+    public abstract class DataItem
     {
-        public string Info { get; set; }
-        public int CompanyId { get; set; }    
+        public int Id { get; set; }
     }
 }

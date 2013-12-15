@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MIA_Main.DataItem
+namespace MIA_Main
 {
-    class Company
+    class Company : DataItem
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Info { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyInfo { get; set; }
     }
 }

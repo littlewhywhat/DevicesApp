@@ -36,8 +36,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataItem\Company.cs" />
-    <Compile Include="DBHelper.cs" />
+    <Compile Include="DataItem\DataItem.cs" />
+    <Compile Include="DBHelper\DBHelper.cs" />
     <Compile Include="DataItem\Device.cs" />
+    <Compile Include="DBHelper\DBHelperCompanies.cs" />
+    <Compile Include="DBHelper\DBHelperDevices.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
