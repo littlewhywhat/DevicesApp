@@ -7,31 +7,36 @@ using System.Data.SqlClient;
 
 namespace MIA_Main
 {
-    static class DBHelper
+    public class DBHelper
     {
         public static SqlConnection Connection { get; private set; }
-        public static void SetConnection(SqlConnectionStringBuilder builder)
+        public DBHelper(string connectionString)
         {
-            Connection = new SqlConnection(builder.ConnectionString);
-
+            Connection = new SqlConnection(connectionString);
         }
-        private static void GetData()
+        
+        public Dictionary<int, Device> GetDevicesDictionary(List<string> tableFields)
         {
-            string commandText = GetDeviceInfoCommand();
-            
-            SqlCommand command = new SqlCommand(commandText, Connection);
-            var reader = command.ExecuteReader();
-            for (var i = 0; i < reader.FieldCount; i++)
+            var devicesDictionary = new Dictionary<int, Device>();
+            using (var reader = new SqlCommand(GetDeviceInfoCommand(), Connection).ExecuteReader())
             {
-                reader.GetValue(i);
-
+                while (reader.Read())
+                {
+                    var device = new Device();
+                    tableFields.ForEach( (fieldName) =>
+                    {
+                        var field = Convert.ToInt32(reader[fieldName]);
+                        device.GetType().GetProperty(fieldName).SetValue(device, field);                        
+                    });
+                    devicesDictionary.Add(device.Id, device);
+                }
             }
-                
+            return devicesDictionary;                
         }
 
-        private static string GetDeviceInfoCommand()
+        private string GetDeviceInfoCommand()
         {
-            return "SELECT * FROM Devices";
+            return "SELECT id FROM Devices";
         }
     }
 }

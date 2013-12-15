@@ -8,12 +8,13 @@ namespace MIA_Main
 {
     class Device
     {
-        public int Id { get; private set; }
-        public string Info { get; private set; }
-        public Device(int id, string info)
+        public int Id { get; set; }
+        public string Info { get; set; }
+        public Device();
+        public Device(int id)
         {
             Id = id;
-            Info = info;
         }
+        
     }
 }
