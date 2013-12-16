@@ -7,7 +7,14 @@
             <ColumnDefinition Width="1*" ></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox Name="DataItemsListBox"></ListBox>
+        <ListBox Name="DataItemsListBox"  >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="DataItemsListBoxItem_DoubleClick"></EventSetter>
+                    
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
         <TabControl Name="DataItemsTabControl" Grid.Column="1"></TabControl>
     </Grid>
 </Window>

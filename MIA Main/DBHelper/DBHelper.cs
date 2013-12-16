@@ -37,15 +37,15 @@ namespace MiaMain
         }
         protected abstract DataItem GetDataItem();
 
-        public DataItem FillDataItem(SqlDataReader reader, DataItem device)
+        public DataItem FillDataItem(SqlDataReader reader, DataItem dataItem)
         {
             Enumerable.Range(0, reader.FieldCount).ForEach(index =>
             {
                 var fieldName = reader.GetName(index);
-                var deviceProperty = device.GetType().GetProperty(fieldName);
-                deviceProperty.SetValue(device, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
+                var deviceProperty = dataItem.GetType().GetProperty(fieldName);
+                deviceProperty.SetValue(dataItem, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
             });
-            return device;
+            return dataItem;
         }
 
         private string GetDataCommandText(List<string> tableFields)

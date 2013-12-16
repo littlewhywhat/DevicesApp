@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace MiaMain
 {
@@ -14,6 +15,18 @@ namespace MiaMain
             {
                 action(item);
             }
+        }
+        public static bool Contains(this TabControl tabControl, object target)
+        {
+            foreach (TabItem item in tabControl.Items)
+            {
+                if (item.DataContext == target)
+                {
+                    item.IsSelected = true;
+                    return true;
+                }                    
+            }
+            return false;
         }
     }
 }

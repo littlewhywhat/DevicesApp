@@ -28,7 +28,14 @@ namespace MiaAppInterface
         public void Initialize()
         {
             InitializeComponent();
-            DataItemsListBox.ItemsSource = helper.GetDataItemsDictionary(new List<string>() { "Id" });
+            DataItemsListBox.ItemsSource = helper.GetDataItemsDictionary(new List<string>() { "Id", "Info" });
+            DataItemsListBox.SelectedIndex = 1;
+        }
+        private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
+        {
+            var device = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Device;
+            if (!DataItemsTabControl.Contains(device))
+                DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true});
         }
     }
 }
