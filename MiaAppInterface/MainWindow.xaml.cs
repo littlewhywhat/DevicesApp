@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
 using MiaMain;
 namespace MiaAppInterface
 {
@@ -20,7 +21,8 @@ namespace MiaAppInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        DBHelperDevices helper = new DBHelperDevices("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB");
+        SqlConnection connection = new SqlConnection("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB");
+        DevicesFactory devicesFactory;
         public MainWindow()
         {
             Initialize();
@@ -28,12 +30,15 @@ namespace MiaAppInterface
         public void Initialize()
         {
             InitializeComponent();
-            DataItemsListBox.ItemsSource = helper.GetDataItemsDictionary(new List<string>() { "Id", "Info" });
+            devicesFactory = new DevicesFactory(connection);
+            DBHelper.PerformDBAction(connection, new FillDataDic(devicesFactory));
+            DataItemsListBox.ItemsSource = devicesFactory.GetDataItemsDic();
             DataItemsListBox.SelectedIndex = 1;
         }
         private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
         {
             var device = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Device;
+            devicesFactory.FillDataItem(device);
             if (!DataItemsTabControl.Contains(device))
                 DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true});
         }

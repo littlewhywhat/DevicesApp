@@ -10,9 +10,7 @@ namespace MiaMain
     {
         public static void Main()
         {      
-            var dbHelper = new DBHelperCompanies("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" +
-                "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB");
-            var devices = dbHelper.GetDataItemsDictionary(new List<string>() { "Id", "CompanyInfo", "CompanyName" });
+            
         }
     }
 }

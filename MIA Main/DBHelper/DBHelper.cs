@@ -8,36 +8,10 @@ using System.Data;
 
 namespace MiaMain
 {
-    public abstract class DBHelper
+    public static class DBHelper
     {
-        public SqlConnection Connection { get; private set; }
-        public string TableName { get; set; }
 
-        public DBHelper(string connectionString)
-        {
-            Connection = new SqlConnection(connectionString);
-        }
-        
-        public Dictionary<int, DataItem> GetDataItemsDictionary(List<string> tableFields)
-        {
-            var devicesDictionary = new Dictionary<int, DataItem>();
-            using (Connection)
-            {
-                Connection.Open();
-                using (var reader = GetDataReader(tableFields))
-                {
-                    while (reader.Read())
-                    {
-                        var dataItem = FillDataItem(reader, GetDataItem() );
-                        devicesDictionary.Add(dataItem.Id, dataItem);   
-                    }
-                }
-            }
-            return devicesDictionary;                
-        }
-        protected abstract DataItem GetDataItem();
-
-        public DataItem FillDataItem(SqlDataReader reader, DataItem dataItem)
+        public static DataItem FillDataItem(SqlDataReader reader, DataItem dataItem)
         {
             Enumerable.Range(0, reader.FieldCount).ForEach(index =>
             {
@@ -48,14 +22,26 @@ namespace MiaMain
             return dataItem;
         }
 
-        private string GetDataCommandText(List<string> tableFields)
+        public static void PerformDBAction(SqlConnection connection, DBAction action)
         {
-            return String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), TableName);            
-        }
-        private SqlDataReader GetDataReader(List<string> tableFields)
-        {
-            return new SqlCommand(GetDataCommandText(tableFields), Connection).ExecuteReader();
+            connection.Open();
+            action.Act(connection);
+            connection.Close();
         }
 
+        public static string GetFillCommandText(List<string> tableFields, string tableName)
+        {
+            return String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), tableName);            
+        }
+
+        public static string GetFillCommandForItemText(List<string> tableFields, string tableName, int id)
+        {
+            return String.Format("{0} WHERE Id = {1}", GetFillCommandText(tableFields, tableName), id);
+        }
+
+        public static SqlCommand GetCommand(string commandText, SqlConnection connection )
+        {
+ 	        return new SqlCommand(commandText, connection);
+        }
     }
 }
