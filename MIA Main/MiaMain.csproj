@@ -50,6 +50,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataItemsFactory\CompaniesFactory.cs" />
     <Compile Include="DataItemsFactory\DataItemsFactory.cs" />
     <Compile Include="DataItem\Company.cs" />
     <Compile Include="DataItem\DataItem.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="DataItem\Device.cs" />
     <Compile Include="DataItemsFactory\DevicesFactory.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="DBAction\FillData.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

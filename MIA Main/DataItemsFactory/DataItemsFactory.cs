@@ -9,6 +9,7 @@ namespace MiaMain
 {
     public abstract class DataItemsFactory
     {
+        private Dictionary<int, DataItem> DataItemsDic = new Dictionary<int, DataItem>();
         public abstract List<String> FirstTableFields { get; }
         public abstract List<String> OtherTableFields { get; }
         public abstract string TableName { get; }
@@ -17,11 +18,14 @@ namespace MiaMain
         {
             Connection = connection;
         }
-        public abstract Dictionary<int, DataItem> GetDataItemsDic();
-        public abstract DataItem GetDataItem();
-        public void FillDataItem(DataItem dataItem)
+        public Dictionary<int, DataItem> GetDataItemsDic()
         {
-            DBHelper.PerformDBAction(Connection, new FillDataItem(dataItem, DBHelper.GetFillCommandForItemText(OtherTableFields, TableName, dataItem.Id)));
+            return DataItemsDic;
         }
+        public abstract DataItem GetDataItem();
+        //public void FillDataItem(DataItem dataItem)
+        //{
+        //    DBHelper.PerformDBAction(Connection, new FillDataItem(dataItem, ));
+        //}
     }
 }

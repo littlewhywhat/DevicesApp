@@ -20,14 +20,14 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DeviceTabItem : TabItem
     {
-        public DeviceTabItem(Device device)
+        public DeviceTabItem(DataItem device)
         {
             Initialize(device);
         }
-        private void Initialize(Device device)
+        private void Initialize(DataItem device)
         {
             InitializeComponent();
-            Header = device.Info;
+            Header = device.Id;
             
         }
     }

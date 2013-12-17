@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MiaMain
 {
-    class Company : DataItem
+    public class Company : DataItem
     {
         public string CompanyName { get; set; }
         public string CompanyInfo { get; set; }

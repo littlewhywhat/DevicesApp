@@ -7,25 +7,23 @@ using System.Data.SqlClient;
 
 namespace MiaMain
 {
-    public class FillDataDic : DBAction
+    public class FillDataDic : FillData
     {
-        private DataItemsFactory Factory { get; set; }
-        public FillDataDic(DataItemsFactory factory)
+        public FillDataDic(DataItemsFactory factory) : base(factory)
+        { }
+        protected override void Fill(SqlDataReader reader, DataItem dataItem)
         {
-            Factory = factory;
+            base.Fill(reader, dataItem);
+            Factory.GetDataItemsDic().Add(dataItem.Id, dataItem);
+        }
+        protected override string GetCommandText()
+        {
+            return DBHelper.GetFillCommandText(Factory.FirstTableFields, Factory.TableName);
         }
 
-        public void Act(SqlConnection connection)
+        protected override DataItem GetDataItem()
         {
-            using (var reader = DBHelper.GetCommand(DBHelper.GetFillCommandText(Factory.FirstTableFields, Factory.TableName), connection).ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    var dataItem = Factory.GetDataItem();
-                    DBHelper.FillDataItem(reader, dataItem);
-                    Factory.GetDataItemsDic().Add(dataItem.Id, dataItem);   
-                }
-            }
+            return Factory.GetDataItem();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MiaAppInterface
     public partial class MainWindow : Window
     {
         SqlConnection connection = new SqlConnection("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB");
-        DevicesFactory devicesFactory;
+        CompaniesFactory devicesFactory;
         public MainWindow()
         {
             Initialize();
@@ -30,15 +30,15 @@ namespace MiaAppInterface
         public void Initialize()
         {
             InitializeComponent();
-            devicesFactory = new DevicesFactory(connection);
+            devicesFactory = new CompaniesFactory(connection);
             DBHelper.PerformDBAction(connection, new FillDataDic(devicesFactory));
             DataItemsListBox.ItemsSource = devicesFactory.GetDataItemsDic();
             DataItemsListBox.SelectedIndex = 1;
         }
         private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
         {
-            var device = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Device;
-            devicesFactory.FillDataItem(device);
+            var device = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Company;
+            DBHelper.PerformDBAction(connection, new FillDataItem(device, devicesFactory));
             if (!DataItemsTabControl.Contains(device))
                 DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true});
         }

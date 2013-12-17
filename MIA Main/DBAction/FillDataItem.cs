@@ -7,20 +7,21 @@ using System.Data.SqlClient;
 
 namespace MiaMain
 {
-    class FillDataItem : DBAction
+    public class FillDataItem : FillData
     {
-        DataItem DataItem { get; set; }
-        string CommandText { get; set; }
-        public FillDataItem(DataItem dataItem, string commandText)
+        private DataItem DataItem { get; set; }
+        public FillDataItem(DataItem dataItem, DataItemsFactory factory)
+            : base(factory)
         {
             DataItem = dataItem;
-            CommandText = commandText;
         }
-        public void Act(SqlConnection connection)
+        protected override string GetCommandText()
         {
-            var reader = DBHelper.GetCommand(CommandText, connection).ExecuteReader();
-            reader.Read();
-            DBHelper.FillDataItem(reader, DataItem);
+            return DBHelper.GetFillCommandForItemText(Factory.OtherTableFields, Factory.TableName, DataItem.Id);
+        }
+        protected override DataItem GetDataItem()
+        {
+            return DataItem;
         }
     }
 }
