@@ -28,8 +28,12 @@ namespace MiaMain
         protected abstract string GetCommandText();
         protected virtual void Fill(SqlDataReader reader, DataItem dataItem)
         {
-            DBHelper.FillDataItem(reader, dataItem);
+            Enumerable.Range(0, reader.FieldCount).ForEach(index =>
+            {
+                var fieldName = reader.GetName(index);
+                var deviceProperty = dataItem.GetType().GetProperty(fieldName);
+                deviceProperty.SetValue(dataItem, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
+            });
         }
-
     }
 }

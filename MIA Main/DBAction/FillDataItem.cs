@@ -17,7 +17,7 @@ namespace MiaMain
         }
         protected override string GetCommandText()
         {
-            return DBHelper.GetFillCommandForItemText(Factory.OtherTableFields, Factory.TableName, DataItem.Id);
+            return DBHelper.GetFillCommandTextForItem(Factory.OtherTableFields, Factory.TableName, DataItem.Id);
         }
         protected override DataItem GetDataItem()
         {
