@@ -30,7 +30,7 @@ namespace MiaAppInterface
         public void Initialize()
         {
             InitializeComponent();
-            devicesFactory = new CompaniesFactory(connection);
+            devicesFactory = new CompaniesFactory();
             DBHelper.PerformDBAction(connection, new FillDataDic(devicesFactory));
             DataItemsListBox.ItemsSource = devicesFactory.GetDataItemsDic();
             DataItemsListBox.SelectedIndex = 1;

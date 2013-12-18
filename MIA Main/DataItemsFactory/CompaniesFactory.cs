@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 
 namespace MiaMain
 {
@@ -16,8 +12,6 @@ namespace MiaMain
         public override List<string> OtherTableFields { get { return otherTableFields; } }
         public override string TableName { get { return tableName; } }
         
-        public CompaniesFactory(SqlConnection connection) : base (connection)
-        { }
         public override DataItem GetDataItem()
         {
             return new Company();
