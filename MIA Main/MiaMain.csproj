@@ -60,6 +60,7 @@
     <Compile Include="DBHelper\DBHelper.cs" />
     <Compile Include="DataItem\Device.cs" />
     <Compile Include="DataItemsFactory\DevicesFactory.cs" />
+    <Compile Include="DeviceCollection.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="DBAction\FillData.cs" />
     <Compile Include="Program.cs" />

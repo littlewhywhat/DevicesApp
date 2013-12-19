@@ -17,19 +17,15 @@ namespace MiaMain
             connection.Close();
         }
 
-        public static string GetFillCommandText(List<string> tableFields, string tableName)
-        {
-            return String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), tableName);            
-        }
-
-        public static string GetFillCommandTextForItem(List<string> tableFields, string tableName, int id)
-        {
-            return String.Format("{0} WHERE Id = {1}", GetFillCommandText(tableFields, tableName), id);
-        }
-
         public static SqlCommand GetCommand(string commandText, SqlConnection connection )
         {
  	        return new SqlCommand(commandText, connection);
+        }
+        
+        public static string GetSelectCommandText(List<string> tableFields, string tableName, int id = 0)
+        {
+            var commandText = String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), tableName);
+            return id != 0 ? String.Format("{0} WHERE id = {1}", commandText, id) : commandText;
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using MiaMain;
+using System.Collections.ObjectModel;
 namespace MiaAppInterface
 {
     /// <summary>
@@ -23,6 +24,7 @@ namespace MiaAppInterface
     {
         SqlConnection connection = new SqlConnection("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB");
         CompaniesFactory devicesFactory;
+        
         public MainWindow()
         {
             Initialize();
@@ -34,6 +36,7 @@ namespace MiaAppInterface
             DBHelper.PerformDBAction(connection, new FillDataDic(devicesFactory));
             DataItemsListBox.ItemsSource = devicesFactory.GetDataItemsDic();
             DataItemsListBox.SelectedIndex = 1;
+            
         }
         private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
         {
@@ -41,6 +44,14 @@ namespace MiaAppInterface
             DBHelper.PerformDBAction(connection, new FillDataItem(device, devicesFactory));
             if (!DataItemsTabControl.Contains(device))
                 DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true});
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Device device = new Device() { Id = 10, Info = "Device10" };
+            devicesFactory.GetDataItemsDic().Add(10, device);
+            
         }
     }
 }

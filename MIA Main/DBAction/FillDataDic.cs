@@ -11,16 +11,14 @@ namespace MiaMain
     {
         public FillDataDic(DataItemsFactory factory) : base(factory)
         { }
-        protected override string GetCommandText()
-        {
-            return DBHelper.GetFillCommandText(Factory.FirstTableFields, Factory.TableName);
-        }
-
         protected override DataItem GetDataItem()
         {
             return Factory.GetDataItem();
         }
-
+        protected override string GetCommandText()
+        {
+            return DBHelper.GetSelectCommandText(Factory.FirstTableFields, Factory.TableName);
+        }
         protected override void Fill(SqlDataReader reader, DataItem dataItem)
         {
             base.Fill(reader, dataItem);

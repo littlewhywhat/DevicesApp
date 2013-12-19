@@ -24,8 +24,6 @@ namespace MiaMain
                 }
             }
         }
-        protected abstract DataItem GetDataItem();
-        protected abstract string GetCommandText();
         protected virtual void Fill(SqlDataReader reader, DataItem dataItem)
         {
             Enumerable.Range(0, reader.FieldCount).ForEach(index =>
@@ -35,5 +33,7 @@ namespace MiaMain
                 deviceProperty.SetValue(dataItem, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
             });
         }
+        protected abstract DataItem GetDataItem();
+        protected abstract string GetCommandText();
     }
 }
