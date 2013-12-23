@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace MiaMain
 {
-    public class FillDataItem : FillData
+    public class FillDataItem : GetData
     {
         private DataItem DataItem { get; set; }
         public FillDataItem(DataItem dataItem, DataItemsFactory factory)

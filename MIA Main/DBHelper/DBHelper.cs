@@ -10,6 +10,7 @@ namespace MiaMain
 {
     public static class DBHelper
     {
+
         public static void PerformDBAction(SqlConnection connection, DBAction action)
         {
             connection.Open();
@@ -26,6 +27,16 @@ namespace MiaMain
         {
             var commandText = String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), tableName);
             return id != 0 ? String.Format("{0} WHERE id = {1}", commandText, id) : commandText;
+        }
+        
+        public static string GetLogCommandText(string tableName, int id, ActionType actionType)
+        {
+            return String.Format("INSERT INTO Logging (TableName, ItemId, ActionType) VALUES ('{0}', '{1}', '{2}')", tableName, id, actionType.ToString());
+        }
+        
+        public static string GetPreActionText()
+        {
+            return "set ansi_nulls off set xact_abort on";
         }
     }
 }

@@ -7,10 +7,10 @@ using System.Data.SqlClient;
 
 namespace MiaMain
 {
-    public abstract class FillData : DBAction
+    public abstract class GetData : DBAction
     {
         protected DataItemsFactory Factory { get; set; }
-        public FillData(DataItemsFactory factory)
+        public GetData(DataItemsFactory factory)
         {
             Factory = factory;
         }

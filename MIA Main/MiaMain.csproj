@@ -50,19 +50,24 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionTypeEnum.cs" />
     <Compile Include="DataItemsFactory\CompaniesFactory.cs" />
     <Compile Include="DataItemsFactory\DataItemsFactory.cs" />
     <Compile Include="DataItem\Company.cs" />
     <Compile Include="DataItem\DataItem.cs" />
+    <Compile Include="DBAction\ChangeData\ChangeData.cs" />
+    <Compile Include="DBAction\ChangeData\DeleteDataItem.cs" />
+    <Compile Include="DBAction\ChangeData\InsertDataItem.cs" />
     <Compile Include="DBAction\DBAction.cs" />
-    <Compile Include="DBAction\FillDataDic.cs" />
-    <Compile Include="DBAction\FillDataItem.cs" />
+    <Compile Include="DBAction\FillData\FillDataDic.cs" />
+    <Compile Include="DBAction\FillData\FillDataItem.cs" />
+    <Compile Include="DBAction\ChangeData\UpdateDataItem.cs" />
     <Compile Include="DBHelper\DBHelper.cs" />
     <Compile Include="DataItem\Device.cs" />
     <Compile Include="DataItemsFactory\DevicesFactory.cs" />
     <Compile Include="DeviceCollection.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="DBAction\FillData.cs" />
+    <Compile Include="DBAction\FillData\GetData.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
