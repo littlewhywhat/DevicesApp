@@ -13,10 +13,11 @@ namespace MiaMain
         static byte[] timestamp;
         public static void Do(SqlConnection connection)
         {
-            var tempTimestamp = new GetTimestamp().Perform(connection);
+            var tempTimestamp = DBHelper.PerformDBAction(connection, new GetTimestamp());
             if (tempTimestamp != timestamp)
             {
-                
+                DBHelper.PerformDBAction(connection, new GetLoggingReader(timestamp));
+
             }
         }
     }

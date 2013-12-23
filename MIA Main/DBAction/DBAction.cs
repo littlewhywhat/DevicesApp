@@ -9,6 +9,6 @@ namespace MiaMain
 {
     public interface DBAction
     {
-        void Act(SqlConnection connection);
+        object Act(SqlConnection connection);
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="DBAction\FillData\FillDataDic.cs" />
     <Compile Include="DBAction\FillData\FillDataItem.cs" />
     <Compile Include="DBAction\ChangeData\UpdateDataItem.cs" />
+    <Compile Include="DBAction\GetLoggingReader.cs" />
     <Compile Include="DBAction\GetNewDataItemId.cs" />
     <Compile Include="DBHelper\DBHelper.cs" />
     <Compile Include="DataItem\Device.cs" />
@@ -69,7 +70,9 @@
     <Compile Include="DeviceCollection.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="DBAction\FillData\GetData.cs" />
+    <Compile Include="DBAction\GetTimestamp.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="UpdateClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

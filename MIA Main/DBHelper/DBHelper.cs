@@ -11,11 +11,12 @@ namespace MiaMain
     public static class DBHelper
     {
 
-        public static void PerformDBAction(SqlConnection connection, DBAction action)
+        public static object PerformDBAction(SqlConnection connection, DBAction action)
         {
             connection.Open();
-            action.Act(connection);
+            var result = action.Act(connection);
             connection.Close();
+            return result;
         }
 
         public static SqlCommand GetCommand(string commandText, SqlConnection connection )

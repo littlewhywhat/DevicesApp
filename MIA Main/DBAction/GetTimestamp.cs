@@ -11,7 +11,7 @@ namespace MiaMain
     public class GetTimestamp : DBAction
     {
         
-        protected override object Act(SqlConnection connection)
+        public object Act(SqlConnection connection)
         {
             return new SqlCommand(GetCommandText(), connection).ExecuteScalar();
         }

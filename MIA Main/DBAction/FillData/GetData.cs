@@ -14,7 +14,7 @@ namespace MiaMain
         {
             Factory = factory;
         }
-        public void Act(SqlConnection connection)
+        public object Act(SqlConnection connection)
         {
             using (var reader = DBHelper.GetCommand(GetCommandText(), connection).ExecuteReader())
             {
@@ -23,6 +23,7 @@ namespace MiaMain
                     Fill(reader, GetDataItem());                  
                 }
             }
+            return null;
         }
         protected virtual void Fill(SqlDataReader reader, DataItem dataItem)
         {

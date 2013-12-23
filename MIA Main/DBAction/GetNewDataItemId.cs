@@ -16,9 +16,10 @@ namespace MiaMain
             Factory = factory;
             DataItem = dataItem;
         }
-        public void Act(SqlConnection connection)
+        public object Act(SqlConnection connection)
         {
             DataItem.Id = GetNewId(connection) + 1;
+            return DataItem;
         }
 
         private int GetNewId(SqlConnection connection)

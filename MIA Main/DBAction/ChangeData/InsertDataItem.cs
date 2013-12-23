@@ -12,10 +12,10 @@ namespace MiaMain
     {
         public InsertDataItem(DataItemsFactory factory, DataItem dataItem) : base(factory, dataItem, ActionType.INSERT)
         {}
-        public override void Act(SqlConnection connection)
+        public override object Act(SqlConnection connection)
         {
             new GetNewDataItemId(Factory, dataItem).Act(connection);
-            base.Act(connection);
+            return base.Act(connection);
         }
 
         protected override string GetMainCommandText()

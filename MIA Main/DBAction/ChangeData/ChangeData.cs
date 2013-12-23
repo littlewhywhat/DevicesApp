@@ -19,7 +19,7 @@ namespace MiaMain
             Factory = factory;
             this.dataItem = dataItem;
         }
-        public virtual void Act(SqlConnection connection)
+        public virtual object Act(SqlConnection connection)
         {
             ExecPreCommand(connection);
             Transaction = connection.BeginTransaction();
@@ -33,6 +33,7 @@ namespace MiaMain
             {
                 Transaction.Rollback();
             }
+            return null;
         }
 
         private void ExecPreCommand(SqlConnection connection)
