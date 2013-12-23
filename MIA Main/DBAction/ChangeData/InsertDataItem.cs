@@ -10,46 +10,20 @@ namespace MiaMain
 {
     public class InsertDataItem : ChangeData
     {
-        public InsertDataItem(DataItemsFactory factory, DataItem dataItem) : base(factory, dataItem)
+        public InsertDataItem(DataItemsFactory factory, DataItem dataItem) : base(factory, dataItem, ActionType.INSERT)
         {}
-        
-        protected override ActionType GetActionType()
+        public override void Act(SqlConnection connection)
         {
-            return ActionType.INSERT;
+            new GetNewDataItemId(Factory, dataItem).Act(connection);
+            base.Act(connection);
         }
 
-        protected override void ExecMainCommand(System.Data.SqlClient.SqlConnection connection)
+        protected override string GetMainCommandText()
         {
-            dataItem.Id = GetNewId(connection) + 1;
-            new SqlCommand(GetMainCommandText(), connection) { Transaction = Transaction }.ExecuteNonQuery();
-        }
-
-        private int GetNewId(SqlConnection connection)
-        {
-            return Convert.ToInt32(new SqlCommand(GetIdCommandText(), connection) { Transaction = Transaction }.ExecuteScalar());
-        }
-
-        private string GetIdCommandText()
-        {
-            return String.Format("Select MAX(Id) from {0}", Factory.TableName);
-        }
-
-        private string GetPropertyNames(IEnumerable<PropertyInfo> properties)
-        {
-            return String.Join(",", properties.Select(deviceProperty => deviceProperty.Name));
-        }
-        private string GetPropertyValues(IEnumerable<PropertyInfo> properties)
-        {
-            return String.Join(",", properties.Select(deviceProperty =>
-                {
-                    return String.Format("'{0}'", deviceProperty.GetValue(dataItem));
-                }));
-        }
-
-        private string GetMainCommandText()
-        {
-            var properties = dataItem.GetType().GetProperties();
-            var str = String.Format("Insert into {0} ({1}) Values ({2})",Factory.TableName, GetPropertyNames(properties), GetPropertyValues(properties));
+            var str = String.Format("Insert into {0} (Id, {1}) Values ({2},{3})",Factory.TableName, 
+                            String.Join(",", dataItem.GetPropertyValueDic().Select(pair => pair.Key)),
+                            dataItem.Id,
+                            String.Join(",", dataItem.GetPropertyValueDic().Select(pair => String.Format("'{0}'", pair.Value))));
             return str;
         }
     }

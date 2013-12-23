@@ -17,10 +17,10 @@ namespace MiaMain
                 var devicesFactory = new DevicesFactory();
                 DBHelper.PerformDBAction(connection, new FillDataDic(devicesFactory));
                 var devicesDic = devicesFactory.GetDataItemsDic();
-                Device device = new Device();
-                device.Info = "Device1";
-                device.CompanyId = 4;
-                DBHelper.PerformDBAction(connection, new InsertDataItem(devicesFactory, device));
+                Device device = (Device)devicesDic[9];
+                device.Info = "Device9";
+                device.CompanyId = 1;
+                DBHelper.PerformDBAction(connection, new UpdateDataItem(devicesFactory, device));
             };
         }
     }

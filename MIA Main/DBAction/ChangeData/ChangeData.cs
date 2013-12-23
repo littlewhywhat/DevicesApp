@@ -12,13 +12,14 @@ namespace MiaMain
         protected SqlTransaction Transaction;
         protected DataItemsFactory Factory;
         protected DataItem dataItem;
-        public ChangeData(DataItemsFactory factory, DataItem dataItem)
+        ActionType ActionType;
+        public ChangeData(DataItemsFactory factory, DataItem dataItem, ActionType actionType)
         {
+            ActionType = actionType;
             Factory = factory;
             this.dataItem = dataItem;
         }
-        protected abstract ActionType GetActionType();
-        public void Act(SqlConnection connection)
+        public virtual void Act(SqlConnection connection)
         {
             ExecPreCommand(connection);
             Transaction = connection.BeginTransaction();
@@ -39,12 +40,19 @@ namespace MiaMain
             new SqlCommand(DBHelper.GetPreActionText(), connection).ExecuteNonQuery();
         }
 
-        protected abstract void ExecMainCommand(SqlConnection connection);
-
-        protected void ExecLogCommand(SqlConnection connection)
+        protected virtual void ExecMainCommand(SqlConnection connection)
         {
-            new SqlCommand(DBHelper.GetLogCommandText(Factory.TableName, dataItem.Id, GetActionType()), connection) { Transaction = Transaction }.ExecuteNonQuery();
+            new SqlCommand(GetMainCommandText(), connection) { Transaction = Transaction }.ExecuteNonQuery();
         }
+
+        private void ExecLogCommand(SqlConnection connection)
+        {
+            new SqlCommand(DBHelper.GetLogCommandText(Factory.TableName, dataItem.Id, ActionType), connection) { Transaction = Transaction }.ExecuteNonQuery();
+        }
+
+        protected abstract string GetMainCommandText();
+
+
 
     }
 }

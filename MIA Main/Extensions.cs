@@ -25,6 +25,17 @@ namespace MiaMain
             }
             return false;
         }
+
+        public static Dictionary<string, string> GetPropertyValueDic(this DataItem dataItem)
+        {
+            var dictionary = new Dictionary<string, string>();
+            dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
+                {
+                    if (dataItemProperty.Name != "Id")
+                        dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem).ToString());
+                });
+            return dictionary;
+        }
     }
 
 }
