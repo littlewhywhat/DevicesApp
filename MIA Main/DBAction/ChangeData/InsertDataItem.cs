@@ -20,11 +20,10 @@ namespace MiaMain
 
         protected override string GetMainCommandText()
         {
-            var str = String.Format("Insert into {0} (Id, {1}) Values ({2},{3})",Factory.TableName, 
+            return String.Format("Insert into {0} (Id, {1}) Values ({2},{3})",Factory.TableName, 
                             String.Join(",", dataItem.GetPropertyValueDic().Select(pair => pair.Key)),
                             dataItem.Id,
                             String.Join(",", dataItem.GetPropertyValueDic().Select(pair => String.Format("'{0}'", pair.Value))));
-            return str;
         }
     }
 }
