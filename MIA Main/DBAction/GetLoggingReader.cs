@@ -18,17 +18,13 @@ namespace MiaMain
         }
         public object Act(SqlConnection connection)
         {
-            var command = GetCommand();
-            command.Connection = connection;
-            return command.ExecuteReader();
+            return GetCommand(connection).ExecuteReader();
         }
 
-        private SqlCommand GetCommand()
+        private SqlCommand GetCommand(SqlConnection connection)
         {
-            var timestamp = new SqlParameter("@oldTimestamp", SqlDbType.Timestamp);
-            timestamp.Value = OldTimestamp;
-            var command = new SqlCommand("SELECT * FROM Logging WHERE Timestamp > @oldTimestamp");
-            command.Parameters.Add(timestamp);
+            var command = new SqlCommand("SELECT * FROM Logging WHERE Timestamp > @oldTimestamp", connection);
+            command.Parameters.Add(new SqlParameter("@oldTimestamp", SqlDbType.Timestamp) { Value = OldTimestamp });
             return command;
         }
     }

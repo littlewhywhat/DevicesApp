@@ -20,6 +20,7 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DeviceTabItem : TabItem
     {
+        event MouseButtonEventHandler close;
         public DeviceTabItem(DataItem device)
         {
             Initialize(device);

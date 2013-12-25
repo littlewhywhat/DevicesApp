@@ -21,7 +21,9 @@ namespace MiaMain
                 //device.Info = "Device9";
                 //device.CompanyId = 1;
                 //DBHelper.PerformDBAction(connection, new UpdateDataItem(devicesFactory, device));
-                UpdateClient.Do(connection);
+
+
+                
             };
         }
     }

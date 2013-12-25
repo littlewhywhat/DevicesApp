@@ -3,6 +3,7 @@ using System.Linq;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Windows.Threading;
 
 namespace System.Collections.ObjectModel
 {
@@ -265,28 +266,102 @@ namespace System.Collections.ObjectModel
         private void OnCollectionChanged()
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
+            if (CollectionChanged != null)
+                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+                {
+                    DispatcherObject dispObj = nh.Target as DispatcherObject;
+                    if (dispObj != null)
+                    {
+                        Dispatcher dispatcher = dispObj.Dispatcher;
+                        if (dispatcher != null && !dispatcher.CheckAccess())
+                        {
+                            dispatcher.BeginInvoke(
+                                (Action)(() => nh.Invoke(this,
+                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                DispatcherPriority.DataBind);
+                            continue;
+                        }
+                    }
+                    nh.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                }
+            
         }
 
 
         private void OnCollectionChanged(NotifyCollectionChangedAction action, KeyValuePair<TKey, TValue> changedItem)
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, changedItem));
+            NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
+            if (CollectionChanged != null)
+                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+                {
+                    DispatcherObject dispObj = nh.Target as DispatcherObject;
+                    if (dispObj != null)
+                    {
+                        Dispatcher dispatcher = dispObj.Dispatcher;
+                        if (dispatcher != null && !dispatcher.CheckAccess())
+                        {
+                            dispatcher.BeginInvoke(
+                                (Action)(() => nh.Invoke(this,
+                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                DispatcherPriority.DataBind);
+                            continue;
+                        }
+                    }
+                    nh.Invoke(this, new NotifyCollectionChangedEventArgs(action, changedItem));
+                }
         }
 
 
         private void OnCollectionChanged(NotifyCollectionChangedAction action, KeyValuePair<TKey, TValue> newItem, KeyValuePair<TKey, TValue> oldItem)
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem));
+            NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
+            if (CollectionChanged != null)
+                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+                {
+                    DispatcherObject dispObj = nh.Target as DispatcherObject;
+                    if (dispObj != null)
+                    {
+                        Dispatcher dispatcher = dispObj.Dispatcher;
+                        if (dispatcher != null && !dispatcher.CheckAccess())
+                        {
+                            dispatcher.BeginInvoke(
+                                (Action)(() => nh.Invoke(this,
+                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                DispatcherPriority.DataBind);
+                            continue;
+                        }
+                    }
+                    nh.Invoke(this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem));
+                }
         }
 
 
         private void OnCollectionChanged(NotifyCollectionChangedAction action, IList newItems)
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, newItems));
+            NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
+            if (CollectionChanged != null)
+                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+                {
+                    DispatcherObject dispObj = nh.Target as DispatcherObject;
+                    if (dispObj != null)
+                    {
+                        Dispatcher dispatcher = dispObj.Dispatcher;
+                        if (dispatcher != null && !dispatcher.CheckAccess())
+                        {
+                            dispatcher.BeginInvoke(
+                                (Action)(() => nh.Invoke(this,
+                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                DispatcherPriority.DataBind);
+                            continue;
+                        }
+                    }
+                    nh.Invoke(this, new NotifyCollectionChangedEventArgs(action, newItems));
+                }
+
         }
     }
 }   

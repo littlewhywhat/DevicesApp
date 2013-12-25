@@ -8,7 +8,7 @@ namespace MiaMain
 {
     public class Company : DataItem
     {
-        public string CompanyName { get; set; }
-        public string CompanyInfo { get; set; }
+        public string Name { get; set; }
+        public string Info { get; set; }
     }
 }
