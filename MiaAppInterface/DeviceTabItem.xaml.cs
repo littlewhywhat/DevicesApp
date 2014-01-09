@@ -20,7 +20,6 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DeviceTabItem : TabItem
     {
-        event MouseButtonEventHandler close;
         public DeviceTabItem(DataItem device)
         {
             Initialize(device);
@@ -28,8 +27,15 @@ namespace MiaAppInterface
         private void Initialize(DataItem device)
         {
             InitializeComponent();
-            Header = device.Id;
             
+            this.DataContext = device;
+            
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            var tabControl = (TabControl)this.Parent;
+            tabControl.Items.Remove(this);
         }
     }
 }

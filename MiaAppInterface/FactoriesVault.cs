@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using MiaMain;
 
-namespace MiaAppInterface
+namespace MiaMain
 {
     public static class FactoriesVault
     {

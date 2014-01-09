@@ -67,13 +67,12 @@
     <Compile Include="DBHelper\DBHelper.cs" />
     <Compile Include="DataItem\Device.cs" />
     <Compile Include="DataItemsFactory\DevicesFactory.cs" />
-    <Compile Include="DeviceCollection.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions\LogRow.cs" />
+    <Compile Include="Extensions\ObservableDictionary.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="DBAction\FillData\GetData.cs" />
     <Compile Include="DBAction\GetTimestamp.cs" />
-    <Compile Include="FactoriesVault.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="UpdateClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

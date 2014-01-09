@@ -59,6 +59,8 @@
     <Compile Include="DeviceTabItem.xaml.cs">
       <DependentUpon>DeviceTabItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FactoriesVault.cs" />
+    <Compile Include="UpdateClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

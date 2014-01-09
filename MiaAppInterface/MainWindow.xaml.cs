@@ -34,28 +34,22 @@ namespace MiaAppInterface
         {
             InitializeComponent();
             UpdateClient.SetTimestamp((byte[])DBHelper.PerformDBAction(connection, new GetTimestamp()));
+            UpdateClient.SetMainWindow(this);
             FactoriesVault.FillFactories(connection);
             companiesFactory = (CompaniesFactory)FactoriesVault.FactoriesDic["Companies"];
             DataItemsListBox.ItemsSource = companiesFactory.GetDataItemsDic();
             var workerThread = new Thread(() => UpdateClient.Control(connection.ConnectionString));
             workerThread.Start();
-            
-            
         }
         private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
         {
             var device = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Company;
-            DBHelper.PerformDBAction(connection, new FillDataItem(device, companiesFactory));
-            if (!DataItemsTabControl.Contains(device))
-                DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true});
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-            Device device = new Device() { Id = 10, Info = "Device10" };
-            companiesFactory.GetDataItemsDic().Add(10, device);
-            
+            DBHelper.PerformDBAction(connection, new FillDataItem(device, companiesFactory, companiesFactory.OtherTableFields));
+            var tabItem = DataItemsTabControl.GetTabItemByDataContext(device.Id);
+            if (tabItem == null)
+                DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true });
+            else
+                tabItem.IsSelected = true;
         }
     }
 }

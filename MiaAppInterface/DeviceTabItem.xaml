@@ -4,8 +4,212 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBox></TextBox>
-    </Grid>
+             d:DesignHeight="30" d:DesignWidth="300" Background="White"
+             Name="TabItem">
+
+    <TabItem.Resources>
+
+    </TabItem.Resources>
+    <TabItem.Template>
+        <ControlTemplate 
+                     TargetType="TabItem" 
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                     xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <Grid
+                SnapsToDevicePixels="True">
+                <Border
+             
+            CornerRadius="10,10,0,0"
+            BorderThickness="1,1,1,0"
+            Padding="{TemplateBinding Control.Padding}"
+            BorderBrush="{TemplateBinding Border.BorderBrush}"
+            Background="#FFEFEFEF"
+             Margin="-1.5,0,0,0"
+            Name="Bd">
+                    <ContentPresenter
+                RecognizesAccessKey="True"
+                Content="{TemplateBinding HeaderedContentControl.Header}"
+                ContentTemplate="{TemplateBinding HeaderedContentControl.HeaderTemplate}"
+                ContentStringFormat="{TemplateBinding HeaderedContentControl.HeaderStringFormat}"
+                ContentSource="Header"
+                Name="Content"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="UIElement.IsMouseOver">
+                    <Setter
+                Property="Panel.Background"
+                TargetName="Bd">
+                        <Setter.Value>
+                            <LinearGradientBrush
+                        StartPoint="0,0"
+                        EndPoint="0,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop
+                                Color="#FFEAF6FD"
+                                Offset="0.15" />
+                                    <GradientStop
+                                Color="#FFD9F0FC"
+                                Offset="0.5" />
+                                    <GradientStop
+                                Color="#FFBEE6FD"
+                                Offset="0.5" />
+                                    <GradientStop
+                                Color="#FFA7D9F5"
+                                Offset="1" />
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Trigger.Value>
+                        <s:Boolean>True</s:Boolean>
+                    </Trigger.Value>
+                </Trigger>
+                <Trigger Property="Selector.IsSelected">
+                    <Setter
+                Property="Panel.ZIndex">
+                        <Setter.Value>
+                            <s:Int32>1</s:Int32>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="Panel.Background"
+                TargetName="Bd">
+                        <Setter.Value>
+                            <SolidColorBrush>#FFF9F9F9</SolidColorBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Trigger.Value>
+                        <s:Boolean>True</s:Boolean>
+                    </Trigger.Value>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition
+                            Property="Selector.IsSelected">
+                            <Condition.Value>
+                                <s:Boolean>False</s:Boolean>
+                            </Condition.Value>
+                        </Condition>
+                        <Condition
+                            Property="UIElement.IsMouseOver">
+                            <Condition.Value>
+                                <s:Boolean>True</s:Boolean>
+                            </Condition.Value>
+                        </Condition>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background"
+                        TargetName="Bd">
+                        <Setter.Value>
+                            <LinearGradientBrush >
+                                <LinearGradientBrush.StartPoint >
+                                    <Point X="0" Y="0"></Point>
+                                </LinearGradientBrush.StartPoint>
+                                <LinearGradientBrush.EndPoint >
+                                    <Point X="0" Y="1"></Point>
+                                </LinearGradientBrush.EndPoint>
+                                <GradientStop Color="#FFEFEFEF" Offset="0"></GradientStop>
+                                <GradientStop Color="#FFF1F1F1" Offset="0.1"></GradientStop>
+                                <GradientStop Color="#FFF7F6F6" Offset="0.5"></GradientStop>
+                                <GradientStop Color="#FFF1F1F1" Offset="0.9"></GradientStop>
+                                <GradientStop Color="#FFEFEFEF" Offset="1"></GradientStop>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition
+                    Property="Selector.IsSelected">
+                            <Condition.Value>
+                                <s:Boolean>True</s:Boolean>
+                            </Condition.Value>
+                        </Condition>
+
+                    </MultiTrigger.Conditions>
+
+                    <Setter
+                Property="FrameworkElement.Margin"
+                TargetName="Content">
+                        <Setter.Value>
+                            <Thickness>0,0,0,1</Thickness>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter
+                Property="FrameworkElement.Margin"
+                TargetName="Bd">
+                        <Setter.Value>
+                            <Thickness>-1.5,0,0,-1</Thickness>
+                        </Setter.Value>
+                    </Setter>
+                </MultiTrigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </TabItem.Template>
+    <TabItem.Header>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="18"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="Title" FontSize="15" Margin="5" Text="{Binding Path=Name}" ></TextBlock>
+            <Button Grid.Column="1" Name="Close" Click="Close_Click" >
+                <Button.Template>
+                    <ControlTemplate
+                        TargetType="Button" >
+                        <Border Name="Border" Width="16" Height="16" 
+                                CornerRadius="9" BorderThickness="1" >
+                            <Canvas>
+                                <Line Name="Line1" X1="4" Y1="4" X2="10" Y2="10"  Stroke="Black"></Line>
+                                <Line Name="Line2" X1="10" Y1="4" X2="4" Y2="10"  Stroke="Black"></Line>
+                            </Canvas>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition
+                                        Property="UIElement.IsMouseOver" Value="true">
+
+                                    </Condition>
+
+                                </MultiTrigger.Conditions>
+
+                                <Setter TargetName="Line1"
+                                    Property="Stroke" Value="White"/>
+                                <Setter
+                             Property="Stroke"
+                            TargetName="Line2" Value="White">
+                                </Setter>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1"></Setter>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FFD26565"></Setter>
+                                <Setter TargetName="Border" Property="Background" Value="#FFDE9191" ></Setter>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
+    </TabItem.Header>
+    <TabItem.Content>
+        <Grid>
+            <StackPanel Name="Main">
+                <TextBox Text="{Binding Path=Id}"></TextBox>
+                <TextBox Text="{Binding Path=Name}"></TextBox>
+                <TextBox Text="{Binding Path=Info}"></TextBox>
+                
+            </StackPanel>
+        </Grid>
+    </TabItem.Content>
+    
+
 </TabItem>

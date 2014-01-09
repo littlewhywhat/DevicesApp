@@ -6,50 +6,59 @@ using System.Threading.Tasks;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
 using System.Threading;
+using MiaMain;
 
-namespace MiaMain
+namespace MiaAppInterface
 {
     public static class UpdateClient
     {
         private static byte[] timestamp = new byte[8];
+        private static MainWindow mainWindow;
         public static void SetTimestamp(byte[] newTimestamp)
         {
             timestamp = newTimestamp;
+        }
+        public static void SetMainWindow(MainWindow MainWindow)
+        {
+            mainWindow = MainWindow;
         }
         private static void Do(SqlConnection connection)
         {
             var tempTimestamp = (byte[])DBHelper.PerformDBAction(connection, new GetTimestamp());
             if (!tempTimestamp.SequenceEqual(timestamp))
             {
-                connection.Open();
-                var reader = (SqlDataReader)new GetLoggingReader(timestamp).Act(connection);
-                while (reader.Read())
+                
+                var InfoList = (List<LogRow>)DBHelper.PerformDBAction(connection, new GetLoggingReader(timestamp));
+                InfoList.ForEach(item =>
                 {
-                    var factory = FactoriesVault.FactoriesDic[reader["TableName"].ToString()];
-                    switch(reader["ActionType"].ToString())
+                    var factory = FactoriesVault.FactoriesDic[item.TableName];
+                    switch (item.ActionType)
                     {
-                        case "INSERT" :                           
+                        case "INSERT":
                             var dataItem = factory.GetDataItem();
-                            dataItem.Id = Convert.ToInt32(reader["ItemId"]);
-                            new FillDataItem(dataItem, factory);
+                            dataItem.Id = item.ItemId;
                             factory.GetDataItemsDic().Add(dataItem.Id, dataItem);
                             break;
-                        case "DELETE" :
-                            factory.GetDataItemsDic().Remove(Convert.ToInt32(reader["ItemId"]));
+                        case "DELETE":
+                            factory.GetDataItemsDic().Remove(item.ItemId);
                             break;
-                        case "UPDATE" :
+                        case "UPDATE":
                             var dataItemUpdate = factory.GetDataItem();
-                            dataItemUpdate.Id = Convert.ToInt32(reader["ItemId"]);
-                            new FillDataItem(dataItemUpdate, factory);
+                            dataItemUpdate.Id = Convert.ToInt32(item.ItemId);
+                            DBHelper.PerformDBAction(new SqlConnection(connection.ConnectionString), new FillDataItem(dataItemUpdate, factory, factory.FirstTableFields));
+                            DBHelper.PerformDBAction(new SqlConnection(connection.ConnectionString), new FillDataItem(dataItemUpdate, factory, factory.OtherTableFields));
                             factory.GetDataItemsDic()[dataItemUpdate.Id] = dataItemUpdate;
+                            var tabItem = mainWindow.DataItemsTabControl.GetTabItemByDataContext(dataItemUpdate.Id);
+                            if (tabItem != null)
+                                tabItem.Dispatcher.BeginInvoke(new ThreadStart(() => tabItem.DataContext = dataItemUpdate));
                             break;
-                            
+
                     }
-                        
-                    
-                }
+
+
+                });
                 //Console.WriteLine(String.Format("{0} {1} {2} {3}", reader["Id"], reader["TableName"], reader["ItemId"], reader["ActionType"]));
-                connection.Close();
+                
                 
                 timestamp = tempTimestamp;
             }

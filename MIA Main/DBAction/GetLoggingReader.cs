@@ -18,7 +18,19 @@ namespace MiaMain
         }
         public object Act(SqlConnection connection)
         {
-            return GetCommand(connection).ExecuteReader();
+
+            return GetLogRow(GetCommand(connection).ExecuteReader());
+        }
+        private List<LogRow> GetLogRow(SqlDataReader reader)
+        {
+            var list = new List<LogRow>();
+            while(reader.Read())
+            {
+                var logRow = new LogRow();
+                logRow.GetType().GetProperties().ForEach(property => property.SetValue(logRow, Convert.ChangeType(reader[property.Name], property.PropertyType)));
+                list.Add(logRow);
+            }
+            return list;
         }
 
         private SqlCommand GetCommand(SqlConnection connection)
