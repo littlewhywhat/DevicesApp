@@ -14,15 +14,26 @@ namespace MiaMain
         {
             using (var connection = new SqlConnection("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB"))
             {
-                //var devicesFactory = new DevicesFactory();
-                //DBHelper.PerformDBAction(connection, new FillDataDic(devicesFactory));
-                //var devicesDic = devicesFactory.GetDataItemsDic();
-                //Device device = (Device)devicesDic[9];
-                //device.Info = "Device9";
-                //device.CompanyId = 1;
-                //DBHelper.PerformDBAction(connection, new UpdateDataItem(devicesFactory, device));
-
-
+                //Update Test
+                //var companiesFactory = new CompaniesFactory();
+                //DBHelper.PerformDBAction(connection, new FillDataDic(companiesFactory));
+                //var companiesDic = companiesFactory.GetDataItemsDic();
+                //Company company = (Company)companiesDic[7];
+                //company.Info = "Info 7";
+                //company.Name = "Company 7";
+                //DBHelper.PerformDBAction(connection, new UpdateDataItem(companiesFactory, company));
+                //Insert Test
+                //var companiesFactory = new CompaniesFactory();
+                //var company = (Company)companiesFactory.GetDataItem();
+                //DBHelper.PerformDBAction(connection, new GetNewDataItemId(companiesFactory, company));
+                //company.Info = "Test";
+                //company.Name = "CompanyTest";
+                //DBHelper.PerformDBAction(connection, new InsertDataItem(companiesFactory, company));
+                //Delete Test
+                //var companiesFactory = new CompaniesFactory();
+                //var company = companiesFactory.GetDataItem();
+                //company.Id = 8;
+                //DBHelper.PerformDBAction(connection, new DeleteDataItem(companiesFactory, company));
                 
             };
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 using MiaMain;
 
 namespace MiaMain
@@ -18,7 +18,7 @@ namespace MiaMain
             var companiesFactory = new CompaniesFactory();
             FactoriesDic.Add(companiesFactory.TableName, companiesFactory);
         }
-        public static void FillFactories(SqlConnection connection)
+        public static void FillFactories(DbConnection connection)
         {
             FactoriesDic.ForEach(pair => DBHelper.PerformDBAction(connection, new FillDataDic(pair.Value)));
         }

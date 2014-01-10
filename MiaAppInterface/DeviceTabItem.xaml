@@ -204,9 +204,10 @@
         <Grid>
             <StackPanel Name="Main">
                 <TextBox Text="{Binding Path=Id}"></TextBox>
-                <TextBox Text="{Binding Path=Name}"></TextBox>
-                <TextBox Text="{Binding Path=Info}"></TextBox>
-                
+                <TextBox Name="CompanyName" Text="{Binding Path=Name}"></TextBox>
+                <TextBox Name="CompanyInfo" Text="{Binding Path=Info}"></TextBox>
+                <Button Name="UpdateButton" Click="UpdateButton_Click">Update</Button>
+                <Button Name="DeleteButton" Click="DeleteButton_Click">Delete</Button>
             </StackPanel>
         </Grid>
     </TabItem.Content>

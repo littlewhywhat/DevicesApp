@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace MiaMain
 {
@@ -14,7 +14,7 @@ namespace MiaMain
         {
             Factory = factory;
         }
-        public object Act(SqlConnection connection)
+        public object Act(DbConnection connection)
         {
             using (var reader = DBHelper.GetCommand(GetCommandText(), connection).ExecuteReader())
             {
@@ -25,7 +25,7 @@ namespace MiaMain
             }
             return null;
         }
-        protected virtual void Fill(SqlDataReader reader, DataItem dataItem)
+        protected virtual void Fill(DbDataReader reader, DataItem dataItem)
         {
             Enumerable.Range(0, reader.FieldCount).ForEach(index =>
             {

@@ -21,7 +21,14 @@
                 </ListBox.ItemContainerStyle>
             </ListBox>
         </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="8*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button>Insert</Button>
+            <TabControl Name="DataItemsTabControl" Grid.Row="1"></TabControl>
+        </Grid>
         
-        <TabControl Name="DataItemsTabControl" Grid.Column="1"></TabControl>
     </Grid>
 </Window>

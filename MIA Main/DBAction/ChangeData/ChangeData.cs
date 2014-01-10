@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace MiaMain
 {
     public abstract class ChangeData : DBAction
     {
-        protected SqlTransaction Transaction;
+        protected DbTransaction Transaction;
         protected DataItemsFactory Factory;
         protected DataItem dataItem;
         ActionType ActionType;
@@ -19,7 +19,7 @@ namespace MiaMain
             Factory = factory;
             this.dataItem = dataItem;
         }
-        public virtual object Act(SqlConnection connection)
+        public virtual object Act(DbConnection connection)
         {
             ExecPreCommand(connection);
             Transaction = connection.BeginTransaction();
@@ -29,26 +29,30 @@ namespace MiaMain
                 ExecLogCommand(connection);
                 Transaction.Commit();
             }
-            catch (SqlException)
+            catch (DbException)
             {
                 Transaction.Rollback();
             }
             return null;
         }
 
-        private void ExecPreCommand(SqlConnection connection)
+        private void ExecPreCommand(DbConnection connection)
         {
-            new SqlCommand(DBHelper.GetPreActionText(), connection).ExecuteNonQuery();
+            Connection.GetCommand(DBHelper.GetPreActionText(), connection).ExecuteNonQuery();
         }
 
-        protected virtual void ExecMainCommand(SqlConnection connection)
+        protected virtual void ExecMainCommand(DbConnection connection)
         {
-            new SqlCommand(GetMainCommandText(), connection) { Transaction = Transaction }.ExecuteNonQuery();
+            var command = Connection.GetCommand(GetMainCommandText(), connection);
+            command.Transaction = Transaction;
+            command.ExecuteNonQuery();
         }
 
-        private void ExecLogCommand(SqlConnection connection)
+        private void ExecLogCommand(DbConnection connection)
         {
-            new SqlCommand(DBHelper.GetLogCommandText(Factory.TableName, dataItem.Id, ActionType), connection) { Transaction = Transaction }.ExecuteNonQuery();
+            var command = Connection.GetCommand(DBHelper.GetLogCommandText(Factory.TableName, dataItem.Id, ActionType), connection);
+            command.Transaction = Transaction;
+            command.ExecuteNonQuery();
         }
 
         protected abstract string GetMainCommandText();

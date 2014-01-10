@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace MiaMain
 {
@@ -16,15 +16,15 @@ namespace MiaMain
             Factory = factory;
             DataItem = dataItem;
         }
-        public object Act(SqlConnection connection)
+        public object Act(DbConnection connection)
         {
             DataItem.Id = GetNewId(connection) + 1;
             return DataItem;
         }
 
-        private int GetNewId(SqlConnection connection)
+        private int GetNewId(DbConnection connection)
         {
-            return Convert.ToInt32(new SqlCommand(GetNewIdCommandText(), connection).ExecuteScalar());
+            return Convert.ToInt32(Connection.GetCommand(GetNewIdCommandText(), connection).ExecuteScalar());
         }
 
         private string GetNewIdCommandText()

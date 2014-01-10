@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace MiaMain
 {
@@ -19,7 +19,7 @@ namespace MiaMain
         {
             return DBHelper.GetSelectCommandText(Factory.FirstTableFields, Factory.TableName);
         }
-        protected override void Fill(SqlDataReader reader, DataItem dataItem)
+        protected override void Fill(DbDataReader reader, DataItem dataItem)
         {
             base.Fill(reader, dataItem);
             Factory.GetDataItemsDic().Add(dataItem.Id, dataItem);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Data;
 
 namespace MiaMain
@@ -11,7 +11,7 @@ namespace MiaMain
     public static class DBHelper
     {
 
-        public static object PerformDBAction(SqlConnection connection, DBAction action)
+        public static object PerformDBAction(DbConnection connection, DBAction action)
         {
             connection.Open();
             var result = action.Act(connection);
@@ -19,9 +19,9 @@ namespace MiaMain
             return result;
         }
 
-        public static SqlCommand GetCommand(string commandText, SqlConnection connection )
+        public static DbCommand GetCommand(string commandText, DbConnection connection)
         {
- 	        return new SqlCommand(commandText, connection);
+            return Connection.GetCommand(commandText, connection);
         }
         
         public static string GetSelectCommandText(List<string> tableFields, string tableName, int id = 0)

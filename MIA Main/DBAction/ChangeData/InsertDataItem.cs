@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Reflection;
 
 namespace MiaMain
@@ -12,7 +12,7 @@ namespace MiaMain
     {
         public InsertDataItem(DataItemsFactory factory, DataItem dataItem) : base(factory, dataItem, ActionType.INSERT)
         {}
-        public override object Act(SqlConnection connection)
+        public override object Act(DbConnection connection)
         {
             new GetNewDataItemId(Factory, dataItem).Act(connection);
             return base.Act(connection);

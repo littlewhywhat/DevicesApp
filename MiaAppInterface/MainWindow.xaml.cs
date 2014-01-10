@@ -23,8 +23,7 @@ namespace MiaAppInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        SqlConnection connection = new SqlConnection("Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB");
-        CompaniesFactory companiesFactory;
+        const string FactoryName = "Companies";
         
         public MainWindow()
         {
@@ -33,21 +32,20 @@ namespace MiaAppInterface
         public void Initialize()
         {
             InitializeComponent();
-            UpdateClient.SetTimestamp((byte[])DBHelper.PerformDBAction(connection, new GetTimestamp()));
+            UpdateClient.SetTimestamp((byte[])DBHelper.PerformDBAction(Connection.GetConnection(), new GetTimestamp()));
             UpdateClient.SetMainWindow(this);
-            FactoriesVault.FillFactories(connection);
-            companiesFactory = (CompaniesFactory)FactoriesVault.FactoriesDic["Companies"];
-            DataItemsListBox.ItemsSource = companiesFactory.GetDataItemsDic();
-            var workerThread = new Thread(() => UpdateClient.Control(connection.ConnectionString));
+            FactoriesVault.FillFactories(Connection.GetConnection());
+            DataItemsListBox.ItemsSource = FactoriesVault.FactoriesDic[FactoryName].GetDataItemsDic();
+            var workerThread = new Thread(() => UpdateClient.Control(Connection.GetConnection().ConnectionString));
             workerThread.Start();
         }
         private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
         {
-            var device = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Company;
-            DBHelper.PerformDBAction(connection, new FillDataItem(device, companiesFactory, companiesFactory.OtherTableFields));
-            var tabItem = DataItemsTabControl.GetTabItemByDataContext(device.Id);
+            var company = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Company;
+            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataItem(company, FactoriesVault.FactoriesDic[FactoryName], FactoriesVault.FactoriesDic[FactoryName].OtherTableFields));
+            var tabItem = DataItemsTabControl.GetTabItemByDataContext(company.Id);
             if (tabItem == null)
-                DataItemsTabControl.Items.Add(new DeviceTabItem(device) { DataContext = device, IsSelected = true });
+                DataItemsTabControl.Items.Add(new DeviceTabItem(company, FactoriesVault.FactoriesDic[FactoryName]) { DataContext = company, IsSelected = true });
             else
                 tabItem.IsSelected = true;
         }

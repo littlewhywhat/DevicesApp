@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionTypeEnum.cs" />
+    <Compile Include="Extensions\Connection.cs" />
     <Compile Include="DataItemsFactory\CompaniesFactory.cs" />
     <Compile Include="DataItemsFactory\DataItemsFactory.cs" />
     <Compile Include="DataItem\Company.cs" />

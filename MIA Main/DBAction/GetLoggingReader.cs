@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data.SqlTypes;
+using System.Data.Common;
 using System.Data;
 
 namespace MiaMain
@@ -16,12 +15,12 @@ namespace MiaMain
         {
             OldTimestamp = oldTimestamp;
         }
-        public object Act(SqlConnection connection)
+        public object Act(DbConnection connection)
         {
 
             return GetLogRow(GetCommand(connection).ExecuteReader());
         }
-        private List<LogRow> GetLogRow(SqlDataReader reader)
+        private List<LogRow> GetLogRow(DbDataReader reader)
         {
             var list = new List<LogRow>();
             while(reader.Read())
@@ -33,10 +32,11 @@ namespace MiaMain
             return list;
         }
 
-        private SqlCommand GetCommand(SqlConnection connection)
+        private DbCommand GetCommand(DbConnection connection)
         {
-            var command = new SqlCommand("SELECT * FROM Logging WHERE Timestamp > @oldTimestamp", connection);
-            command.Parameters.Add(new SqlParameter("@oldTimestamp", SqlDbType.Timestamp) { Value = OldTimestamp });
+            var command = Connection.GetCommand("SELECT * FROM Logging WHERE Timestamp > @oldTimestamp", connection);
+
+            command.Parameters.Add(Connection.GetTimestampParameter("@oldTimestamp", OldTimestamp ));
             return command;
         }
     }
