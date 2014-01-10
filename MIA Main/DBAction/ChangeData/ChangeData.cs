@@ -29,7 +29,7 @@ namespace MiaMain
                 ExecLogCommand(connection);
                 Transaction.Commit();
             }
-            catch (DbException)
+            catch (Exception)
             {
                 Transaction.Rollback();
             }
@@ -45,7 +45,8 @@ namespace MiaMain
         {
             var command = Connection.GetCommand(GetMainCommandText(), connection);
             command.Transaction = Transaction;
-            command.ExecuteNonQuery();
+            if (command.ExecuteNonQuery() == 0)
+                throw new Exception();
         }
 
         private void ExecLogCommand(DbConnection connection)

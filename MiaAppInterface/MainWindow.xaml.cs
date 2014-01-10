@@ -49,5 +49,16 @@ namespace MiaAppInterface
             else
                 tabItem.IsSelected = true;
         }
+
+        private void Insert_Click(object sender, RoutedEventArgs e)
+        {
+            var companiesFactory = new CompaniesFactory();
+            var company = (Company)companiesFactory.GetDataItem();
+            company.Name = "New Item";
+            company.Info = "New";
+            DBHelper.PerformDBAction(Connection.GetConnection(), new GetNewDataItemId(companiesFactory, company));
+            DBHelper.PerformDBAction(Connection.GetConnection(), new InsertDataItem(companiesFactory, company));
+            DataItemsTabControl.Items.Add(new DeviceTabItem(company, FactoriesVault.FactoriesDic[FactoryName]) { DataContext = company, IsSelected = true });
+        }
     }
 }

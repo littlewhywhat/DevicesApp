@@ -36,6 +36,7 @@ namespace MiaAppInterface
                     {
                         case "INSERT":
                             var dataItem = factory.GetDataItem();
+                            dataItem.Id = item.ItemId;
                             DBHelper.PerformDBAction(new SqlConnection(connection.ConnectionString), new FillDataItem(dataItem, factory, factory.FirstTableFields));
                             factory.GetDataItemsDic().Add(dataItem.Id, dataItem);
                             break;

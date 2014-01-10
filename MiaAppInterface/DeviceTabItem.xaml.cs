@@ -48,7 +48,9 @@ namespace MiaAppInterface
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var company = (Company)DataContext;
+            DBHelper.PerformDBAction(Connection.GetConnection(), new DeleteDataItem(factory, company));
+            this.Close_Click(sender, e);
         }
     }
 }

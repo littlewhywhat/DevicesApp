@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace MiaMain
 {
-    class GetNewDataItemId : DBAction
+    public class GetNewDataItemId : DBAction
     {
         DataItemsFactory Factory;
         DataItem DataItem;
