@@ -32,9 +32,9 @@ namespace MiaAppInterface
         public void Initialize()
         {
             InitializeComponent();
-            UpdateClient.SetTimestamp((byte[])DBHelper.PerformDBAction(Connection.GetConnection(), new GetTimestamp()));
+            UpdateClient.SetTimestamp(Connection.GetLogTimestamp());
             UpdateClient.SetMainWindow(this);
-            FactoriesVault.FillFactories(Connection.GetConnection());
+            FactoriesVault.FillFactories();
             DataItemsListBox.ItemsSource = FactoriesVault.FactoriesDic[FactoryName].GetDataItemsDic();
             var workerThread = new Thread(() => UpdateClient.Control(Connection.GetConnection().ConnectionString));
             workerThread.Start();
@@ -42,10 +42,10 @@ namespace MiaAppInterface
         private void DataItemsListBoxItem_DoubleClick (object sender, MouseButtonEventArgs e)
         {
             var company = ((KeyValuePair<int, DataItem>)(sender as ListBoxItem).Content).Value as Company;
-            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataItem(company, FactoriesVault.FactoriesDic[FactoryName], FactoriesVault.FactoriesDic[FactoryName].OtherTableFields));
+            company.Fill(company.Factory.OtherTableFields);
             var tabItem = DataItemsTabControl.GetTabItemByDataContext(company.Id);
             if (tabItem == null)
-                DataItemsTabControl.Items.Add(new DeviceTabItem(company, FactoriesVault.FactoriesDic[FactoryName]) { DataContext = company, IsSelected = true });
+                DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
             else
                 tabItem.IsSelected = true;
         }
@@ -56,9 +56,8 @@ namespace MiaAppInterface
             var company = (Company)companiesFactory.GetDataItem();
             company.Name = "New Item";
             company.Info = "New";
-            DBHelper.PerformDBAction(Connection.GetConnection(), new GetNewDataItemId(companiesFactory, company));
-            DBHelper.PerformDBAction(Connection.GetConnection(), new InsertDataItem(companiesFactory, company));
-            DataItemsTabControl.Items.Add(new DeviceTabItem(company, FactoriesVault.FactoriesDic[FactoryName]) { DataContext = company, IsSelected = true });
+            company.Insert();
+            DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
         }
     }
 }

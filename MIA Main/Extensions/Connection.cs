@@ -28,5 +28,13 @@ namespace MiaMain
         {
             return new SqlParameter(parameterName, SqlDbType.Timestamp) { Value = value };
         }
+        public static byte[] GetLogTimestamp()
+        {
+            return (byte[])DBHelper.PerformDBAction(GetConnection(), new GetTimestamp());
+        }
+        public static List<LogRow> GetLogRowList(byte[] timestamp)
+        {
+            return (List<LogRow>)DBHelper.PerformDBAction(GetConnection(), new GetLoggingReader(timestamp));
+        }
     }
 }

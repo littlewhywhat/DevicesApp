@@ -14,7 +14,7 @@ namespace MiaMain
         
         public override DataItem GetDataItem()
         {
-            return new Company();
+            return new Company(this);
         }
     }
 }

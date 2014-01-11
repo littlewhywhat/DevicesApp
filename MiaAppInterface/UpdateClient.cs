@@ -24,11 +24,10 @@ namespace MiaAppInterface
         }
         private static void Do(SqlConnection connection)
         {
-            var tempTimestamp = (byte[])DBHelper.PerformDBAction(connection, new GetTimestamp());
+            var tempTimestamp = Connection.GetLogTimestamp();
             if (!tempTimestamp.SequenceEqual(timestamp))
             {
-                
-                var InfoList = (List<LogRow>)DBHelper.PerformDBAction(connection, new GetLoggingReader(timestamp));
+                var InfoList = Connection.GetLogRowList(timestamp);
                 InfoList.ForEach(item =>
                 {
                     var factory = FactoriesVault.FactoriesDic[item.TableName];
@@ -37,7 +36,7 @@ namespace MiaAppInterface
                         case "INSERT":
                             var dataItem = factory.GetDataItem();
                             dataItem.Id = item.ItemId;
-                            DBHelper.PerformDBAction(new SqlConnection(connection.ConnectionString), new FillDataItem(dataItem, factory, factory.FirstTableFields));
+                            dataItem.Fill(factory.FirstTableFields);
                             factory.GetDataItemsDic().Add(dataItem.Id, dataItem);
                             break;
                         case "DELETE":
@@ -46,8 +45,8 @@ namespace MiaAppInterface
                         case "UPDATE":
                             var dataItemUpdate = factory.GetDataItem();
                             dataItemUpdate.Id = Convert.ToInt32(item.ItemId);
-                            DBHelper.PerformDBAction(new SqlConnection(connection.ConnectionString), new FillDataItem(dataItemUpdate, factory, factory.FirstTableFields));
-                            DBHelper.PerformDBAction(new SqlConnection(connection.ConnectionString), new FillDataItem(dataItemUpdate, factory, factory.OtherTableFields));
+                            dataItemUpdate.Fill(factory.FirstTableFields);
+                            dataItemUpdate.Fill(factory.OtherTableFields);
                             factory.GetDataItemsDic()[dataItemUpdate.Id] = dataItemUpdate;
                             var tabItem = mainWindow.DataItemsTabControl.GetTabItemByDataContext(dataItemUpdate.Id);
                             if (tabItem != null)
@@ -55,11 +54,7 @@ namespace MiaAppInterface
                             break;
 
                     }
-
-
-                });
-                //Console.WriteLine(String.Format("{0} {1} {2} {3}", reader["Id"], reader["TableName"], reader["ItemId"], reader["ActionType"]));
-                
+                });              
                 
                 timestamp = tempTimestamp;
             }
@@ -71,7 +66,7 @@ namespace MiaAppInterface
                 while (true)
                 {
                     Do(connection);
-                    Thread.Sleep(5000);
+                    Thread.Sleep(1000);
                 }
             }
         }

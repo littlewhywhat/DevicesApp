@@ -10,13 +10,11 @@ namespace MiaMain
     public abstract class ChangeData : DBAction
     {
         protected DbTransaction Transaction;
-        protected DataItemsFactory Factory;
         protected DataItem dataItem;
         ActionType ActionType;
-        public ChangeData(DataItemsFactory factory, DataItem dataItem, ActionType actionType)
+        public ChangeData(DataItem dataItem, ActionType actionType)
         {
             ActionType = actionType;
-            Factory = factory;
             this.dataItem = dataItem;
         }
         public virtual object Act(DbConnection connection)
@@ -51,14 +49,11 @@ namespace MiaMain
 
         private void ExecLogCommand(DbConnection connection)
         {
-            var command = Connection.GetCommand(DBHelper.GetLogCommandText(Factory.TableName, dataItem.Id, ActionType), connection);
+            var command = Connection.GetCommand(DBHelper.GetLogCommandText(dataItem.Factory.TableName, dataItem.Id, ActionType), connection);
             command.Transaction = Transaction;
             command.ExecuteNonQuery();
         }
 
         protected abstract string GetMainCommandText();
-
-
-
     }
 }

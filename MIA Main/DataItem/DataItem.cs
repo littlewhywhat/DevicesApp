@@ -8,6 +8,11 @@ namespace MiaMain
 {
     public abstract class DataItem
     {
+        public DataItemsFactory Factory { get; private set; }
         public int Id { get; set; }
+        public DataItem(DataItemsFactory factory)
+        {
+            Factory = factory;
+        }
     }
 }

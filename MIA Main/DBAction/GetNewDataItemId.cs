@@ -9,17 +9,15 @@ namespace MiaMain
 {
     public class GetNewDataItemId : DBAction
     {
-        DataItemsFactory Factory;
-        DataItem DataItem;
-        public GetNewDataItemId(DataItemsFactory factory, DataItem dataItem)
+        DataItem dataItem;
+        public GetNewDataItemId(DataItem DataItem)
         {
-            Factory = factory;
-            DataItem = dataItem;
+            dataItem = DataItem;
         }
         public object Act(DbConnection connection)
         {
-            DataItem.Id = GetNewId(connection) + 1;
-            return DataItem;
+            dataItem.Id = GetNewId(connection) + 1;
+            return dataItem;
         }
 
         private int GetNewId(DbConnection connection)
@@ -29,7 +27,7 @@ namespace MiaMain
 
         private string GetNewIdCommandText()
         {
-            return String.Format("Select MAX(Id) from {0}", Factory.TableName);
+            return String.Format("Select MAX(Id) from {0}", dataItem.Factory.TableName);
         }
     }
 }

@@ -18,9 +18,9 @@ namespace MiaMain
             var companiesFactory = new CompaniesFactory();
             FactoriesDic.Add(companiesFactory.TableName, companiesFactory);
         }
-        public static void FillFactories(DbConnection connection)
+        public static void FillFactories()
         {
-            FactoriesDic.ForEach(pair => DBHelper.PerformDBAction(connection, new FillDataDic(pair.Value)));
+            FactoriesDic.ForEach(pair => pair.Value.FillDic());
         }
     }
 }

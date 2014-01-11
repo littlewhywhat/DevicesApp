@@ -17,7 +17,6 @@ namespace MiaMain
         }
         public object Act(DbConnection connection)
         {
-
             return GetLogRow(GetCommand(connection).ExecuteReader());
         }
         private List<LogRow> GetLogRow(DbDataReader reader)

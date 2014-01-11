@@ -8,7 +8,7 @@ using System.Data;
 
 namespace MiaMain
 {
-    public static class DBHelper
+    static class DBHelper
     {
 
         public static object PerformDBAction(DbConnection connection, DBAction action)

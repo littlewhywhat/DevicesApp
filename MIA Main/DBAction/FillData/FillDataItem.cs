@@ -11,15 +11,14 @@ namespace MiaMain
     {
         private DataItem DataItem { get; set; }
         private List<string> TableFields { get; set; }
-        public FillDataItem(DataItem dataItem, DataItemsFactory factory, List<string> tableFields)
-            : base(factory)
+        public FillDataItem(DataItem dataItem, List<string> tableFields)
         {
             DataItem = dataItem;
             TableFields = tableFields;
         }
         protected override string GetCommandText()
         {
-            return DBHelper.GetSelectCommandText(TableFields, Factory.TableName, DataItem.Id);
+            return DBHelper.GetSelectCommandText(TableFields, DataItem.Factory.TableName, DataItem.Id);
         }
         protected override DataItem GetDataItem()
         {

@@ -9,11 +9,6 @@ namespace MiaMain
 {
     public abstract class GetData : DBAction
     {
-        protected DataItemsFactory Factory { get; set; }
-        public GetData(DataItemsFactory factory)
-        {
-            Factory = factory;
-        }
         public object Act(DbConnection connection)
         {
             using (var reader = DBHelper.GetCommand(GetCommandText(), connection).ExecuteReader())

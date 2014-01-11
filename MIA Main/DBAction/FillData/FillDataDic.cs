@@ -9,8 +9,11 @@ namespace MiaMain
 {
     public class FillDataDic : GetData
     {
-        public FillDataDic(DataItemsFactory factory) : base(factory)
-        { }
+        protected DataItemsFactory Factory { get; set; }
+        public FillDataDic(DataItemsFactory factory)
+        {
+            Factory = factory;
+        }
         protected override DataItem GetDataItem()
         {
             return Factory.GetDataItem();

@@ -20,16 +20,9 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DeviceTabItem : TabItem
     {
-        DataItemsFactory factory;
-        public DeviceTabItem(DataItem device, DataItemsFactory Factory)
-        {
-            factory = Factory;
-            Initialize(device);
-        }
-        private void Initialize(DataItem device)
+        public DeviceTabItem()
         {
             InitializeComponent();
-            this.DataContext = device;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -40,16 +33,16 @@ namespace MiaAppInterface
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            var company = (Company)DataContext;
+            var company = DataContext as Company;
             company.Info = CompanyInfo.Text;
             company.Name = CompanyName.Text;
-            DBHelper.PerformDBAction(Connection.GetConnection(), new UpdateDataItem(factory, company));
+            company.Update();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var company = (Company)DataContext;
-            DBHelper.PerformDBAction(Connection.GetConnection(), new DeleteDataItem(factory, company));
+            var company = DataContext as Company;
+            company.Delete();
             this.Close_Click(sender, e);
         }
     }

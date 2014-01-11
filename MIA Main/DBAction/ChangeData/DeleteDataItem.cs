@@ -9,12 +9,12 @@ namespace MiaMain
 {
     public class DeleteDataItem : ChangeData
     {
-        public DeleteDataItem(DataItemsFactory factory, DataItem dataitem): base(factory, dataitem, ActionType.DELETE)
+        public DeleteDataItem(DataItem dataitem): base(dataitem, ActionType.DELETE)
         { }
 
         protected override string GetMainCommandText()
         {
-            return String.Format("Delete from {0} where Id = '{1}'", Factory.TableName, dataItem.Id);
+            return String.Format("Delete from {0} where Id = '{1}'", dataItem.Factory.TableName, dataItem.Id);
         }
     }
 }

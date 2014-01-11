@@ -10,5 +10,6 @@ namespace MiaMain
     {
         public string Info { get; set; }
         public int CompanyId { get; set; }
+        public Device(DevicesFactory Factory) : base(Factory) { } 
     }
 }

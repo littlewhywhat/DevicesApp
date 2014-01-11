@@ -15,7 +15,7 @@ namespace MiaMain
 
         public override DataItem GetDataItem()
         {
-            return new Device();
+            return new Device(this);
         }
     }
 }
