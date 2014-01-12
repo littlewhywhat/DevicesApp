@@ -54,9 +54,8 @@ namespace MiaAppInterface
                             break;
 
                     }
-                });              
-                
-                timestamp = tempTimestamp;
+                });
+                SetTimestamp(tempTimestamp);
             }
         }
         public static void Control(string connectionString)
