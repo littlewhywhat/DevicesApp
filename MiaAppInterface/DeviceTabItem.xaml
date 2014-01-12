@@ -204,8 +204,9 @@
         <Grid>
             <StackPanel Name="Main">
                 <TextBox Text="{Binding Path=Id}"></TextBox>
-                <TextBox Name="CompanyName" Text="{Binding Path=Name}"></TextBox>
-                <TextBox Name="CompanyInfo" Text="{Binding Path=Info}"></TextBox>
+                <TextBox Name="CompanyName" Text="{Binding Path=Name, Mode=OneWay}"></TextBox>
+                <TextBox Name="CompanyInfo" Text="{Binding Path=Info, Mode=OneWay}"></TextBox>
+                <TextBox Name="CompanyParentId" Text="{Binding Path=ParentId, Mode=OneWay}"></TextBox>
                 <Button Name="UpdateButton" Click="UpdateButton_Click">Update</Button>
                 <Button Name="DeleteButton" Click="DeleteButton_Click">Delete</Button>
             </StackPanel>

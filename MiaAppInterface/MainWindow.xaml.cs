@@ -35,7 +35,8 @@ namespace MiaAppInterface
             UpdateClient.SetTimestamp(Connection.GetLogTimestamp());
             UpdateClient.SetMainWindow(this);
             FactoriesVault.FillFactories();
-            DataItemsListBox.ItemsSource = FactoriesVault.FactoriesDic[FactoryName].GetDataItemsDic();
+            CompaniesTree.BuildTree(FactoriesVault.FactoriesDic[FactoryName]);
+            //DataItemsListBox.ItemsSource = FactoriesVault.FactoriesDic[FactoryName].GetDataItemsDic();
             var workerThread = new Thread(() => UpdateClient.Control(Connection.GetConnection().ConnectionString));
             workerThread.Start();
         }
@@ -48,6 +49,21 @@ namespace MiaAppInterface
                 DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
             else
                 tabItem.IsSelected = true;
+        }
+        private void DataItemsTreeView_DoubleClick (object sender, MouseButtonEventArgs e)
+        {
+            if (CompaniesTree.SelectedItem != null)
+            {
+                var company = (DataItem)(CompaniesTree.SelectedItem as TreeViewItem).DataContext as Company;
+                company.Fill(company.Factory.OtherTableFields);
+                var tabItem = DataItemsTabControl.GetTabItemByDataContext(company.Id);
+                if (tabItem == null)
+                    DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
+                else
+                    tabItem.IsSelected = true;
+                e.Handled = true;
+            }
+            
         }
 
         private void Insert_Click(object sender, RoutedEventArgs e)

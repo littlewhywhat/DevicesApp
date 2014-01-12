@@ -34,9 +34,12 @@ namespace MiaAppInterface
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             var company = DataContext as Company;
-            company.Info = CompanyInfo.Text;
-            company.Name = CompanyName.Text;
-            company.Update();
+            var companyNew = company.Factory.GetDataItem() as Company;
+            companyNew.Id = company.Id;
+            companyNew.Info = CompanyInfo.Text;
+            companyNew.Name = CompanyName.Text;
+            companyNew.ParentId = Convert.ToInt32(CompanyParentId.Text);
+            companyNew.Update();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -45,5 +48,6 @@ namespace MiaAppInterface
             company.Delete();
             this.Close_Click(sender, e);
         }
+
     }
 }

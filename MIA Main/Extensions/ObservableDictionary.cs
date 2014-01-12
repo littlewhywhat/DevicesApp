@@ -72,8 +72,8 @@ namespace System.Collections.ObjectModel
             Dictionary.TryGetValue(key, out value);
             var removed = Dictionary.Remove(key);
             if (removed)
-                //OnCollectionChanged(NotifyCollectionChangedAction.Remove, new KeyValuePair<TKey, TValue>(key, value));
-                OnCollectionChanged();
+                OnCollectionChanged(NotifyCollectionChangedAction.Remove, new KeyValuePair<TKey, TValue>(key, value));
+                //OnCollectionChanged();
 
             return removed;
         }
@@ -304,7 +304,7 @@ namespace System.Collections.ObjectModel
                         {
                             dispatcher.BeginInvoke(
                                 (Action)(() => nh.Invoke(this,
-                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                    new NotifyCollectionChangedEventArgs(action, changedItem))),
                                 DispatcherPriority.DataBind);
                             continue;
                         }
@@ -329,7 +329,7 @@ namespace System.Collections.ObjectModel
                         {
                             dispatcher.BeginInvoke(
                                 (Action)(() => nh.Invoke(this,
-                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                    new NotifyCollectionChangedEventArgs(action, newItem, oldItem))),
                                 DispatcherPriority.DataBind);
                             continue;
                         }
@@ -354,7 +354,7 @@ namespace System.Collections.ObjectModel
                         {
                             dispatcher.BeginInvoke(
                                 (Action)(() => nh.Invoke(this,
-                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                    new NotifyCollectionChangedEventArgs(action, newItems))),
                                 DispatcherPriority.DataBind);
                             continue;
                         }

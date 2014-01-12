@@ -10,6 +10,7 @@ namespace MiaMain
     {
         public DataItemsFactory Factory { get; private set; }
         public int Id { get; set; }
+        public int ParentId { get; set; }
         public DataItem(DataItemsFactory factory)
         {
             Factory = factory;

@@ -73,6 +73,14 @@ namespace MiaMain
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataItem(dataItem, tableFields));
         }
+        public static DataItem Clone(this DataItem dataItem)
+        {
+            var dataItemClone = dataItem.Factory.GetDataItem();
+            dataItemClone.Id = dataItem.Id;
+            dataItem.GetPropertyValueDic().ForEach(propertyValue => 
+                dataItemClone.GetType().GetProperty(propertyValue.Key).SetValue(dataItemClone, propertyValue.Value));
+            return dataItemClone;
+        }
     }
 
 }

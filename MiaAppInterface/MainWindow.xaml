@@ -1,6 +1,7 @@
 ﻿<Window x:Class="MiaAppInterface.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:y="clr-namespace:MiaAppInterface"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -10,16 +11,16 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
-
             </Grid.RowDefinitions>
-            <ListBox Name="DataItemsListBox" Grid.Row="1" >
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="DataItemsListBoxItem_DoubleClick"></EventSetter>
-
+            <y:DataItemsTreeView x:Name="CompaniesTree" >
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataItemsTreeView_DoubleClick"></EventSetter>
+                        <Setter Property="FontSize" Value="14"></Setter>
+                        
                     </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
+                </TreeView.ItemContainerStyle>
+            </y:DataItemsTreeView>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
