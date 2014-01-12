@@ -66,6 +66,9 @@
       <DependentUpon>DeviceTabItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="FactoriesVault.cs" />
+    <Compile Include="ParentComboBox.xaml.cs">
+      <DependentUpon>ParentComboBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpdateClient.cs" />
     <Page Include="DataItemsTreeView.xaml">
       <SubType>Designer</SubType>
@@ -88,6 +91,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="DeviceTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ParentComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

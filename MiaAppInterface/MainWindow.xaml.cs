@@ -45,7 +45,7 @@ namespace MiaAppInterface
             company.Fill(company.Factory.OtherTableFields);
             var tabItem = DataItemsTabControl.GetTabItemByDataContext(company.Id);
             if (tabItem == null)
-                DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
+                DataItemsTabControl.Items.Add(new DeviceTabItem(company) { IsSelected = true });
             else
                 tabItem.IsSelected = true;
         }
@@ -57,7 +57,7 @@ namespace MiaAppInterface
                 company.Fill(company.Factory.OtherTableFields);
                 var tabItem = DataItemsTabControl.GetTabItemByDataContext(company.Id);
                 if (tabItem == null)
-                    DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
+                    DataItemsTabControl.Items.Add(new DeviceTabItem(company) { IsSelected = true });
                 else
                     tabItem.IsSelected = true;
                 e.Handled = true;
@@ -71,7 +71,7 @@ namespace MiaAppInterface
             company.Name = "New Item";
             company.Info = "New";
             company.Insert();
-            DataItemsTabControl.Items.Add(new DeviceTabItem() { DataContext = company, IsSelected = true });
+            DataItemsTabControl.Items.Add(new DeviceTabItem(company) { IsSelected = true });
         }
     }
 }

@@ -20,9 +20,17 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DeviceTabItem : TabItem
     {
-        public DeviceTabItem()
+        public DeviceTabItem(DataItem dataItem)
         {
             InitializeComponent();
+            DataContext = dataItem;
+            dataItem.Factory.GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
+        }
+
+        void DeviceTabItem_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CompanyParentComboBox.DataContext = null;
+            CompanyParentComboBox.DataContext = DataContext;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -38,7 +46,7 @@ namespace MiaAppInterface
             companyNew.Id = company.Id;
             companyNew.Info = CompanyInfo.Text;
             companyNew.Name = CompanyName.Text;
-            companyNew.ParentId = Convert.ToInt32(CompanyParentId.Text);
+            companyNew.ParentId = ((DataItem)CompanyParentComboBox.SelectedItem).Id;
             companyNew.Update();
         }
 
