@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Threading;
+using System.Collections;
 
 namespace MiaMain
 {
     public static class Extensions
     {
-        //public static void ForEach(this ItemCollection collection, Action<T> action)
-        //{
-        //    foreach (T item in enumerable)
-        //    {
-        //        action(item);
-        //    }
-        //}
-        
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             foreach(T item in enumerable)

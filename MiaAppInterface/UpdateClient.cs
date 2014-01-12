@@ -27,32 +27,27 @@ namespace MiaAppInterface
             var tempTimestamp = Connection.GetLogTimestamp();
             if (!tempTimestamp.SequenceEqual(timestamp))
             {
-                var InfoList = Connection.GetLogRowList(timestamp);
-                InfoList.ForEach(item =>
+                var LogRowList = Connection.GetLogRowList(timestamp);
+                LogRowList.ForEach(change =>
                 {
-                    var factory = FactoriesVault.FactoriesDic[item.TableName];
-                    switch (item.ActionType)
+                    var factory = FactoriesVault.FactoriesDic[change.TableName];
+                    switch (change.ActionType)
                     {
                         case "INSERT":
-                            var dataItem = factory.GetDataItem();
-                            dataItem.Id = item.ItemId;
-                            dataItem.Fill(factory.FirstTableFields);
+                            var dataItem = factory.GetFilledDataItem(change.ItemId);
                             factory.GetDataItemsDic().Add(dataItem.Id, dataItem);
                             break;
                         case "DELETE":
-                            factory.GetDataItemsDic().Remove(item.ItemId);
+                            factory.GetDataItemsDic().Remove(change.ItemId);
                             break;
                         case "UPDATE":
-                            var dataItemUpdate = factory.GetDataItem();
-                            dataItemUpdate.Id = Convert.ToInt32(item.ItemId);
-                            dataItemUpdate.Fill(factory.FirstTableFields);
+                            var dataItemUpdate = factory.GetFilledDataItem(change.ItemId);
                             dataItemUpdate.Fill(factory.OtherTableFields);
                             factory.GetDataItemsDic()[dataItemUpdate.Id] = dataItemUpdate;
                             var tabItem = mainWindow.DataItemsTabControl.GetTabItemByDataContext(dataItemUpdate.Id);
                             if (tabItem != null)
                                 tabItem.Dispatcher.BeginInvoke(new ThreadStart(() => tabItem.DataContext = dataItemUpdate));
                             break;
-
                     }
                 });
                 SetTimestamp(tempTimestamp);

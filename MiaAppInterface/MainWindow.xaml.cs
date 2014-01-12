@@ -36,7 +36,6 @@ namespace MiaAppInterface
             UpdateClient.SetMainWindow(this);
             FactoriesVault.FillFactories();
             CompaniesTree.BuildTree(FactoriesVault.FactoriesDic[FactoryName]);
-            //DataItemsListBox.ItemsSource = FactoriesVault.FactoriesDic[FactoryName].GetDataItemsDic();
             var workerThread = new Thread(() => UpdateClient.Control(Connection.GetConnection().ConnectionString));
             workerThread.Start();
         }
@@ -62,8 +61,7 @@ namespace MiaAppInterface
                 else
                     tabItem.IsSelected = true;
                 e.Handled = true;
-            }
-            
+            }   
         }
 
         private void Insert_Click(object sender, RoutedEventArgs e)

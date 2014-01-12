@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MiaMain;
 
 namespace MiaAppInterface
 {
@@ -23,6 +24,37 @@ namespace MiaAppInterface
         public DataItemsTreeViewItem()
         {
             InitializeComponent();
+            MouseDoubleClick += new MouseButtonEventHandler((sender, e) => { });
+        }
+
+        private void Node_Collapsed(object sender, RoutedEventArgs e)
+        {
+            var mainItem = sender as TreeViewItem;
+            foreach (TreeViewItem item in mainItem.Items)
+            {
+                item.Items.Clear();
+            }
+            e.Handled = true;
+        }
+
+        private void Node_Expanded(object sender, RoutedEventArgs e)
+        {
+            var mainItem = sender as TreeViewItem;
+            foreach (TreeViewItem item in mainItem.Items)
+            {
+                var dataItem = (DataItem)item.DataContext;
+                var parent = RootTree() as DataItemsTreeView;
+                parent.GetNodesFromDicWithParentId(dataItem.Id).ForEach(child => item.Items.Add(child));
+            }
+            e.Handled = true;
+        }
+
+        private DataItemsTreeView RootTree()
+        {
+            var parent = this.Parent;
+            while (!(parent is DataItemsTreeView))
+                parent = ((ItemsControl)parent).Parent;
+            return (DataItemsTreeView)parent;
         }
     }
 }

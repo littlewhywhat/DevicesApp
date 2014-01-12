@@ -6,7 +6,6 @@ namespace MiaMain
 {
     public abstract class DataItemsFactory
     {
-        
         public abstract List<String> FirstTableFields { get; }
         public abstract List<String> OtherTableFields { get; }
         public abstract string TableName { get; }
@@ -16,6 +15,12 @@ namespace MiaMain
         {
             return DataItemsDic;
         }
-        
+        public DataItem GetFilledDataItem(int Id)
+        {
+            var dataItem = GetDataItem();
+            dataItem.Id = Id;
+            dataItem.Fill(FirstTableFields);
+            return dataItem;
+        }
     }
 }
