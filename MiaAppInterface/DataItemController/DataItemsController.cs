@@ -10,8 +10,18 @@ namespace MiaAppInterface
     public abstract class DataItemsController
     {
         public abstract DataItemsFactory Factory { get; }
-        public abstract DataItemsTabItem GetTabItem(DataItem dataItem);
+        public DataItemsTabItem GetTabItem(DataItem dataItem)
+        {
+            dataItem.Fill(Factory.OtherTableFields);
+            var dataGrid = new DataGrid();
+            dataGrid.contentGrid.Children.Add(GetDataItemsGrid());
+            return new DataItemsTabItem(dataItem) { Content = dataGrid }; 
+        }
+        protected abstract DataItemsGrid GetDataItemsGrid();
         protected abstract DataItem GetNewDataItem();
-        public abstract DataItemsTabItem GetTabItem();
+        public DataItemsTabItem GetTabItem()
+        {
+            return GetTabItem(GetNewDataItem());
+        }
     }
 }

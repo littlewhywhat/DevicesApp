@@ -16,13 +16,11 @@ namespace MiaAppInterface
         {
             factory = FactoriesVault.FactoriesDic[FactoryName];
         }
-        public override DataItemsTabItem GetTabItem(DataItem dataItem)
+        protected override DataItemsGrid GetDataItemsGrid()
         {
-            dataItem.Fill(Factory.OtherTableFields);
-            var dataGrid = new DataGrid();
-            dataGrid.contentGrid.Children.Add(new CompaniesGrid());
-            return new DataItemsTabItem(dataItem) { Content = dataGrid };
+            return new CompaniesGrid();
         }
+        
         protected override DataItem GetNewDataItem()
         {
             var company = (Company)factory.GetDataItem();
@@ -30,10 +28,6 @@ namespace MiaAppInterface
             company.Info = "New";
             company.Insert();
             return company;
-        }
-        public override DataItemsTabItem GetTabItem()
-        {
-            return GetTabItem(GetNewDataItem());
         }
     }
 }

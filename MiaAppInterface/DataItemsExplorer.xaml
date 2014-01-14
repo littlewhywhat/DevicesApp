@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition Height="8*"></RowDefinition>
             </Grid.RowDefinitions>
             <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" KeyUp="SearchGrid_KeyUp"></y:SearchGrid>
@@ -59,7 +59,32 @@
                                 </Border>
                                 
                             </Grid>
-                            
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="UIElement.IsMouseOver">
+                                    <Setter
+                                        Property="Background"
+                                        TargetName="Bd">
+                                        <Setter.Value>
+                                            <LinearGradientBrush
+                                                StartPoint="0,0"
+                                                    EndPoint="0,1">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop
+                                Color="#FFFCFCFC"
+                                Offset="0.15" />
+                                                    
+                                                    <GradientStop
+                                Color="#FFFFFFFF"
+                                Offset="1" />
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Trigger.Value>
+                                        <s:Boolean>True</s:Boolean>
+                                    </Trigger.Value>
+                                </Trigger>
+                            </ControlTemplate.Triggers>    
 
                         </ControlTemplate>
                         
