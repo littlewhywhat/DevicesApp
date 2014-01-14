@@ -16,23 +16,7 @@ namespace MiaMain
                 action(item);
             }
         }
-        public static TabItem GetTabItemByDataContext(this TabControl tabControl, int target)
-        {
-            foreach (TabItem item in tabControl.Items)
-            {
-                DataItem dataContext = null;
-                if (Thread.CurrentThread.Equals(item.Dispatcher.Thread))
-                    dataContext = (DataItem)item.DataContext;
-                else
-                {
-                    item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataItem)item.DataContext));
-                    while (dataContext == null) ;
-                }
-                if (dataContext.Id == target)
-                    return item;
-            }
-            return null;
-        }
+
         public static void FillDic(this DataItemsFactory factory)
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(factory));

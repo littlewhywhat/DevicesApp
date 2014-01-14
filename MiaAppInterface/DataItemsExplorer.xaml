@@ -1,0 +1,73 @@
+﻿<Window x:Class="MiaAppInterface.DataItemsExplorer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:y="clr-namespace:MiaAppInterface"
+        Height="530" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="FrameworkElement" x:Key="Default">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" ></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="8*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" KeyUp="SearchGrid_KeyUp"></y:SearchGrid>
+            <y:DataItemsTreeView  x:Name="DataItemsTree" Grid.Row="1" Style="{StaticResource Default}">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataItemsTreeView_DoubleClick"></EventSetter>
+                        <Setter Property="FontSize" Value="14"></Setter>
+                        
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </y:DataItemsTreeView>
+        </Grid>
+        <Grid Grid.Column="1">
+            
+            <TabControl Name="DataItemsTabControl" Grid.Row="1" Style="{StaticResource Default}" SelectionChanged="DataItemsTabControl_SelectionChanged">
+                <TabItem  >
+                    <TabItem.Template>
+                        <ControlTemplate 
+                     TargetType="TabItem" 
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                     xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                        <Grid
+                SnapsToDevicePixels="True">
+
+                                <Border MouseLeftButtonDown="Insert_Click"
+             Height="31"
+            CornerRadius="1,10,1,5"
+            BorderThickness="1,1,1,1"
+            Padding="10,0,10,0"
+            BorderBrush="{TemplateBinding Border.BorderBrush}"
+            Background="#FFF9F9F9"
+             Margin="-1.5, 0, 3, 2"
+                                   
+            Name="Bd">
+                                    <TextBlock FontSize="20">+</TextBlock>
+
+                                </Border>
+                                
+                            </Grid>
+                            
+
+                        </ControlTemplate>
+                        
+                    </TabItem.Template>
+
+                </TabItem>
+            </TabControl>
+        </Grid>
+        
+    </Grid>
+</Window>

@@ -56,20 +56,48 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataGrid.xaml.cs">
+      <DependentUpon>DataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataItemsTabItemContent\DataItemsGrid.cs" />
+    <Compile Include="DataItemsTabItemContent\CompaniesGrid.xaml.cs">
+      <DependentUpon>CompaniesGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataItemController\CompaniesController.cs" />
+    <Compile Include="DataItemController\DataItemsController.cs" />
     <Compile Include="DataItemsTreeView.xaml.cs">
       <DependentUpon>DataItemsTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemsTreeViewItem.xaml.cs">
       <DependentUpon>DataItemsTreeViewItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DeviceTabItem.xaml.cs">
-      <DependentUpon>DeviceTabItem.xaml</DependentUpon>
+    <Compile Include="DataItemsTabItem.xaml.cs">
+      <DependentUpon>DataItemsTabItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FactoriesVault.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="GoogleSearch\SearchGrid.xaml.cs">
+      <DependentUpon>SearchGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleSearch\SearchListBox.xaml.cs">
+      <DependentUpon>SearchListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleSearch\SearchPopUp.xaml.cs">
+      <DependentUpon>SearchPopUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ParentComboBox.xaml.cs">
       <DependentUpon>ParentComboBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UpdateClient.cs" />
+    <Page Include="DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemsTabItemContent\CompaniesGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DataItemsTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,7 +106,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="GoogleSearch\SearchGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GoogleSearch\SearchListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GoogleSearch\SearchPopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemsExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -86,11 +126,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="DataItemsExplorer.xaml.cs">
+      <DependentUpon>DataItemsExplorer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="DeviceTabItem.xaml">
+    <Page Include="DataItemsTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,6 +176,7 @@
       <Name>MiaMain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -73,7 +73,9 @@
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="DBAction\FillData\GetData.cs" />
     <Compile Include="DBAction\GetTimestamp.cs" />
+    <Compile Include="FactoriesVault.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="UpdateClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

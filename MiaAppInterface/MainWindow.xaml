@@ -1,35 +1,10 @@
 ﻿<Window x:Class="MiaAppInterface.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:y="clr-namespace:MiaAppInterface"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="300" Width="300">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" ></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <y:DataItemsTreeView x:Name="CompaniesTree" >
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="TreeViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="DataItemsTreeView_DoubleClick"></EventSetter>
-                        <Setter Property="FontSize" Value="14"></Setter>
-                        
-                    </Style>
-                </TreeView.ItemContainerStyle>
-            </y:DataItemsTreeView>
-        </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="8*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Button Name="Insert" Click="Insert_Click">Insert</Button>
-            <TabControl Name="DataItemsTabControl" Grid.Row="1"></TabControl>
-        </Grid>
-        
+        <StackPanel>
+            <Button Click="Button_Click">Companies</Button>
+        </StackPanel>
     </Grid>
 </Window>

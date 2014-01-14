@@ -1,0 +1,15 @@
+﻿<y:DataItemsGrid x:Class="MiaAppInterface.CompaniesGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:y="clr-namespace:MiaAppInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="CompaniesGrid_DataContextChanged">
+    <StackPanel Name="Main" DataContext="{Binding}" >
+        <TextBox Text="{Binding Path=Id}"></TextBox>
+        <TextBox Name="CompanyName" Text="{Binding Path=Name, Mode=OneWay}"></TextBox>
+        <TextBox Name="CompanyInfo" Text="{Binding Path=Info, Mode=OneWay}"></TextBox>
+        <y:ParentComboBox x:Name="CompanyParentComboBox" DataContext="{Binding}"></y:ParentComboBox>
+    </StackPanel>
+</y:DataItemsGrid>

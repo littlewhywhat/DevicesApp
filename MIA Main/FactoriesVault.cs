@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Common;
-using MiaMain;
 
 namespace MiaMain
 {
@@ -20,7 +19,9 @@ namespace MiaMain
         }
         public static void FillFactories()
         {
+            UpdateClient.SetTimestamp(Connection.GetLogTimestamp());
             FactoriesDic.ForEach(pair => pair.Value.FillDic());
+            UpdateClient.Control();
         }
     }
 }

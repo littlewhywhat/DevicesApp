@@ -11,22 +11,22 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DataItemsTreeView : TreeView
     {
-        ObservableDictionary<int, DataItem> DataItemsDic;
+        private ObservableDictionary<int, DataItem> DataItemsDic;
         public DataItemsTreeView()
         {
             InitializeComponent();
         }
-        public void BuildTree(DataItemsFactory factory)
+        public void BuildTree(DataItemsController controller)
         {
             Items.Clear();
-            DataItemsDic = factory.GetDataItemsDic();
+            DataItemsDic = controller.Factory.GetDataItemsDic();
             DataItemsDic.CollectionChanged += DataItemsDic_CollectionChanged;
             GetNodesFromDicWithParentId(0).ForEach(item =>
                 {
                     this.AddChild(item);
                     GetNodesFromDicWithParentId(((DataItem)item.DataContext).Id).ForEach(child => item.Items.Add(child));
                 });
-        }
+        } 
         private void DataItemsDic_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
