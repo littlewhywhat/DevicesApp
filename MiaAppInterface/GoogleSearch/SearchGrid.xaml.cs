@@ -33,7 +33,7 @@ namespace MiaAppInterface
             if (searchPopUp.searchListBox.DataContext != searchTextBox.DataContext)
                 if (searchPopUp.searchListBox.DataContext.ToString() != "")
                 {
-                    searchPopUp.searchListBox.Search(FactoriesVault.FactoriesDic["Companies"]);
+                    searchPopUp.searchListBox.Search(((DataItemsController)DataContext).Factory);
                     if (searchPopUp.searchListBox.HasItems)
                         searchPopUp.IsOpen = true;
                     else
@@ -46,7 +46,7 @@ namespace MiaAppInterface
         void searchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = searchPopUp.searchListBox.SelectedItem as ListBoxItem;
-            if (searchPopUp.searchListBox.SelectedIndex != -1)
+            if (searchPopUp.searchListBox.SelectedItem != null)
             {
                 searchTextBox.DataContext = selectedItem.DataContext.ToString();
                 searchTextBox.Text = selectedItem.DataContext.ToString();
@@ -83,7 +83,8 @@ namespace MiaAppInterface
                 if (e.Key == System.Windows.Input.Key.Up)
                     try
                     {
-                        searchPopUp.searchListBox.SelectedIndex--;
+                        if (searchPopUp.searchListBox.SelectedIndex != 0)
+                            searchPopUp.searchListBox.SelectedIndex--;
                     }
                     catch
                     { }
@@ -96,7 +97,7 @@ namespace MiaAppInterface
                     {
                         searchPopUp.IsOpen = false;
                         e.Handled = false;
-                        //this.DataContext = ((ListBoxItem)searchPopUp.searchListBox.SelectedItem).Tag;
+                        
                     }
                 }
             }

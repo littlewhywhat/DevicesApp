@@ -1,0 +1,16 @@
+﻿<y:DataItemsGrid x:Class="MiaAppInterface.DevicesGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:y="clr-namespace:MiaAppInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" DataContextChanged="DevicesGrid_DataContextChanged">
+    <StackPanel>
+        <TextBox Text="{Binding Path=Id}"></TextBox>
+        <TextBox Name="DeviceName" Text="{Binding Path=Name}"></TextBox>
+        <TextBox Name="DeviceInfo" Text="{Binding Path=Info}"></TextBox>
+        <TextBox Name="DeviceCompanyId" Text="{Binding Path=CompanyId}"></TextBox>
+        <y:ParentComboBox x:Name="DevicesParentComboBox"></y:ParentComboBox>
+    </StackPanel>
+</y:DataItemsGrid>

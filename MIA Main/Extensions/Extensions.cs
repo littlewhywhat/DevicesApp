@@ -33,6 +33,16 @@ namespace MiaMain
             return dictionary;
         }
 
+        public static Dictionary<string, string> GetSearchPropertyValueDic(this DataItem dataItem)
+        {
+            var dictionary = new Dictionary<string, string>();
+            dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
+            {
+                if ((dataItem.Factory.FirstTableFields.Contains(dataItemProperty.Name)))
+                    dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem).ToString());
+            });
+            return dictionary;
+        }
 
         public static void Update(this DataItem dataItem)
         {

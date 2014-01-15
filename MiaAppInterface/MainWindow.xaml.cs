@@ -26,10 +26,19 @@ namespace MiaAppInterface
             FactoriesVault.FillFactories();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Companies_Click(object sender, RoutedEventArgs e)
         {
-            var companiesExplorer = new DataItemsExplorer(new CompaniesController());
-            companiesExplorer.Show();
+            ShowExplorer(new CompaniesController());
+        }
+
+        private void Devices_Click(object sender, RoutedEventArgs e)
+        {
+            ShowExplorer(new DevicesController());
+        }
+        private void ShowExplorer(DataItemsController controller)
+        {
+            var explorer = new DataItemsExplorer(controller) { DataContext = controller };
+            explorer.Show();
             this.Close();
         }
     }

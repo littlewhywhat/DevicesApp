@@ -9,7 +9,11 @@ namespace MiaAppInterface
 {
     public abstract class DataItemsController
     {
-        public abstract DataItemsFactory Factory { get; }
+        public DataItemsFactory Factory { get; private set; }
+        public DataItemsController(string factoryName)
+        {
+            Factory = FactoriesVault.FactoriesDic[factoryName];
+        }
         public DataItemsTabItem GetTabItem(DataItem dataItem)
         {
             dataItem.Fill(Factory.OtherTableFields);
@@ -19,6 +23,14 @@ namespace MiaAppInterface
         }
         protected abstract DataItemsGrid GetDataItemsGrid();
         protected abstract DataItem GetNewDataItem();
+        public void UpdateDataItem(DataItem dataItem, DataItemsGrid grid)
+        {
+            var dataItemNew = Factory.GetDataItem();
+            dataItemNew.Id = dataItem.Id;
+            GetDataItemToUpdate(dataItemNew, grid);
+            dataItemNew.Update();
+        }
+        protected abstract void GetDataItemToUpdate(DataItem dataItem, DataItemsGrid grid);
         public DataItemsTabItem GetTabItem()
         {
             return GetTabItem(GetNewDataItem());

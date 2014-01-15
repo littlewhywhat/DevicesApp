@@ -13,22 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MiaMain;
-
 namespace MiaAppInterface
 {
     /// <summary>
-    /// Логика взаимодействия для CompaniesTabItemContent.xaml
+    /// Логика взаимодействия для DevicesGrid.xaml
     /// </summary>
-    public partial class CompaniesGrid : DataItemsGrid
+    public partial class DevicesGrid : DataItemsGrid
     {
-        public CompaniesGrid(DataItemsController controller):base(controller)
+        public DevicesGrid(DataItemsController controller) : base(controller)
         {
             InitializeComponent();
         }
-
-        private void CompaniesGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void DevicesGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            CompanyParentComboBox.RefreshDataContext(DataContext);
+            DevicesParentComboBox.RefreshDataContext(DataContext);
         }
+
     }
 }

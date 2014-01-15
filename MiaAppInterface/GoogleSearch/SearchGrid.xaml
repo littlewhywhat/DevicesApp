@@ -6,7 +6,7 @@
              xmlns:y="clr-namespace:MiaAppInterface"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <TextBox  FontSize="15" Name="searchTextBox" SizeChanged="searchTextBox_SizeChanged" KeyUp="searchTextBox_KeyUp"></TextBox>
+    <TextBox DataContext="{x:Null}"  FontSize="15" Name="searchTextBox" SizeChanged="searchTextBox_SizeChanged" KeyUp="searchTextBox_KeyUp"></TextBox>
     <y:SearchPopUp x:Name="searchPopUp" DataContext="{Binding ElementName=searchTextBox, Path=Text}"  >
     
     </y:SearchPopUp>

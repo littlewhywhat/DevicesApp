@@ -4,7 +4,8 @@
         Title="MainWindow" Height="300" Width="300">
     <Grid>
         <StackPanel>
-            <Button Click="Button_Click">Companies</Button>
+            <Button Click="Companies_Click">Companies</Button>
+            <Button Click="Devices_Click">Devices</Button>
         </StackPanel>
     </Grid>
 </Window>

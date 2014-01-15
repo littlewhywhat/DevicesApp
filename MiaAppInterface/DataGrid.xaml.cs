@@ -38,7 +38,7 @@ namespace MiaAppInterface
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             var dataItemGrid = contentGrid.Children[0] as DataItemsGrid;
-            dataItemGrid.Update((DataItem)DataContext);
+            dataItemGrid.UpdateDataItem();
         }
     }
 }

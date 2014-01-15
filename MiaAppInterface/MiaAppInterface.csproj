@@ -59,12 +59,16 @@
     <Compile Include="DataGrid.xaml.cs">
       <DependentUpon>DataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataItemController\DevicesController.cs" />
     <Compile Include="DataItemsTabItemContent\DataItemsGrid.cs" />
     <Compile Include="DataItemsTabItemContent\CompaniesGrid.xaml.cs">
       <DependentUpon>CompaniesGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\CompaniesController.cs" />
     <Compile Include="DataItemController\DataItemsController.cs" />
+    <Compile Include="DataItemsTabItemContent\DevicesGrid.xaml.cs">
+      <DependentUpon>DevicesGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataItemsTreeView.xaml.cs">
       <DependentUpon>DataItemsTreeView.xaml</DependentUpon>
     </Compile>
@@ -95,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataItemsTabItemContent\CompaniesGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemsTabItemContent\DevicesGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

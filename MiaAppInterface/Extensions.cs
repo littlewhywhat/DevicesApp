@@ -37,5 +37,12 @@ namespace MiaAppInterface
             }
             return null;
         }
+        public static void ForEach(this ItemCollection enumerable, Action<ItemsControl> action)
+        {
+            foreach (ItemsControl item in enumerable)
+            {
+                action(item);
+            }
+        }
     }
 }

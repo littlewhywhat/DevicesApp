@@ -20,7 +20,8 @@
                 <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition Height="8*"></RowDefinition>
             </Grid.RowDefinitions>
-            <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" KeyUp="SearchGrid_KeyUp"></y:SearchGrid>
+            <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" 
+                          DataContext="{Binding}" KeyUp="SearchGrid_KeyUp"></y:SearchGrid>
             <y:DataItemsTreeView  x:Name="DataItemsTree" Grid.Row="1" Style="{StaticResource Default}">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="TreeViewItem">

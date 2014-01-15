@@ -77,7 +77,7 @@ namespace MiaAppInterface
             if (sender is SearchGrid)
             {
                 var searchGrid = sender as SearchGrid;
-                var dataItem = ((KeyValuePair<int, DataItem>)searchGrid.searchPopUp.searchListBox.SelectedItem).Value;
+                var dataItem = ((ListBoxItem)searchGrid.searchPopUp.searchListBox.SelectedItem).Tag as DataItem;
                 OpenNewTab(dataItem);
             }
         }

@@ -28,7 +28,13 @@ namespace MiaAppInterface
         {
             //Items.Clear();
             var searchCriteria = DataContext.ToString();
-            ItemsSource = factory.GetDataItemsDic().Where(item => item.Key.ToString().Contains(searchCriteria));
+            if (HasItems)
+                Items.Filter = item => ((Control)item).DataContext.ToString().ToLower().Contains(searchCriteria.ToLower());
+            else
+                Items.Filter = null;
+                ItemsSource = factory.GetDataItemsDic().Select(item => new Tuple<String, DataItem>
+                (item.Value.GetSearchPropertyValueDic().Values.FirstOrDefault(value => value.ToLower().Contains(searchCriteria.ToLower())), item.Value)).Where(tuple => tuple.Item1 != null).Select(tuple =>
+                    new ListBoxItem() { Content = tuple.Item2.Name, Tag = tuple.Item2, DataContext = tuple.Item1 });
             //factory.GetDataItemsDic().ForEach(item =>
             //{
             //    if (item.Key.ToString() == searchCriteria)
