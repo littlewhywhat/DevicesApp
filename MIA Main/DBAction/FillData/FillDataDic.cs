@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.Common;
 
 namespace MiaMain
@@ -16,7 +16,7 @@ namespace MiaMain
         }
         protected override DataItem GetDataItem()
         {
-            return Factory.GetDataItem();
+            return Factory.GetEmptyDataItem();
         }
         protected override string GetCommandText()
         {

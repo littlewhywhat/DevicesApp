@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using MiaMain;
 
 namespace MiaAppInterface
@@ -17,23 +16,20 @@ namespace MiaAppInterface
         public DataItemsTabItem GetTabItem(DataItem dataItem)
         {
             dataItem.Fill(Factory.OtherTableFields);
-            var dataGrid = new DataGrid();
+            return GetTabItemByDataItem(dataItem);
+        }
+        protected abstract DataItemsGrid GetDataItemsGrid();
+        private DataItemsTabItem GetTabItemByDataItem(DataItem dataItem)
+        {
+            var dataGrid = new ManagerGrid();
             dataGrid.contentGrid.Children.Add(GetDataItemsGrid());
             return new DataItemsTabItem(dataItem) { Content = dataGrid }; 
         }
-        protected abstract DataItemsGrid GetDataItemsGrid();
-        protected abstract DataItem GetNewDataItem();
-        public void UpdateDataItem(DataItem dataItem, DataItemsGrid grid)
+        public DataItemsTabItem GetNewTabItem()
         {
-            var dataItemNew = Factory.GetDataItem();
-            dataItemNew.Id = dataItem.Id;
-            GetDataItemToUpdate(dataItemNew, grid);
-            dataItemNew.Update();
-        }
-        protected abstract void GetDataItemToUpdate(DataItem dataItem, DataItemsGrid grid);
-        public DataItemsTabItem GetTabItem()
-        {
-            return GetTabItem(GetNewDataItem());
+            var dataItem = Factory.GetEmptyDataItem();
+            dataItem.Name = "New item";
+            return GetTabItemByDataItem(dataItem);
         }
     }
 }

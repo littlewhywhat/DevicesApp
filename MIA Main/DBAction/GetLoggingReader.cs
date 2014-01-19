@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.Common;
 using System.Data;
 
@@ -25,7 +25,7 @@ namespace MiaMain
             while(reader.Read())
             {
                 var logRow = new LogRow();
-                logRow.GetType().GetProperties().ForEach(property => property.SetValue(logRow, Convert.ChangeType(reader[property.Name], property.PropertyType)));
+                logRow.GetType().GetProperties().ForEach(property => property.SetValue(logRow, Convert.ChangeType(reader[property.Name], property.PropertyType),null));
                 list.Add(logRow);
             }
             return list;

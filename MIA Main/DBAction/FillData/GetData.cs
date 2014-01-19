@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.Common;
 
 namespace MiaMain
@@ -26,7 +26,7 @@ namespace MiaMain
             {
                 var fieldName = reader.GetName(index);
                 var deviceProperty = dataItem.GetType().GetProperty(fieldName);
-                deviceProperty.SetValue(dataItem, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType));
+                deviceProperty.SetValue(dataItem, Convert.ChangeType(reader[fieldName], deviceProperty.PropertyType),null);
             });
         }
         protected abstract DataItem GetDataItem();

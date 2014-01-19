@@ -268,8 +268,11 @@ namespace System.Collections.ObjectModel
             OnPropertyChanged();
             NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
             if (CollectionChanged != null)
-                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+            {
+                var invocationList = CollectionChanged.GetInvocationList();
+                for (int i = 0; i < invocationList.Count(); i++)
                 {
+                    var nh = invocationList[i] as NotifyCollectionChangedEventHandler;
                     DispatcherObject dispObj = nh.Target as DispatcherObject;
                     if (dispObj != null)
                     {
@@ -285,7 +288,7 @@ namespace System.Collections.ObjectModel
                     }
                     nh.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 }
-            
+            }
         }
 
 
@@ -294,8 +297,11 @@ namespace System.Collections.ObjectModel
             OnPropertyChanged();
             NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
             if (CollectionChanged != null)
-                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+            {
+                var invocationList = CollectionChanged.GetInvocationList();
+                for (int i = 0; i < invocationList.Count(); i++)
                 {
+                    var nh = invocationList[i] as NotifyCollectionChangedEventHandler;
                     DispatcherObject dispObj = nh.Target as DispatcherObject;
                     if (dispObj != null)
                     {
@@ -311,6 +317,7 @@ namespace System.Collections.ObjectModel
                     }
                     nh.Invoke(this, new NotifyCollectionChangedEventArgs(action, changedItem));
                 }
+            }
         }
 
 
@@ -319,23 +326,28 @@ namespace System.Collections.ObjectModel
             OnPropertyChanged();
             NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
             if (CollectionChanged != null)
-                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+            {
+                var invocationList = CollectionChanged.GetInvocationList();
+                for (int i = 0; i < invocationList.Count(); i++ )
                 {
+                    var nh = invocationList[i] as NotifyCollectionChangedEventHandler;
                     DispatcherObject dispObj = nh.Target as DispatcherObject;
+
                     if (dispObj != null)
                     {
                         Dispatcher dispatcher = dispObj.Dispatcher;
                         if (dispatcher != null && !dispatcher.CheckAccess())
                         {
-                            dispatcher.BeginInvoke(
-                                (Action)(() => nh.Invoke(this,
-                                    new NotifyCollectionChangedEventArgs(action, newItem, oldItem))),
-                                DispatcherPriority.DataBind);
+                            dispatcher.BeginInvoke(nh, DispatcherPriority.DataBind, new object[] { this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem) });
+
                             continue;
                         }
                     }
+                    
                     nh.Invoke(this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem));
-                }
+                    
+                 }
+            }
         }
 
 
@@ -344,8 +356,11 @@ namespace System.Collections.ObjectModel
             OnPropertyChanged();
             NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
             if (CollectionChanged != null)
-                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+            {
+                var invocationList = CollectionChanged.GetInvocationList();
+                for (int i = 0; i < invocationList.Count(); i++)
                 {
+                    var nh = invocationList[i] as NotifyCollectionChangedEventHandler;
                     DispatcherObject dispObj = nh.Target as DispatcherObject;
                     if (dispObj != null)
                     {
@@ -361,7 +376,7 @@ namespace System.Collections.ObjectModel
                     }
                     nh.Invoke(this, new NotifyCollectionChangedEventArgs(action, newItems));
                 }
-
+            }
         }
     }
 }   

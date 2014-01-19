@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,14 +20,17 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DevicesGrid : DataItemsGrid
     {
-        public DevicesGrid(DataItemsController controller) : base(controller)
+        public DevicesGrid()
         {
             InitializeComponent();
         }
         private void DevicesGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            var device = DataContext as Device;
             DevicesParentComboBox.RefreshDataContext(DataContext);
+            DevicesCompanyIdComboBox.RefreshDataContext(DataContext);
         }
+
 
     }
 }

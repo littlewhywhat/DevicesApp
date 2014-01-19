@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.Common;
 using System.Data;
 
@@ -26,7 +26,7 @@ namespace MiaMain
         
         public static string GetSelectCommandText(List<string> tableFields, string tableName, int id = 0)
         {
-            var commandText = String.Format("SELECT {0} FROM {1}", string.Join(",", tableFields), tableName);
+            var commandText = String.Format("SELECT {0} FROM {1}", String.Join(",", tableFields.ToArray()), tableName);
             return id != 0 ? String.Format("{0} WHERE id = {1}", commandText, id) : commandText;
         }
         

@@ -4,13 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:y="clr-namespace:MiaAppInterface"
+             xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContextChanged="DevicesGrid_DataContextChanged">
-    <StackPanel>
-        <TextBox Text="{Binding Path=Id}"></TextBox>
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{x:Null}" DataContextChanged="DevicesGrid_DataContextChanged">
+    <Grid.Resources>
+        <Style TargetType="FrameworkElement" x:Key="Default">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </Grid.Resources>
+    <StackPanel Style="{StaticResource Default}" >
+        <StackPanel.Resources>           
+            <Style BasedOn="{StaticResource DefaultTextBox}"  TargetType="{x:Type TextBox}"></Style>      
+        </StackPanel.Resources>
+        <TextBlock>Короткое название изделия</TextBlock>
         <TextBox Name="DeviceName" Text="{Binding Path=Name}"></TextBox>
-        <TextBox Name="DeviceInfo" Text="{Binding Path=Info}"></TextBox>
-        <TextBox Name="DeviceCompanyId" Text="{Binding Path=CompanyId}"></TextBox>
-        <y:ParentComboBox x:Name="DevicesParentComboBox"></y:ParentComboBox>
+        <TextBlock >Полное название изделия:</TextBlock>
+        <TextBox Name="DeviceFullName" Text="{Binding Path=FullName}"></TextBox>
+        <TextBlock>Заводской номер:</TextBlock>
+        <TextBox Name="DeviceProductNumber" Text="{Binding Path=ProductNumber}"></TextBox>
+        <TextBlock>ИВУК:</TextBlock>
+        <TextBox Name="DeviceIVUK" Text="{Binding Path=IVUK}"></TextBox>
+        <TextBlock>Компания:</TextBlock>
+        <y:CompanyIdComboBox x:Name="DevicesCompanyIdComboBox"></y:CompanyIdComboBox>
+        <TextBlock>Родитель:</TextBlock>
+        <y:ParentComboBox   x:Name="DevicesParentComboBox" ></y:ParentComboBox>
+
     </StackPanel>
 </y:DataItemsGrid>

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
-using System.Threading;
+
 
 namespace MiaMain
 {
@@ -24,6 +24,7 @@ namespace MiaMain
                 var LogRowList = Connection.GetLogRowList(timestamp);
                 LogRowList.ForEach(change =>
                 {
+                    
                     var factory = FactoriesVault.FactoriesDic[change.TableName];
                     switch (change.ActionType)
                     {
@@ -54,6 +55,7 @@ namespace MiaMain
                 }
             }
             );
+            workerThread.IsBackground = true;
             workerThread.Start();
         }
     }

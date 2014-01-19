@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -32,9 +31,9 @@ namespace MiaAppInterface
                 Items.Filter = item => ((Control)item).DataContext.ToString().ToLower().Contains(searchCriteria.ToLower());
             else
                 Items.Filter = null;
-                ItemsSource = factory.GetDataItemsDic().Select(item => new Tuple<String, DataItem>
-                (item.Value.GetSearchPropertyValueDic().Values.FirstOrDefault(value => value.ToLower().Contains(searchCriteria.ToLower())), item.Value)).Where(tuple => tuple.Item1 != null).Select(tuple =>
-                    new ListBoxItem() { Content = tuple.Item2.Name, Tag = tuple.Item2, DataContext = tuple.Item1 });
+                ItemsSource = factory.GetDataItemsDic().Select(item => new Result
+                (item.Value.GetSearchPropertyValueDic().Values.FirstOrDefault(value => value.ToLower().Contains(searchCriteria.ToLower())), item.Value)).Where(tuple => tuple.result != null).Select(tuple =>
+                    new ListBoxItem() { Content = tuple.reference.Name, Tag = tuple.reference, DataContext = tuple.result });
             //factory.GetDataItemsDic().ForEach(item =>
             //{
             //    if (item.Key.ToString() == searchCriteria)
@@ -52,6 +51,16 @@ namespace MiaAppInterface
             //var popUp = grid.Parent as SearchPopUp;
             //popUp.IsOpen = true;
             //((SearchPopUp)(this.Parent.Parent).IsOpen = true;
+        }
+        class Result
+        {
+            public string result;
+            public DataItem reference;
+            public Result(string Result, DataItem correspondingDataItem)
+            {
+                result = Result;
+                reference = correspondingDataItem;
+            }
         }
     }
 }

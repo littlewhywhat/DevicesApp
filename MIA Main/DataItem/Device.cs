@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MiaMain
 {
     public class Device : DataItem
     {
-        public string Info { get; set; }
+        public string FullName { get; set; }
         public int CompanyId { get; set; }
+        public string ProductNumber { get; set; }
+        public string IVUK { get; set; }
         public Device(DevicesFactory Factory) : base(Factory) { } 
     }
 }

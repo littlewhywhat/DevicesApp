@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.Common;
 
 namespace MiaMain
 {
-    public abstract class ChangeData : DBAction
+    public abstract class ChangeData : TransactionData
     {
         protected DbTransaction Transaction;
         protected DataItem dataItem;
@@ -17,43 +17,34 @@ namespace MiaMain
             ActionType = actionType;
             this.dataItem = dataItem;
         }
-        public virtual object Act(DbConnection connection)
-        {
-            ExecPreCommand(connection);
-            Transaction = connection.BeginTransaction();
-            try
-            {
-                ExecMainCommand(connection);
-                ExecLogCommand(connection);
-                Transaction.Commit();
-            }
-            catch (Exception)
-            {
-                Transaction.Rollback();
-            }
-            return null;
-        }
 
         private void ExecPreCommand(DbConnection connection)
         {
             Connection.GetCommand(DBHelper.GetPreActionText(), connection).ExecuteNonQuery();
         }
 
-        protected virtual void ExecMainCommand(DbConnection connection)
+        protected virtual int ExecMainCommand(DbTransaction Transaction)
         {
-            var command = Connection.GetCommand(GetMainCommandText(), connection);
+            var command = Connection.GetCommand(GetMainCommandText(), Transaction.Connection);
             command.Transaction = Transaction;
-            if (command.ExecuteNonQuery() == 0)
-                throw new Exception();
+            return command.ExecuteNonQuery();
         }
 
-        private void ExecLogCommand(DbConnection connection)
+        private void ExecLogCommand(DbTransaction Transaction)
         {
-            var command = Connection.GetCommand(DBHelper.GetLogCommandText(dataItem.Factory.TableName, dataItem.Id, ActionType), connection);
+            var command = Connection.GetCommand(DBHelper.GetLogCommandText(dataItem.Factory.TableName, dataItem.Id, ActionType), Transaction.Connection);
             command.Transaction = Transaction;
             command.ExecuteNonQuery();
         }
 
         protected abstract string GetMainCommandText();
+
+        public override void PerformTransaction(DbTransaction Transaction)
+        {
+            var result = ExecMainCommand(Transaction);
+            ExecLogCommand(Transaction);
+            if (result == 0)
+                throw new Exception();
+        }
     }
 }

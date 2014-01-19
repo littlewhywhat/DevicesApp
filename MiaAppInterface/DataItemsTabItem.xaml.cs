@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,7 +20,8 @@ namespace MiaAppInterface
         {
             InitializeComponent();
             DataContext = dataItem;
-            dataItem.Factory.GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
+            FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
+            FactoriesVault.FactoriesDic["Companies"].GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
         }
 
         void DeviceTabItem_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -30,7 +30,7 @@ namespace MiaAppInterface
             if ((e.NewItems != null) && (e.NewItems.Count != 0))
             {
                 var newItem = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
-                if (newItem.Id == currentData.Id)
+                if ((newItem.GetType() == currentData.GetType())&&(newItem.Id == currentData.Id))
                 {
                     newItem.Fill(newItem.Factory.OtherTableFields);
                     DataContext = newItem;
@@ -38,7 +38,11 @@ namespace MiaAppInterface
                 else
                     this.RefreshDataContext(DataContext);
             }
+            if ((e.OldItems != null) && (e.OldItems.Count != 0))
+                this.RefreshDataContext(DataContext);
+
         }
+
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {

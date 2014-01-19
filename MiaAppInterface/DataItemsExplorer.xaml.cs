@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -58,8 +57,9 @@ namespace MiaAppInterface
 
         private void Insert_Click(object sender, MouseButtonEventArgs e)
         {
-            var tabItem = Controller.GetTabItem();
+            var tabItem = Controller.GetNewTabItem();
             DataItemsTabControl.Items.Add(tabItem);
+            ((ManagerGrid)tabItem.Content).EnableInsertMode();
             tabItem.IsSelected = true;            
         }
 

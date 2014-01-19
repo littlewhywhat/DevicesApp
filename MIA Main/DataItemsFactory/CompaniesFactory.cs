@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Data.Common;
 
 namespace MiaMain
 {
@@ -12,9 +14,24 @@ namespace MiaMain
         public override List<string> OtherTableFields { get { return otherTableFields; } }
         public override string TableName { get { return tableName; } }
         
-        public override DataItem GetDataItem()
+        public override DataItem GetEmptyDataItem()
         {
             return new Company(this);
+        }
+
+        public override void DeleteTransaction(DataItem dataItem, DbTransaction transaction )
+        {
+            base.DeleteTransaction(dataItem, transaction);
+            var devicesDic = FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic();
+            devicesDic.Select(keyValuePair => (Device)keyValuePair.Value).
+                Where(device => device.CompanyId == dataItem.Id).ForEach(device =>
+                {
+                    new FillDataItem(device, device.Factory.OtherTableFields).Act(transaction.Connection);
+                    device.CompanyId = 0;
+                    new UpdateDataItem(device).PerformTransaction(transaction);
+                });
+            
+
         }
     }
 }

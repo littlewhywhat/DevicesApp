@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace MiaMain
 {
-    public class DeleteDataItem : ChangeData
+    public class DeleteDataItem : TransactionData
     {
-        public DeleteDataItem(DataItem dataitem): base(dataitem, ActionType.DELETE)
-        { }
-
-        protected override string GetMainCommandText()
+        DataItem DataItem;
+        public DeleteDataItem(DataItem dataItem)
         {
-            return String.Format("Delete from {0} where Id = '{1}'", dataItem.Factory.TableName, dataItem.Id);
+            DataItem = dataItem;
+        }
+        public override void PerformTransaction(DbTransaction Transaction)
+        {
+            DataItem.Factory.DeleteTransaction(DataItem, Transaction);
         }
     }
 }

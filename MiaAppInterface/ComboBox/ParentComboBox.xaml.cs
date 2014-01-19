@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -32,16 +31,29 @@ namespace MiaAppInterface
             if (DataContext != null)
             {
                 var dataItem = DataContext as DataItem;
-                ItemsSource = GetFilteredParentList(dataItem);
+                var items = GetFilteredParentList(dataItem);
+                var emptyItem = dataItem.Factory.GetEmptyDataItem();
+                emptyItem.Id = 0;
+                emptyItem.Name = "Без родителя";
+                items.Add(emptyItem);
+                ItemsSource = items;
+                var dictionary = dataItem.Factory.GetDataItemsDic();
                 if (dataItem.ParentId != 0)
+                {
                     SelectedItem = dataItem.Factory.GetDataItemsDic()[dataItem.ParentId];
+                }
+                else
+                    SelectedItem = emptyItem;
+
             }
         }
 
         private List<DataItem> GetFilteredParentList(DataItem dataItem)
         {
-            var list = dataItem.Factory.GetDataItemsDic().Select(item => item.Value).Except(new DataItem[]{ dataItem }).ToList();
-            return Filter(list, dataItem.Id);
+            var DataItemEnumerable = dataItem.Factory.GetDataItemsDic().Select(item => item.Value);
+            if (dataItem.Id == 0)
+                return DataItemEnumerable.ToList();
+            return Filter(DataItemEnumerable.Where(item => item.Id != dataItem.Id).ToList(), dataItem.Id);
         }
         
         private List<DataItem> Filter(List<DataItem> list, int id)
@@ -59,6 +71,16 @@ namespace MiaAppInterface
                 }
             }
             return list;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedItem != null)
+            {
+                var dataItem = DataContext as DataItem;
+                var selectedItem = ((DataItem)this.SelectedItem);
+                dataItem.ParentId = selectedItem.Id;
+            }
         }
     }
 }

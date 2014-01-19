@@ -5,11 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:y="clr-namespace:MiaAppInterface"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="CompaniesGrid_DataContextChanged">
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{x:Null}" DataContextChanged="CompaniesGrid_DataContextChanged">
     <StackPanel Name="Main" DataContext="{Binding}" >
-        <TextBox Text="{Binding Path=Id}"></TextBox>
-        <TextBox Name="CompanyName" Text="{Binding Path=Name, Mode=OneWay}"></TextBox>
-        <TextBox Name="CompanyInfo" Text="{Binding Path=Info, Mode=OneWay}"></TextBox>
-        <y:ParentComboBox x:Name="CompanyParentComboBox" DataContext="{Binding}"></y:ParentComboBox>
+        <StackPanel.Resources>
+            <Style BasedOn="{StaticResource DefaultTextBox}"  TargetType="{x:Type TextBox}"></Style>
+        </StackPanel.Resources>
+        <TextBlock>Название компании:</TextBlock>
+        <TextBox Name="CompanyName" Text="{Binding Path=Name}"></TextBox>
+        <TextBlock>Информация о компании:</TextBlock>
+        <TextBox Name="CompanyInfo" Text="{Binding Path=Info}"></TextBox>
+        <TextBlock>Родительская компания:</TextBlock>
+        <y:ParentComboBox x:Name="CompanyParentComboBox" ></y:ParentComboBox>
     </StackPanel>
 </y:DataItemsGrid>

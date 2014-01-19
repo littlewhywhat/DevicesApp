@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,13 +20,15 @@ namespace MiaAppInterface
     /// </summary>
     public partial class CompaniesGrid : DataItemsGrid
     {
-        public CompaniesGrid(DataItemsController controller):base(controller)
+        public CompaniesGrid()
         {
             InitializeComponent();
+            
         }
 
         private void CompaniesGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            var company = DataContext as Company;
             CompanyParentComboBox.RefreshDataContext(DataContext);
         }
     }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Data.Common;
+
 
 namespace MiaMain
 {
@@ -22,7 +23,8 @@ namespace MiaMain
 
         private int GetNewId(DbConnection connection)
         {
-            return Convert.ToInt32(Connection.GetCommand(GetNewIdCommandText(), connection).ExecuteScalar());
+            var result = Connection.GetCommand(GetNewIdCommandText(), connection).ExecuteScalar();
+            return result is DBNull? 0 : Convert.ToInt32(result);
         }
 
         private string GetNewIdCommandText()

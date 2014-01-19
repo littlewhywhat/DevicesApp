@@ -618,14 +618,7 @@ namespace MiaAppInterface
         {
             get
             {
-                if (!IsEnabled)
-                {
-                    return null;
-                }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
         }
 
@@ -634,10 +627,7 @@ namespace MiaAppInterface
         {
             get
             {
-                if (!IsEnabled)
-                {
-                    return CommonDisabledBorderOverlay;
-                }
+
 
                 if (_localResources != null)
                 {

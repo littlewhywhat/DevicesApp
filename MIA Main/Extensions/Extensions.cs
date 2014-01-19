@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Threading;
 using System.Collections;
+using System.Linq;
 
 namespace MiaMain
 {
@@ -11,7 +12,8 @@ namespace MiaMain
     {
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
-            foreach(T item in enumerable)
+            var list = new List<T>(enumerable);
+            foreach(T item in list)
             {
                 action(item);
             }
@@ -28,7 +30,10 @@ namespace MiaMain
             dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
                 {
                     if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory"))
-                        dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem).ToString());
+                    {
+                        var value = dataItemProperty.GetValue(dataItem, null);
+                        dictionary.Add(dataItemProperty.Name, value == null? null : value.ToString());
+                    }
                 });
             return dictionary;
         }
@@ -39,7 +44,7 @@ namespace MiaMain
             dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
             {
                 if ((dataItem.Factory.FirstTableFields.Contains(dataItemProperty.Name)))
-                    dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem).ToString());
+                    dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem,null).ToString());
             });
             return dictionary;
         }
@@ -50,7 +55,7 @@ namespace MiaMain
         }
         public static void Delete(this DataItem dataItem)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new DeleteDataItem(dataItem));
+            DBHelper.PerformDBAction(Connection.GetConnection(), new DeleteDataItem(dataItem));         
         }
         public static void Insert(this DataItem dataItem)
         {
@@ -62,10 +67,12 @@ namespace MiaMain
         }
         public static DataItem Clone(this DataItem dataItem)
         {
-            var dataItemClone = dataItem.Factory.GetDataItem();
-            dataItemClone.Id = dataItem.Id;
-            dataItem.GetPropertyValueDic().ForEach(propertyValue => 
-                dataItemClone.GetType().GetProperty(propertyValue.Key).SetValue(dataItemClone, propertyValue.Value));
+            var dataItemClone = dataItem.Factory.GetEmptyDataItem();
+            dataItem.GetType().GetProperties().ForEach(propertyInfo =>
+                {
+                    if (propertyInfo.Name != "Factory")
+                        dataItemClone.GetType().GetProperty(propertyInfo.Name).SetValue(dataItemClone, Convert.ChangeType(propertyInfo.GetValue(dataItem, null), propertyInfo.PropertyType),null);
+                });
             return dataItemClone;
         }
     }
