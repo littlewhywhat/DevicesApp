@@ -24,7 +24,7 @@ namespace MiaAppInterface
                 if (item is DataItemsTabItem)
                 {
                     DataItem dataContext = null;
-                    if (Thread.CurrentThread.Equals(item.Dispatcher.Thread))
+                    if (item.Dispatcher.CheckAccess())
                         dataContext = (DataItem)item.DataContext;
                     else
                     {

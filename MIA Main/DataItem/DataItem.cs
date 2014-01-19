@@ -16,5 +16,10 @@ namespace MiaMain
         {
             Factory = factory;
         }
+        public bool Equals(DataItem dataItem)
+        {
+            return (IsTheSameType(dataItem) && Id == dataItem.Id);
+        }
+        public abstract bool IsTheSameType(DataItem dataItem);
     }
 }

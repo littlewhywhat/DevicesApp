@@ -18,10 +18,9 @@ namespace MiaMain
         {
             return new Company(this);
         }
-
-        public override void DeleteTransaction(DataItem dataItem, DbTransaction transaction )
+        protected override void DeleteReferences(DataItem dataItem, DbTransaction transaction)
         {
-            base.DeleteTransaction(dataItem, transaction);
+            base.DeleteReferences(dataItem, transaction);
             var devicesDic = FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic();
             devicesDic.Select(keyValuePair => (Device)keyValuePair.Value).
                 Where(device => device.CompanyId == dataItem.Id).ForEach(device =>
@@ -30,8 +29,7 @@ namespace MiaMain
                     device.CompanyId = 0;
                     new UpdateDataItem(device).PerformTransaction(transaction);
                 });
-            
-
         }
+
     }
 }

@@ -25,11 +25,8 @@ namespace MiaMain
             return dataItem;
         }
 
-
-
-        public virtual void DeleteTransaction(DataItem dataItem, DbTransaction transaction)
+        protected virtual void DeleteReferences(DataItem dataItem, DbTransaction transaction)
         {
-            new DeleteDataItemRow(dataItem).PerformTransaction(transaction);
             dataItem.Factory.GetDataItemsDic().Select(keyValuePair => keyValuePair.Value).Where(dataItemInDic => dataItemInDic.ParentId == dataItem.Id)
                 .ForEach(dataItemInDic =>
                 {
@@ -37,6 +34,12 @@ namespace MiaMain
                     dataItemInDic.ParentId = 0;
                     new UpdateDataItem(dataItemInDic).PerformTransaction(transaction);
                 });
+        }
+
+        public void DeleteTransaction(DataItem dataItem, DbTransaction transaction)
+        {
+            DeleteReferences(dataItem, transaction);
+            new DeleteDataItemRow(dataItem).PerformTransaction(transaction);
         }
     }
 }

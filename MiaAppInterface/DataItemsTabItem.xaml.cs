@@ -16,6 +16,7 @@ namespace MiaAppInterface
 {
     public partial class DataItemsTabItem : TabItem
     {
+        int i =0;
         public DataItemsTabItem(DataItem dataItem)
         {
             InitializeComponent();
@@ -24,22 +25,38 @@ namespace MiaAppInterface
             FactoriesVault.FactoriesDic["Companies"].GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
         }
 
+        
         void DeviceTabItem_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            var currentData = DataContext as DataItem;
-            if ((e.NewItems != null) && (e.NewItems.Count != 0))
-            {
-                var newItem = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
-                if ((newItem.GetType() == currentData.GetType())&&(newItem.Id == currentData.Id))
+            
+                var currentData = DataContext as DataItem;
+                //Console.WriteLine(String.Format("{0} {1}"), currentData.Name, i++);
+                if ((e.NewItems != null) && (e.NewItems.Count != 0))
                 {
-                    newItem.Fill(newItem.Factory.OtherTableFields);
-                    DataContext = newItem;
+                    var newItem = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
+                    if (newItem.Equals(currentData))
+                    {
+                        newItem.Fill(newItem.Factory.OtherTableFields);
+                        DataContext = newItem;
+                    }
+                    else
+                        this.RefreshDataContext(DataContext);
                 }
-                else
-                    this.RefreshDataContext(DataContext);
-            }
-            if ((e.OldItems != null) && (e.OldItems.Count != 0))
-                this.RefreshDataContext(DataContext);
+                if ((e.OldItems != null) && (e.OldItems.Count != 0))
+                {
+                    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+                    {
+                        var deletedItem = ((KeyValuePair<int, DataItem>)e.OldItems[0]).Value;
+                        if (currentData.Equals(deletedItem))
+                        {
+                            CloseTabItem();
+                        }
+                        else
+                            this.RefreshDataContext(DataContext);
+
+                    }
+
+                }
 
         }
 
@@ -52,6 +69,8 @@ namespace MiaAppInterface
         {
             var tabControl = (TabControl)this.Parent;
             tabControl.Items.Remove(this);
+            FactoriesVault.FactoriesDic["Companies"].GetDataItemsDic().CollectionChanged -= DeviceTabItem_CollectionChanged;
+            FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic().CollectionChanged -= DeviceTabItem_CollectionChanged;
         }
 
     }

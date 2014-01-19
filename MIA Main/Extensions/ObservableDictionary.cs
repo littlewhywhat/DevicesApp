@@ -279,10 +279,10 @@ namespace System.Collections.ObjectModel
                         Dispatcher dispatcher = dispObj.Dispatcher;
                         if (dispatcher != null && !dispatcher.CheckAccess())
                         {
-                            dispatcher.BeginInvoke(
+                            dispatcher.Invoke(
                                 (Action)(() => nh.Invoke(this,
                                     new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
-                                DispatcherPriority.DataBind);
+                                DispatcherPriority.ApplicationIdle);
                             continue;
                         }
                     }
@@ -308,10 +308,11 @@ namespace System.Collections.ObjectModel
                         Dispatcher dispatcher = dispObj.Dispatcher;
                         if (dispatcher != null && !dispatcher.CheckAccess())
                         {
-                            dispatcher.BeginInvoke(
+                            dispatcher.Invoke(
+                            
                                 (Action)(() => nh.Invoke(this,
                                     new NotifyCollectionChangedEventArgs(action, changedItem))),
-                                DispatcherPriority.DataBind);
+                                DispatcherPriority.ApplicationIdle);
                             continue;
                         }
                     }
@@ -338,8 +339,10 @@ namespace System.Collections.ObjectModel
                         Dispatcher dispatcher = dispObj.Dispatcher;
                         if (dispatcher != null && !dispatcher.CheckAccess())
                         {
-                            dispatcher.BeginInvoke(nh, DispatcherPriority.DataBind, new object[] { this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem) });
-
+                            dispatcher.Invoke(
+                                (Action)(() => nh.Invoke(this,
+                                    new NotifyCollectionChangedEventArgs(action, newItem, oldItem))),
+                                DispatcherPriority.ApplicationIdle);
                             continue;
                         }
                     }
@@ -367,10 +370,10 @@ namespace System.Collections.ObjectModel
                         Dispatcher dispatcher = dispObj.Dispatcher;
                         if (dispatcher != null && !dispatcher.CheckAccess())
                         {
-                            dispatcher.BeginInvoke(
+                            dispatcher.Invoke(
                                 (Action)(() => nh.Invoke(this,
                                     new NotifyCollectionChangedEventArgs(action, newItems))),
-                                DispatcherPriority.DataBind);
+                                DispatcherPriority.ApplicationIdle);
                             continue;
                         }
                     }
