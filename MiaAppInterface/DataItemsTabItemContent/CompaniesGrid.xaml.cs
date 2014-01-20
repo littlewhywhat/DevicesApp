@@ -18,18 +18,11 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для CompaniesTabItemContent.xaml
     /// </summary>
-    public partial class CompaniesGrid : DataItemsGrid
+    public partial class CompaniesGrid : Grid
     {
         public CompaniesGrid()
         {
-            InitializeComponent();
-            
-        }
-
-        private void CompaniesGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var company = DataContext as Company;
-            CompanyParentComboBox.RefreshDataContext(DataContext);
+            InitializeComponent();   
         }
     }
 }

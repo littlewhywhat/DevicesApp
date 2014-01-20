@@ -16,11 +16,9 @@ namespace MiaAppInterface
 {
     public partial class DataItemsTabItem : TabItem
     {
-        int i =0;
-        public DataItemsTabItem(DataItem dataItem)
+        public DataItemsTabItem()
         {
             InitializeComponent();
-            DataContext = dataItem;
             FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
             FactoriesVault.FactoriesDic["Companies"].GetDataItemsDic().CollectionChanged += DeviceTabItem_CollectionChanged;
         }
@@ -28,9 +26,7 @@ namespace MiaAppInterface
         
         void DeviceTabItem_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            
                 var currentData = DataContext as DataItem;
-                //Console.WriteLine(String.Format("{0} {1}"), currentData.Name, i++);
                 if ((e.NewItems != null) && (e.NewItems.Count != 0))
                 {
                     var newItem = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
@@ -53,11 +49,8 @@ namespace MiaAppInterface
                         }
                         else
                             this.RefreshDataContext(DataContext);
-
                     }
-
                 }
-
         }
 
 
@@ -65,6 +58,7 @@ namespace MiaAppInterface
         {
             CloseTabItem();
         }
+
         public void CloseTabItem()
         {
             var tabControl = (TabControl)this.Parent;

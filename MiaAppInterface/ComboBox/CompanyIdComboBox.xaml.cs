@@ -20,10 +20,12 @@ namespace MiaAppInterface
     /// </summary>
     public partial class CompanyIdComboBox : ComboBox
     {
+        CompaniesFactory Factory;
         public CompanyIdComboBox()
         {
             InitializeComponent();
             Items.Clear();
+            Factory = FactoriesVault.FactoriesDic["Companies"] as CompaniesFactory;
         }
 
         private void ComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -31,33 +33,26 @@ namespace MiaAppInterface
             if (DataContext != null)
             {
                 var device = DataContext as Device;
-                var companyFactory = FactoriesVault.FactoriesDic["Companies"];
-                var companyDic = companyFactory.GetDataItemsDic();
-                var items = companyDic.Select(item => item.Value).ToList();
-                var emptyItem = companyFactory.GetEmptyDataItem();
-                emptyItem.Id = 0;
-                emptyItem.Name = "Без компании";
-                items.Add(emptyItem);
-                ItemsSource = items;
-
-                if (companyDic.ContainsKey(device.CompanyId))
+                ItemsSource = GetItems(device);
+                if (device.CompanyId != 0)
                 {
-                    SelectedItem = companyFactory.GetDataItemsDic()[device.CompanyId];
+                    SelectedItem = Factory.GetDataItemsDic()[device.CompanyId];
                 }
                 else
-                {
-                    if (device.CompanyId != 0)
-                    {
-                        device.CompanyId = 0;
-                        device.Update();
-                    }
-                    SelectedItem = emptyItem;
-                }
+                    SelectedIndex = 0;
             }
         }
-
+        private List<DataItem> GetItems(DataItem dataItem)
+        {
+            var items = Factory.GetDataItemsDic().Select(item => item.Value).ToList();
+            var emptyItem = Factory.GetEmptyDataItem();
+            emptyItem.Name = "Без компании";
+            items.Insert(0, emptyItem);
+            return items;
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // fires when ItemsSource count changed
             if (SelectedItem != null)
             {
                 var device = DataContext as Device;

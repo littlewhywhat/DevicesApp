@@ -57,14 +57,13 @@
     <Compile Include="ComboBox\ListBoxChrome.xaml.cs">
       <DependentUpon>ListBoxChrome.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CompanyIdComboBox.xaml.cs">
+    <Compile Include="ComboBox\CompanyIdComboBox.xaml.cs">
       <DependentUpon>CompanyIdComboBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerGrid.xaml.cs">
       <DependentUpon>ManagerGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\DevicesController.cs" />
-    <Compile Include="DataItemsTabItemContent\DataItemsGrid.cs" />
     <Compile Include="DataItemsTabItemContent\CompaniesGrid.xaml.cs">
       <DependentUpon>CompaniesGrid.xaml</DependentUpon>
     </Compile>
@@ -102,7 +101,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CompanyIdComboBox.xaml">
+    <Page Include="ComboBox\CompanyIdComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

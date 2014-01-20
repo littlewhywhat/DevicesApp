@@ -49,6 +49,13 @@ namespace MiaMain
             return dictionary;
         }
 
+        public static void ChangeInDb(this DataItem dataItem)
+        {
+            if (dataItem.Id == 0)
+                dataItem.Insert();
+            else
+                dataItem.Update();
+        }
         public static void Update(this DataItem dataItem)
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new UpdateDataItem(dataItem));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using MiaMain;
 
 namespace MiaAppInterface
@@ -11,7 +12,7 @@ namespace MiaAppInterface
         const string factoryName = "Devices";
         public DevicesController() : base(factoryName)
         { }
-        protected override DataItemsGrid GetDataItemsGrid()
+        protected override Grid GetDataItemsGrid()
         {
             return new DevicesGrid();
         }

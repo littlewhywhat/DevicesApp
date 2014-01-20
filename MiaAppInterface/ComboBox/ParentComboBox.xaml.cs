@@ -31,29 +31,31 @@ namespace MiaAppInterface
             if (DataContext != null)
             {
                 var dataItem = DataContext as DataItem;
-                var items = GetFilteredParentList(dataItem);
-                var emptyItem = dataItem.Factory.GetEmptyDataItem();
-                emptyItem.Id = 0;
-                emptyItem.Name = "Без родителя";
-                items.Add(emptyItem);
-                ItemsSource = items;
-                var dictionary = dataItem.Factory.GetDataItemsDic();
+                ItemsSource = GetItems(dataItem);
                 if (dataItem.ParentId != 0)
                 {
                     SelectedItem = dataItem.Factory.GetDataItemsDic()[dataItem.ParentId];
                 }
                 else
-                    SelectedItem = emptyItem;
-
+                    SelectedIndex = 0;
             }
+        }
+        private List<DataItem> GetItems(DataItem dataItem)
+        {
+            var items = GetFilteredParentList(dataItem);
+            var emptyItem = dataItem.Factory.GetEmptyDataItem();
+            emptyItem.Name = "Без родителя";
+            items.Insert(0, emptyItem);
+            return items;
         }
 
         private List<DataItem> GetFilteredParentList(DataItem dataItem)
         {
-            var DataItemEnumerable = dataItem.Factory.GetDataItemsDic().Select(item => item.Value);
+            var DataItemEnumerable = dataItem.Factory.GetDataItemsDic().Select(item => item.Value).
+                Where(item => item.Id != dataItem.Id).ToList();
             if (dataItem.Id == 0)
-                return DataItemEnumerable.ToList();
-            return Filter(DataItemEnumerable.Where(item => item.Id != dataItem.Id).ToList(), dataItem.Id);
+                return DataItemEnumerable;
+            return Filter(DataItemEnumerable, dataItem.Id);
         }
         
         private List<DataItem> Filter(List<DataItem> list, int id)
@@ -75,6 +77,7 @@ namespace MiaAppInterface
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // fires when ItemsSource count changed
             if (SelectedItem != null)
             {
                 var dataItem = DataContext as DataItem;

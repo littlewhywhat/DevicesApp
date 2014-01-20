@@ -19,24 +19,27 @@ namespace MiaAppInterface
     /// </summary>
     public partial class MainWindow : Window
     {
+        DataItemsExplorer explorer;
         public MainWindow()
         {
             InitializeComponent();
             FactoriesVault.FillFactories();
+            explorer = new DataItemsExplorer() { DataContext = new DevicesController()};
+            explorer.Show();
         }
 
         private void Companies_Click(object sender, RoutedEventArgs e)
         {
-            ShowExplorer(new CompaniesController());
+            explorer.DataContext = new CompaniesController();
         }
 
         private void Devices_Click(object sender, RoutedEventArgs e)
         {
-            ShowExplorer(new DevicesController());
+            explorer.DataContext = new DevicesController();
         }
         private void ShowExplorer(DataItemsController controller)
         {
-            var explorer = new DataItemsExplorer(controller) { DataContext = controller };
+            var explorer = new DataItemsExplorer() { DataContext = controller };
             explorer.Show();
             this.Close();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MiaMain;
+using System.Windows.Controls;
 
 namespace MiaAppInterface
 {
@@ -11,7 +12,7 @@ namespace MiaAppInterface
         const string FactoryName = "Companies";
         public CompaniesController() : base(FactoryName)
         { }
-        protected override DataItemsGrid GetDataItemsGrid()
+        protected override Grid GetDataItemsGrid()
         {
             return new CompaniesGrid();
         }

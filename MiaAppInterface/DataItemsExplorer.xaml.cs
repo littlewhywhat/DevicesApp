@@ -22,17 +22,15 @@ namespace MiaAppInterface
     /// </summary>
     public partial class DataItemsExplorer : Window
     {
-        DataItemsController Controller;
         
-        public DataItemsExplorer(DataItemsController controller)
-        {
-            Controller = controller;
-            Initialize();
-        }
-        public void Initialize()
+        public DataItemsExplorer()
         {
             InitializeComponent();
-            DataItemsTree.BuildTree(Controller);
+        }
+
+        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DataItemsTree.BuildTree((DataItemsController)DataContext);
         }
 
         private void DataItemsTreeView_DoubleClick (object sender, MouseButtonEventArgs e)
@@ -44,12 +42,13 @@ namespace MiaAppInterface
                 e.Handled = true;
             }   
         }
+
         private void OpenNewTab (DataItem dataItem)
         {
             var tabItem = DataItemsTabControl.GetTabItemByDataContext(dataItem.Id);
             if (tabItem == null)
             {
-                tabItem = Controller.GetTabItem(dataItem);
+                tabItem = ((DataItemsController)DataContext).GetTabItem(dataItem);
                 DataItemsTabControl.Items.Add(tabItem);
             }
             tabItem.IsSelected = true;
@@ -57,12 +56,10 @@ namespace MiaAppInterface
 
         private void Insert_Click(object sender, MouseButtonEventArgs e)
         {
-            var tabItem = Controller.GetNewTabItem();
+            var tabItem = ((DataItemsController)DataContext).GetInsertTabItem();
             DataItemsTabControl.Items.Add(tabItem);
-            ((ManagerGrid)tabItem.Content).EnableInsertMode();
             tabItem.IsSelected = true;            
         }
-
 
         private void DataItemsTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -81,5 +78,7 @@ namespace MiaAppInterface
                 OpenNewTab(dataItem);
             }
         }
+
+
     }
 }

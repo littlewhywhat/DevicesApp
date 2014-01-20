@@ -71,9 +71,6 @@
     <Compile Include="DBHelper\DBHelper.cs" />
     <Compile Include="DataItem\Device.cs" />
     <Compile Include="DataItemsFactory\DevicesFactory.cs" />
-    <Compile Include="Extensions\ConnectionWithTransaction.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Extensions\LogRow.cs" />
     <Compile Include="Extensions\ObservableDictionary.cs" />
     <Compile Include="Extensions\Extensions.cs" />
@@ -88,7 +85,6 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Transactions" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

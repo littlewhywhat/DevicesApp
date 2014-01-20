@@ -24,6 +24,10 @@ namespace MiaAppInterface
         {
             InitializeComponent();
         }
+        private Grid DataItemsGrid
+        {
+            get { return contentGrid.Children[0] as Grid; }
+        }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -36,61 +40,46 @@ namespace MiaAppInterface
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            UnenableChangeMode(true);
+            SwitchChangeMode(false);
+            ((DataItem)DataItemsGrid.DataContext).Update();
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             var dataItem = DataContext as DataItem;
             var dataItemNew = dataItem.Clone();
-            EnableChangeMode(dataItemNew);
-        }
-        public void UnenableChangeMode(bool updateDataItem)
-        {
-            var dataItemsGrid = GetDataItemsGrid();
-            dataItemsGrid.ChangeMode = false;
-            if (updateDataItem)
-                dataItemsGrid.UpdateDataItem();
-            else
-                dataItemsGrid.RefreshDataContext(DataContext);
-            Update.IsEnabled = false;
-            Delete.IsEnabled = false;
-            Change.IsEnabled = true;
-            Cancel.IsEnabled = false;
-            contentGrid.IsEnabled = false;
-        }
-        public void EnableInsertMode()
-        {
-            EnableChangeMode((DataItem)((TabItem)Parent).DataContext);
-            Cancel.IsEnabled = false;
-            Delete.IsEnabled = false;
-        }
-        public void EnableChangeMode(DataItem dataItemNew)
-        {
-            var dataItemGrid = GetDataItemsGrid();
-            dataItemGrid.ChangeMode = true;
-            dataItemGrid.RefreshDataContext(dataItemNew);
-            Update.IsEnabled = true;
-            Delete.IsEnabled = true;
-            Change.IsEnabled = false;
-            Cancel.IsEnabled = true;
-            contentGrid.IsEnabled = true;
-        }
-        private DataItemsGrid GetDataItemsGrid()
-        {
-            return contentGrid.Children[0] as DataItemsGrid;
-        }
-
-        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var dataItemsGrid = GetDataItemsGrid();
-            if (!dataItemsGrid.ChangeMode)
-                dataItemsGrid.RefreshDataContext(DataContext);
+            SwitchChangeMode(true);
+            DataItemsGrid.RefreshDataContext(dataItemNew);
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            UnenableChangeMode(false);
+            SwitchChangeMode(false);
+            DataItemsGrid.RefreshDataContext(DataContext);
+        }        
+
+        public void SwitchChangeMode(bool position)
+        {
+            Update.IsEnabled = position;
+            Delete.IsEnabled = position;
+            Change.IsEnabled = !position;
+            Cancel.IsEnabled = position;
+            contentGrid.IsEnabled = position;
         }
+
+        public void EnableInsertMode()
+        {
+            SwitchChangeMode(true);
+            Cancel.IsEnabled = false;
+            Delete.IsEnabled = false;
+        }
+
+        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Change.IsEnabled)
+                DataItemsGrid.RefreshDataContext(DataContext);
+        }
+
+
     }
 }

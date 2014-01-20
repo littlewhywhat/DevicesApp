@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MiaMain;
+using System.Windows.Controls;
 
 namespace MiaAppInterface
 {
@@ -18,18 +19,22 @@ namespace MiaAppInterface
             dataItem.Fill(Factory.OtherTableFields);
             return GetTabItemByDataItem(dataItem);
         }
-        protected abstract DataItemsGrid GetDataItemsGrid();
+        protected abstract Grid GetDataItemsGrid();
         private DataItemsTabItem GetTabItemByDataItem(DataItem dataItem)
         {
             var dataGrid = new ManagerGrid();
             dataGrid.contentGrid.Children.Add(GetDataItemsGrid());
-            return new DataItemsTabItem(dataItem) { Content = dataGrid }; 
+            return new DataItemsTabItem() { DataContext = dataItem, Content = dataGrid }; 
         }
-        public DataItemsTabItem GetNewTabItem()
+        public DataItemsTabItem GetInsertTabItem()
         {
             var dataItem = Factory.GetEmptyDataItem();
             dataItem.Name = "New item";
-            return GetTabItemByDataItem(dataItem);
+            var tabItem = GetTabItemByDataItem(dataItem);
+            var managerGrid = tabItem.Content as ManagerGrid;
+            managerGrid.DataContext = dataItem;
+            managerGrid.EnableInsertMode();
+            return tabItem;
         }
     }
 }
