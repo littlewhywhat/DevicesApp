@@ -6,7 +6,7 @@
              xmlns:y="clr-namespace:MiaAppInterface"
              
              mc:Ignorable="d" 
-              Name="Main"
+              Name="Main" 
           d:DesignHeight="30" d:DesignWidth="300" DataContextChanged="ComboBox_DataContextChanged" SelectionChanged="ComboBox_SelectionChanged"
           Template="{StaticResource CustomComboBox}">   
 </ComboBox>

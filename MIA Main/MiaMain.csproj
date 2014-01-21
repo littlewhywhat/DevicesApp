@@ -54,6 +54,7 @@
     <Compile Include="ActionTypeEnum.cs" />
     <Compile Include="DBAction\ChangeData\DeleteDataItem.cs" />
     <Compile Include="DBAction\ChangeData\TransactionData.cs" />
+    <Compile Include="DicChangesGetter.cs" />
     <Compile Include="Extensions\Connection.cs" />
     <Compile Include="DataItemsFactory\CompaniesFactory.cs" />
     <Compile Include="DataItemsFactory\DataItemsFactory.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="DBAction\FillData\GetData.cs" />
     <Compile Include="DBAction\GetTimestamp.cs" />
     <Compile Include="FactoriesVault.cs" />
+    <Compile Include="Observer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="UpdateClient.cs" />
   </ItemGroup>

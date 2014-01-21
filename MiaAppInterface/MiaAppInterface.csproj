@@ -60,6 +60,9 @@
     <Compile Include="ComboBox\CompanyIdComboBox.xaml.cs">
       <DependentUpon>CompanyIdComboBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataItemsTabItemContent\DataItemsGrid.xaml.cs">
+      <DependentUpon>DataItemsGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerGrid.xaml.cs">
       <DependentUpon>ManagerGrid.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ComboBox\CompanyIdComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemsTabItemContent\DataItemsGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

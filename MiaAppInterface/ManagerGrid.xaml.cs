@@ -24,9 +24,9 @@ namespace MiaAppInterface
         {
             InitializeComponent();
         }
-        private Grid DataItemsGrid
+        private DataItemsGrid DataItemsGrid
         {
-            get { return contentGrid.Children[0] as Grid; }
+            get { return contentGrid.Children[0] as DataItemsGrid; }
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -41,7 +41,7 @@ namespace MiaAppInterface
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             SwitchChangeMode(false);
-            ((DataItem)DataItemsGrid.DataContext).Update();
+            ((DataItem)DataItemsGrid.DataContext).ChangeInDb();
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
@@ -49,17 +49,18 @@ namespace MiaAppInterface
             var dataItem = DataContext as DataItem;
             var dataItemNew = dataItem.Clone();
             SwitchChangeMode(true);
-            DataItemsGrid.RefreshDataContext(dataItemNew);
+            DataItemsGrid.Refresh(dataItemNew);
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             SwitchChangeMode(false);
-            DataItemsGrid.RefreshDataContext(DataContext);
+            DataItemsGrid.Refresh(DataContext);
         }        
 
         public void SwitchChangeMode(bool position)
         {
+            DataItemsGrid.ChangeMode = position;
             Update.IsEnabled = position;
             Delete.IsEnabled = position;
             Change.IsEnabled = !position;
@@ -76,8 +77,10 @@ namespace MiaAppInterface
 
         private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (Change.IsEnabled)
-                DataItemsGrid.RefreshDataContext(DataContext);
+            if (!DataItemsGrid.ChangeMode)
+                DataItemsGrid.Refresh(DataContext);
+            else
+                DataItemsGrid.RefreshComboBoxes();
         }
 
 

@@ -19,13 +19,16 @@ namespace MiaAppInterface
             dataItem.Fill(Factory.OtherTableFields);
             return GetTabItemByDataItem(dataItem);
         }
-        protected abstract Grid GetDataItemsGrid();
+        protected abstract Grid GetDataItemsGrid(DataItem dataItem);
         private DataItemsTabItem GetTabItemByDataItem(DataItem dataItem)
         {
             var dataGrid = new ManagerGrid();
-            dataGrid.contentGrid.Children.Add(GetDataItemsGrid());
-            return new DataItemsTabItem() { DataContext = dataItem, Content = dataGrid }; 
+            dataGrid.contentGrid.Children.Add(GetDataItemsGrid(dataItem));
+            var tabItem = new DataItemsTabItem() { DataContext = dataItem, Content = dataGrid };
+            FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { dataItem.Factory.TableName });
+            return tabItem;
         }
+
         public DataItemsTabItem GetInsertTabItem()
         {
             var dataItem = Factory.GetEmptyDataItem();
@@ -33,6 +36,7 @@ namespace MiaAppInterface
             var tabItem = GetTabItemByDataItem(dataItem);
             var managerGrid = tabItem.Content as ManagerGrid;
             managerGrid.DataContext = dataItem;
+
             managerGrid.EnableInsertMode();
             return tabItem;
         }

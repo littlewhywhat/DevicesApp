@@ -47,20 +47,15 @@
                 TargetName="Bd">
                         <Setter.Value>
                             <LinearGradientBrush
-                        StartPoint="0,0"
-                        EndPoint="0,1">
+                                                StartPoint="0,0"
+                                                    EndPoint="0,1">
                                 <LinearGradientBrush.GradientStops>
                                     <GradientStop
-                                Color="#FFEAF6FD"
+                                Color="#FFF0F0F0"
                                 Offset="0.15" />
+
                                     <GradientStop
-                                Color="#FFD9F0FC"
-                                Offset="0.5" />
-                                    <GradientStop
-                                Color="#FFBEE6FD"
-                                Offset="0.5" />
-                                    <GradientStop
-                                Color="#FFA7D9F5"
+                                Color="#FFF2F2F2"
                                 Offset="1" />
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
@@ -106,18 +101,18 @@
                     <Setter Property="Background"
                         TargetName="Bd">
                         <Setter.Value>
-                            <LinearGradientBrush >
-                                <LinearGradientBrush.StartPoint >
-                                    <Point X="0" Y="0"></Point>
-                                </LinearGradientBrush.StartPoint>
-                                <LinearGradientBrush.EndPoint >
-                                    <Point X="0" Y="1"></Point>
-                                </LinearGradientBrush.EndPoint>
-                                <GradientStop Color="#FFEFEFEF" Offset="0"></GradientStop>
-                                <GradientStop Color="#FFF1F1F1" Offset="0.1"></GradientStop>
-                                <GradientStop Color="#FFF7F6F6" Offset="0.5"></GradientStop>
-                                <GradientStop Color="#FFF1F1F1" Offset="0.9"></GradientStop>
-                                <GradientStop Color="#FFEFEFEF" Offset="1"></GradientStop>
+                            <LinearGradientBrush
+                                                StartPoint="0,0"
+                                                    EndPoint="0,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop
+                                Color="#FFF5F5F5"
+                                Offset="0.15" />
+
+                                    <GradientStop
+                                Color="#FFF7F7F7"
+                                Offset="1" />
+                                </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </Setter.Value>
                     </Setter>

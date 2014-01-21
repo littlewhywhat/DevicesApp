@@ -18,7 +18,7 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для CompanyIdComboBox.xaml
     /// </summary>
-    public partial class CompanyIdComboBox : ComboBox
+    public partial class CompanyIdComboBox : ComboBox, Observer
     {
         CompaniesFactory Factory;
         public CompanyIdComboBox()
@@ -26,6 +26,7 @@ namespace MiaAppInterface
             InitializeComponent();
             Items.Clear();
             Factory = FactoriesVault.FactoriesDic["Companies"] as CompaniesFactory;
+            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { "Companies" });
         }
 
         private void ComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -34,7 +35,7 @@ namespace MiaAppInterface
             {
                 var device = DataContext as Device;
                 ItemsSource = GetItems(device);
-                if (device.CompanyId != 0)
+                if (Factory.GetDataItemsDic().ContainsKey(device.CompanyId))
                 {
                     SelectedItem = Factory.GetDataItemsDic()[device.CompanyId];
                 }
@@ -53,12 +54,28 @@ namespace MiaAppInterface
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // fires when ItemsSource count changed
-            if (SelectedItem != null)
+            if (IsEnabled)
             {
-                var device = DataContext as Device;
+                var device = (Device)DataContext;
                 var selectedItem = ((Company)this.SelectedItem);
-                device.CompanyId = selectedItem.Id;
+                if ((device != null) && (selectedItem != null))
+                    device.CompanyId = selectedItem.Id;
             }
+        }
+
+        public void Add(DataItem dataItemNew)
+        {
+            this.RefreshDataContext(DataContext);
+        }
+
+        public void Remove(DataItem dataItemOld)
+        {
+            this.RefreshDataContext(DataContext);
+        }
+
+        public void Replace(DataItem dataItemNew, DataItem dataItemOld)
+        {
+            this.RefreshDataContext(DataContext);
         }
     }
 }

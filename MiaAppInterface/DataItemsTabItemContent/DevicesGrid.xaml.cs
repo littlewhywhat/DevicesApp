@@ -18,11 +18,25 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для DevicesGrid.xaml
     /// </summary>
-    public partial class DevicesGrid : Grid
+    public partial class DevicesGrid : DataItemsGrid
     {
         public DevicesGrid()
         {
             InitializeComponent();
+            
+        }
+
+
+        public override void RefreshComboBoxes(object dataContext)
+        {
+            DevicesCompanyIdComboBox.RefreshDataContext(dataContext);
+            DevicesParentComboBox.RefreshDataContext(dataContext);
+        }
+
+        public override void RefreshComboBoxes()
+        {
+            DevicesCompanyIdComboBox.RefreshDataContext(DataContext);
+            DevicesParentComboBox.RefreshDataContext(DataContext);
         }
     }
 }

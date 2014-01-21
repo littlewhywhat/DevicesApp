@@ -17,7 +17,7 @@ namespace MiaAppInterface
             element.DataContext = null;
             element.DataContext = DataContext;
         }
-        public static TabItem GetTabItemByDataContext(this TabControl tabControl, int target)
+        public static TabItem GetTabItemByDataContext(this TabControl tabControl, DataItem dataItem)
         {
             foreach (TabItem item in tabControl.Items)
             {
@@ -31,7 +31,7 @@ namespace MiaAppInterface
                         item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataItem)item.DataContext));
                         while (dataContext == null) ;
                     }
-                    if (dataContext.Id == target)
+                    if (dataContext.Equals(dataItem))
                         return item;
                 }
             }

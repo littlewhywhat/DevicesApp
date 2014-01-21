@@ -12,9 +12,10 @@ namespace MiaAppInterface
         const string FactoryName = "Companies";
         public CompaniesController() : base(FactoryName)
         { }
-        protected override Grid GetDataItemsGrid()
+        protected override Grid GetDataItemsGrid(DataItem dataItem)
         {
-            return new CompaniesGrid();
+            var companiesGrid = new CompaniesGrid();
+            return companiesGrid;
         }
 
     }

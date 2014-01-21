@@ -45,7 +45,7 @@ namespace MiaAppInterface
 
         private void OpenNewTab (DataItem dataItem)
         {
-            var tabItem = DataItemsTabControl.GetTabItemByDataContext(dataItem.Id);
+            var tabItem = DataItemsTabControl.GetTabItemByDataContext(dataItem);
             if (tabItem == null)
             {
                 tabItem = ((DataItemsController)DataContext).GetTabItem(dataItem);

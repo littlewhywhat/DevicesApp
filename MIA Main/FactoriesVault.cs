@@ -10,12 +10,14 @@ namespace MiaMain
     public static class FactoriesVault
     {
         public static Dictionary<string, DataItemsFactory> FactoriesDic = new Dictionary<string, DataItemsFactory>();
+        public static DicChangesGetter ChangesGetter;
         static FactoriesVault()
         {
             var devicesFactory = new DevicesFactory();
             FactoriesDic.Add(devicesFactory.TableName, devicesFactory);
             var companiesFactory = new CompaniesFactory();
             FactoriesDic.Add(companiesFactory.TableName, companiesFactory);
+            ChangesGetter = new DicChangesGetter();
         }
         public static void FillFactories()
         {

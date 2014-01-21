@@ -18,12 +18,13 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для ParentComboBox.xaml
     /// </summary>
-    public partial class ParentComboBox : ComboBox
+    public partial class ParentComboBox : ComboBox, Observer
     {
         public ParentComboBox()
         {
             InitializeComponent();
             Items.Clear();
+            
         }
 
         private void ComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -32,7 +33,7 @@ namespace MiaAppInterface
             {
                 var dataItem = DataContext as DataItem;
                 ItemsSource = GetItems(dataItem);
-                if (dataItem.ParentId != 0)
+                if (dataItem.Factory.GetDataItemsDic().ContainsKey(dataItem.ParentId))
                 {
                     SelectedItem = dataItem.Factory.GetDataItemsDic()[dataItem.ParentId];
                 }
@@ -78,12 +79,29 @@ namespace MiaAppInterface
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // fires when ItemsSource count changed
-            if (SelectedItem != null)
+            if (IsEnabled)
             {
-                var dataItem = DataContext as DataItem;
+                var dataItem = (DataItem)DataContext; 
                 var selectedItem = ((DataItem)this.SelectedItem);
-                dataItem.ParentId = selectedItem.Id;
+                if ((dataItem != null) && (selectedItem !=null))
+                    dataItem.ParentId = selectedItem.Id;
             }
+        }
+
+        public void Add(DataItem dataItemNew)
+        {
+            this.RefreshDataContext(DataContext);
+        }
+
+        public void Remove(DataItem dataItemOld)
+        {
+            this.RefreshDataContext(DataContext);
+        }
+
+        public void Replace(DataItem dataItemNew, DataItem dataItemOld)
+        {
+            if (dataItemNew.Id == ((DataItem)DataContext).Id)
+            this.RefreshDataContext(DataContext);
         }
     }
 }

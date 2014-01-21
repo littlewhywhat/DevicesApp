@@ -9,7 +9,7 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для DataItemsTreeView.xaml
     /// </summary>
-    public partial class DataItemsTreeView : TreeView
+    public partial class DataItemsTreeView : TreeView, Observer
     {
         private ObservableDictionary<int, DataItem> DataItemsDic;
         public DataItemsTreeView()
@@ -19,42 +19,13 @@ namespace MiaAppInterface
         public void BuildTree(DataItemsController controller)
         {
             Items.Clear();
+            FactoriesVault.ChangesGetter.RemoveObserver(this);
             DataItemsDic = controller.Factory.GetDataItemsDic();
-            DataItemsDic.CollectionChanged += DataItemsDic_CollectionChanged;
+            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { controller.Factory.TableName });
             DataItemsDic.Where(dataItem => dataItem.Value.ParentId == 0).ForEach(keyValuePair =>
                 {
                     AddTreeViewItemByDataItem(keyValuePair.Value);
                 });
-        } 
-        private void DataItemsDic_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    var dataItemRemove = ((KeyValuePair<int, DataItem>)e.OldItems[0]).Value;
-                    RemoveTreeViewItemById(FindTreeViewItemById(dataItemRemove.Id));
-                    var dic = DataItemsDic.Where(keyValuePair => keyValuePair.Value.ParentId == 0 &&
-                        FindTreeViewItemById(keyValuePair.Value.Id) == null);
-                        dic.ForEach(keyValuePair =>
-                        AddTreeViewItemByDataItem(keyValuePair.Value));
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
-                    var dataItemNew = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
-                    var dataItemOld = ((KeyValuePair<int, DataItem>)e.OldItems[0]).Value;
-                    var treeViewItem = FindTreeViewItemById(dataItemOld.Id, this);
-                    if (dataItemNew.ParentId != dataItemOld.ParentId)
-                    {
-                        RemoveTreeViewItemById(treeViewItem);
-                        treeViewItem = AddTreeViewItemByDataItem(dataItemNew);
-                    }
-                    if (treeViewItem != null)
-                        treeViewItem.DataContext = dataItemNew;
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    var dataItemAdd = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
-                    AddTreeViewItemByDataItem(dataItemAdd);
-                    break;
-            }
         }
 
         public List<DataItemsTreeViewItem> GetNodesFromDicWithParentId(int parentId)
@@ -103,6 +74,32 @@ namespace MiaAppInterface
                     return result;
             }
             return null;
+        }
+
+        public void Add(DataItem dataItemNew)
+        {
+            AddTreeViewItemByDataItem(dataItemNew);
+        }
+
+        public void Remove(DataItem dataItemOld)
+        {
+            RemoveTreeViewItemById(FindTreeViewItemById(dataItemOld.Id));
+            var dic = DataItemsDic.Where(keyValuePair => keyValuePair.Value.ParentId == 0 &&
+                FindTreeViewItemById(keyValuePair.Value.Id) == null);
+            dic.ForEach(keyValuePair =>
+            AddTreeViewItemByDataItem(keyValuePair.Value));
+        }
+
+        public void Replace(DataItem dataItemNew, DataItem dataItemOld)
+        {
+            var treeViewItem = FindTreeViewItemById(dataItemOld.Id, this);
+            if (dataItemNew.ParentId != dataItemOld.ParentId)
+            {
+                RemoveTreeViewItemById(treeViewItem);
+                treeViewItem = AddTreeViewItemByDataItem(dataItemNew);
+            }
+            if (treeViewItem != null)
+                treeViewItem.DataContext = dataItemNew;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Grid x:Class="MiaAppInterface.CompaniesGrid"
+﻿<y:DataItemsGrid x:Class="MiaAppInterface.CompaniesGrid"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,4 +17,4 @@
         <TextBlock>Родительская компания:</TextBlock>
         <y:ParentComboBox x:Name="CompanyParentComboBox" ></y:ParentComboBox>
     </StackPanel>
-</Grid>
+</y:DataItemsGrid>

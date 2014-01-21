@@ -38,8 +38,8 @@ namespace MiaMain
 
         public static void TransactionRollBack(DbTransaction transaction)
         {
-            transaction.Rollback();
             TransactionsDic.Remove(transaction.Connection);
+            transaction.Rollback();
         }
 
         public static DbCommand GetCommand(string commandText, DbConnection connection)
