@@ -43,7 +43,9 @@ namespace MiaAppInterface
         {
             if (dataItemOld.Id == ((DataItem)DataContext).Id)
             {
+                ((ManagerGrid)Content).SwitchChangeMode(false);
                 ((DataItem)DataContext).Id = 0;
+                this.RefreshDataContext(DataContext);
                 ((ManagerGrid)Content).EnableInsertMode();
             }
             this.RefreshDataContext(DataContext);
