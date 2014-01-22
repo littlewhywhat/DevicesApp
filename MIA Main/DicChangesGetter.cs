@@ -44,29 +44,16 @@ namespace MiaMain
 
         private void ProcessListOfObservers(string listName, NotifyCollectionChangedEventArgs e)
         {
-            
-            foreach (var observer in ListsDic[listName])
-            {
-                DataItem dataItemOld = null;
-                DataItem dataItemNew = null;
-                if ((e.OldItems != null) && (e.OldItems.Count != 0))
-                    dataItemOld = ((KeyValuePair<int, DataItem>)e.OldItems[0]).Value;
-                if ((e.NewItems != null) && (e.NewItems.Count != 0))
-                    dataItemNew = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
-                switch (e.Action)
+            if (e.Action != NotifyCollectionChangedAction.Reset)
+                foreach (var observer in ListsDic[listName])
                 {
-                    case NotifyCollectionChangedAction.Remove:
-                        
-                        PerformActionOnObserver(observer, () => observer.Remove(dataItemOld));
-                        break;
-                    case NotifyCollectionChangedAction.Add:
-                        PerformActionOnObserver(observer, () => observer.Add(dataItemNew));
-                        break;
-                    case NotifyCollectionChangedAction.Replace:
-                        PerformActionOnObserver(observer, () => observer.Replace(dataItemNew, dataItemOld));
-                        break;
-                }
-            };
+                    DataItemsChange Change = new DataItemsChange() { Action = e.Action };
+                    if ((e.OldItems != null) && (e.OldItems.Count != 0))
+                        Change.OldDataItem = ((KeyValuePair<int, DataItem>)e.OldItems[0]).Value;
+                    if ((e.NewItems != null) && (e.NewItems.Count != 0))
+                        Change.NewDataItem = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
+                    PerformActionOnObserver(observer, () => observer.Update(Change));
+                };
         }
 
         private void PerformActionOnObserver(Observer observer, Action action)

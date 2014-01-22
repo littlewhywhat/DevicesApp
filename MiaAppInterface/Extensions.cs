@@ -23,15 +23,15 @@ namespace MiaAppInterface
             {
                 if (item is DataItemsTabItem)
                 {
-                    DataItem dataContext = null;
+                    DataItemsChange dataContext = null;
                     if (item.Dispatcher.CheckAccess())
-                        dataContext = (DataItem)item.DataContext;
+                        dataContext = (DataItemsChange)item.DataContext;
                     else
                     {
-                        item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataItem)item.DataContext));
+                        item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataItemsChange)item.DataContext));
                         while (dataContext == null) ;
                     }
-                    if (dataContext.Equals(dataItem))
+                    if (dataContext.NewDataItem.Equals(dataItem))
                         return item;
                 }
             }

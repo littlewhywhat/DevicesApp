@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MiaMain;
+using System.Collections.Specialized;
 using System.Windows.Controls;
 
 namespace MiaAppInterface
@@ -24,7 +25,7 @@ namespace MiaAppInterface
         {
             var dataGrid = new ManagerGrid();
             dataGrid.contentGrid.Children.Add(GetDataItemsGrid(dataItem));
-            var tabItem = new DataItemsTabItem() { DataContext = dataItem, Content = dataGrid };
+            var tabItem = new DataItemsTabItem() { DataContext = new DataItemsChange() { NewDataItem = dataItem }, Content = dataGrid };
             FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { dataItem.Factory.TableName });
             return tabItem;
         }
@@ -35,7 +36,7 @@ namespace MiaAppInterface
             dataItem.Name = "New item";
             var tabItem = GetTabItemByDataItem(dataItem);
             var managerGrid = tabItem.Content as ManagerGrid;
-            managerGrid.DataContext = dataItem;
+            managerGrid.DataContext = new DataItemsChange() { NewDataItem = dataItem };
 
             managerGrid.EnableInsertMode();
             return tabItem;

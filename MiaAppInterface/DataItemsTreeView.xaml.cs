@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace MiaAppInterface
 {
@@ -74,6 +75,22 @@ namespace MiaAppInterface
                     return result;
             }
             return null;
+        }
+
+        public void Update(DataItemsChange Change)
+        {
+            switch (Change.Action)
+            {
+                case NotifyCollectionChangedAction.Add :
+                    Add(Change.NewDataItem);
+                    break;
+                case NotifyCollectionChangedAction.Remove :
+                    Remove(Change.OldDataItem);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    Replace(Change.NewDataItem, Change.OldDataItem);
+                    break;
+            }
         }
 
         public void Add(DataItem dataItemNew)

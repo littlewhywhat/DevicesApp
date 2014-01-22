@@ -63,19 +63,10 @@ namespace MiaAppInterface
             }
         }
 
-        public void Add(DataItem dataItemNew)
+        public void Update(DataItemsChange Change)
         {
             this.RefreshDataContext(DataContext);
         }
 
-        public void Remove(DataItem dataItemOld)
-        {
-            this.RefreshDataContext(DataContext);
-        }
-
-        public void Replace(DataItem dataItemNew, DataItem dataItemOld)
-        {
-            this.RefreshDataContext(DataContext);
-        }
     }
 }

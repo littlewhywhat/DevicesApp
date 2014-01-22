@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Specialized;
 using MiaMain;
 
 namespace MiaAppInterface
@@ -88,19 +89,10 @@ namespace MiaAppInterface
             }
         }
 
-        public void Add(DataItem dataItemNew)
+        public void Update(DataItemsChange Change)
         {
-            this.RefreshDataContext(DataContext);
-        }
-
-        public void Remove(DataItem dataItemOld)
-        {
-            this.RefreshDataContext(DataContext);
-        }
-
-        public void Replace(DataItem dataItemNew, DataItem dataItemOld)
-        {
-            if (dataItemNew.Id == ((DataItem)DataContext).Id)
+            if ((Change.Action == NotifyCollectionChangedAction.Replace) && (Change.NewDataItem.Id != ((DataItem)DataContext).Id))
+                return;
             this.RefreshDataContext(DataContext);
         }
     }

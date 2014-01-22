@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Specialized;
 using MiaMain;
 
 namespace MiaAppInterface
@@ -28,11 +29,14 @@ namespace MiaAppInterface
         {
             get { return contentGrid.Children[0] as DataItemsGrid; }
         }
+        private DataItem CurrentDataItem
+        {
+            get { return ((DataItemsChange)DataContext).NewDataItem; }
+        }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            var dataItem = DataContext as DataItem;
-            dataItem.Delete();
+            CurrentDataItem.Delete();
             var tabItem = this.Parent as DataItemsTabItem;
             tabItem.CloseTabItem();
             e.Handled = true;
@@ -46,8 +50,7 @@ namespace MiaAppInterface
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            var dataItem = DataContext as DataItem;
-            var dataItemNew = dataItem.Clone();
+            var dataItemNew = CurrentDataItem.Clone();
             SwitchChangeMode(true);
             DataItemsGrid.Refresh(dataItemNew);
         }
@@ -55,7 +58,7 @@ namespace MiaAppInterface
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             SwitchChangeMode(false);
-            DataItemsGrid.Refresh(DataContext);
+            DataItemsGrid.Refresh(CurrentDataItem);
         }        
 
         public void SwitchChangeMode(bool position)
@@ -77,10 +80,19 @@ namespace MiaAppInterface
 
         private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!DataItemsGrid.ChangeMode)
-                DataItemsGrid.Refresh(DataContext);
-            else
-                DataItemsGrid.RefreshComboBoxes();
+            if (DataContext != null)
+            {
+                var Change = (DataItemsChange)DataContext;
+                if (Change.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    DataItemsGrid.Refresh(Change.NewDataItem);
+                    EnableInsertMode();
+                }
+                if (!DataItemsGrid.ChangeMode)
+                    DataItemsGrid.Refresh(Change.NewDataItem);
+                else
+                    DataItemsGrid.RefreshComboBoxes();
+            }
         }
 
 

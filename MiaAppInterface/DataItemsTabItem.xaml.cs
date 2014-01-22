@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Specialized;
 using MiaMain;
 namespace MiaAppInterface
 {
@@ -33,34 +34,30 @@ namespace MiaAppInterface
             FactoriesVault.ChangesGetter.RemoveObserver(this);
         }
 
-
-        public void Add(DataItem dataItemNew)
+        public void Update(DataItemsChange Change)
         {
+            if (((Change.NewDataItem != null) &&(Change.NewDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)) || 
+                ((Change.OldDataItem != null) &&(Change.OldDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)))
+            {
+                if ((Change.Action == NotifyCollectionChangedAction.Replace)) 
+                    Replace(Change);
+                if ((Change.Action == NotifyCollectionChangedAction.Remove))
+                    Remove(Change);
+                DataContext = Change;
+                return;
+            }
             this.RefreshDataContext(DataContext);
         }
 
-        public void Remove(DataItem dataItemOld)
+        public void Remove(DataItemsChange Change)
         {
-            if (dataItemOld.Id == ((DataItem)DataContext).Id)
-            {
-                ((ManagerGrid)Content).SwitchChangeMode(false);
-                ((DataItem)DataContext).Id = 0;
-                this.RefreshDataContext(DataContext);
-                ((ManagerGrid)Content).EnableInsertMode();
-            }
-            this.RefreshDataContext(DataContext);
-
+            Change.OldDataItem.Id = 0;
+            Change.NewDataItem = Change.OldDataItem;
         }
 
-        public void Replace(DataItem dataItemNew, DataItem dataItemOld)
+        public void Replace(DataItemsChange Change)
         {
-            if (dataItemNew.Id == ((DataItem)DataContext).Id)
-            {
-                dataItemNew.Fill(dataItemNew.Factory.OtherTableFields);
-                DataContext = dataItemNew;
-            }
-            else
-                this.RefreshDataContext(DataContext);
+            Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
         }
     }
 }
