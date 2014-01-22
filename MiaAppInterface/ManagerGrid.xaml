@@ -5,11 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:y="clr-namespace:MiaAppInterface"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="Grid_DataContextChanged">
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}"  DataContextChanged="Grid_DataContextChanged">
     <Grid.RowDefinitions>
         <RowDefinition Height="1*"></RowDefinition>
         <RowDefinition Height="9*"></RowDefinition>
-        
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal">
         <Button Background="#FFF9F9F9" Margin="5" Name="Change" Click="Change_Click">Change</Button>
@@ -19,5 +18,6 @@
         
     </StackPanel>
     <Grid Name="contentGrid" Grid.Row="1" DataContext="{Binding}" IsEnabled="False">
+
     </Grid>
 </Grid>

@@ -60,20 +60,23 @@
     <Compile Include="ComboBox\CompanyIdComboBox.xaml.cs">
       <DependentUpon>CompanyIdComboBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataItemsTabItemContent\DataItemsGrid.xaml.cs">
-      <DependentUpon>DataItemsGrid.xaml</DependentUpon>
+    <Compile Include="DataItemsTabItemContent\DataItemsInfoGrid.xaml.cs">
+      <DependentUpon>DataItemsInfoGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataItemsTabItemContent\DevicesGrid.xaml.cs">
+      <DependentUpon>DevicesGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerGrid.xaml.cs">
       <DependentUpon>ManagerGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\DevicesController.cs" />
-    <Compile Include="DataItemsTabItemContent\CompaniesGrid.xaml.cs">
-      <DependentUpon>CompaniesGrid.xaml</DependentUpon>
+    <Compile Include="DataItemsTabItemContent\CompaniesInfoGrid.xaml.cs">
+      <DependentUpon>CompaniesInfoGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\CompaniesController.cs" />
     <Compile Include="DataItemController\DataItemsController.cs" />
-    <Compile Include="DataItemsTabItemContent\DevicesGrid.xaml.cs">
-      <DependentUpon>DevicesGrid.xaml</DependentUpon>
+    <Compile Include="DataItemsTabItemContent\DevicesInfoGrid.xaml.cs">
+      <DependentUpon>DevicesInfoGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemsTreeView.xaml.cs">
       <DependentUpon>DataItemsTreeView.xaml</DependentUpon>
@@ -108,7 +111,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataItemsTabItemContent\DataItemsGrid.xaml">
+    <Page Include="DataItemsTabItemContent\DataItemsInfoGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemsTabItemContent\DevicesGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,11 +123,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataItemsTabItemContent\CompaniesGrid.xaml">
+    <Page Include="DataItemsTabItemContent\CompaniesInfoGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataItemsTabItemContent\DevicesGrid.xaml">
+    <Page Include="DataItemsTabItemContent\DevicesInfoGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

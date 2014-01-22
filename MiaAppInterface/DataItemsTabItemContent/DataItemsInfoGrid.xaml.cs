@@ -17,7 +17,7 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для DataItemsGrid.xaml
     /// </summary>
-    public abstract partial class DataItemsGrid : Grid
+    public abstract partial class DataItemsInfoGrid : Grid
     {
         public bool ChangeMode { get; set; }
         public void Refresh(object DataContext)

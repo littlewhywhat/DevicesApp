@@ -12,14 +12,10 @@ namespace MiaAppInterface
         const string factoryName = "Devices";
         public DevicesController() : base(factoryName)
         { }
-        protected override Grid GetDataItemsGrid(DataItem dataItem)
+
+        protected override Grid GetTabItemContent()
         {
-            var devicesGrid = new DevicesGrid();
-            //devicesGrid.DevicesCompanyIdComboBox.DataContext = dataItem;
-            //devicesGrid.DevicesParentComboBox.DataContext = dataItem;
-            return devicesGrid;
+            return new DevicesGrid();
         }
-
-
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using MiaMain;
 
 namespace MiaAppInterface
@@ -24,10 +25,14 @@ namespace MiaAppInterface
         public ManagerGrid()
         {
             InitializeComponent();
+            
         }
-        private DataItemsGrid DataItemsGrid
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Grid ContentGrid { get { return contentGrid; } set { contentGrid.Children.Add(value); } }
+
+        private DataItemsInfoGrid DataItemsGrid
         {
-            get { return contentGrid.Children[0] as DataItemsGrid; }
+            get { return contentGrid.Children[0] as DataItemsInfoGrid; }
         }
         private DataItem CurrentDataItem
         {
