@@ -17,7 +17,7 @@ namespace MiaAppInterface
         }
         protected override Grid GetTabItemContent() 
         {
-            var dataGrid = new ManagerGrid();
+            var dataGrid = new TabItemGrid();
             dataGrid.contentGrid.Children.Add(new DeviceEventGrid());
             return dataGrid;
         }

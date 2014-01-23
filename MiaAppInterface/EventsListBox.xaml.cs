@@ -20,7 +20,7 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для EventsListBox.xaml
     /// </summary>
-    public partial class EventsListBox : Grid, Observer
+    public partial class EventsListBox : Grid, Observer, IClose
     {
         DataItemsFactory Factory;
         Device Device;
@@ -43,7 +43,7 @@ namespace MiaAppInterface
             {
                 Device = (Device)((DataItemsChange)DataContext).NewDataItem;
                 GetItems();
-                DeviceEventsTabControl.DataContext = new EventsController(Device.Id);
+                
             }
         }
 
@@ -52,35 +52,35 @@ namespace MiaAppInterface
             if (ListBox.SelectedItem != null)
             {
                 var dataItem = (DataItem)ListBox.SelectedItem;
-                OpenNewTab(dataItem);
+                
                 e.Handled = true;
             }   
         }
 
-        private void OpenNewTab(DataItem dataItem)
-        {
-            var tabItem = DeviceEventsTabControl.GetTabItemByDataContext(dataItem);
-            if (tabItem == null)
-            {
-                tabItem = ((DataItemsController)DeviceEventsTabControl.DataContext).GetTabItem(dataItem);
-                DeviceEventsTabControl.Items.Add(tabItem);
-            }
-            tabItem.IsSelected = true;
-        }
 
         private void GetItems()
         {
             ItemsSource = Factory.GetDataItemsDic().Select(keyValuePair => (DeviceEvent)keyValuePair.Value).
                 Where(deviceEvent => deviceEvent.DeviceId == Device.Id).
-                Select(item => new DataItemsChange() { Action = NotifyCollectionChangedAction.Add, NewDataItem = item});
+                Select(item => new TabItemGrid() { ContentGrid = new DeviceEventGrid(), DataContext = new DataItemsChange() { Action = NotifyCollectionChangedAction.Add, NewDataItem = item } });
         }
 
         public void Update(DataItemsChange Change)
         {
-            if (((Change.NewDataItem != null) && (((DeviceEvent)Change.NewDataItem).DeviceId == Device.Id)) ||
-                ((Change.OldDataItem != null) && (((DeviceEvent)Change.NewDataItem).DeviceId == Device.Id)))
+            foreach (ManagerGrid item in Items)
             {
-                GetItems();
+                if (((Change.NewDataItem != null) && (Change.NewDataItem.Id == ((DataItemsChange)item.DataContext).NewDataItem.Id)) ||
+                ((Change.OldDataItem != null) && (Change.OldDataItem.Id == ((DataItemsChange)item.DataContext).NewDataItem.Id)))
+                {
+                    if ((Change.Action == NotifyCollectionChangedAction.Remove))
+                    {
+                        Change.OldDataItem.Id = 0;
+                        Change.NewDataItem = Change.OldDataItem;
+                    }
+                    item.DataContext = Change;
+                    return;
+                }
+                item.RefreshDataContext(item.DataContext);
             }
         }
 
@@ -91,6 +91,11 @@ namespace MiaAppInterface
                 Items.Filter = item => ((DeviceEvent)item).Type == selectedFilter;
             else
                 Items.Filter = null;
+        }
+
+        public void Close(ManagerGrid manager)
+        {
+            Items.Remove(manager);
         }
     }
 }

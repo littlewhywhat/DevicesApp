@@ -15,7 +15,7 @@ using System.Collections.Specialized;
 using MiaMain;
 namespace MiaAppInterface
 {
-    public partial class DataItemsTabItem : TabItem, MiaMain.Observer
+    public partial class DataItemsTabItem : TabItem, MiaMain.Observer, IClose
     {
         public DataItemsTabItem()
         {
@@ -58,6 +58,11 @@ namespace MiaAppInterface
         public void Replace(DataItemsChange Change)
         {
             Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
+        }
+
+        void IClose.Close(ManagerGrid manager)
+        {
+            CloseTabItem();
         }
     }
 }

@@ -85,7 +85,8 @@
     <Compile Include="EventsListBox.xaml.cs">
       <DependentUpon>EventsListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagerGrid.xaml.cs">
+    <Compile Include="IClose.cs" />
+    <Compile Include="ManagerGrid\ManagerGrid.xaml.cs">
       <DependentUpon>ManagerGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\DevicesController.cs" />
@@ -150,7 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManagerGrid.xaml">
+    <Page Include="ManagerGrid\ManagerGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,8 +207,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManagerGrid\TabItemGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagerGrid\TabItemGrid.xaml.cs">
+      <DependentUpon>TabItemGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MiaMain;
 
 namespace MiaAppInterface
 {
@@ -26,6 +27,7 @@ namespace MiaAppInterface
                 RefreshComboBoxes(DataContext);
         }
 
+        public DataItem CurrentDataItem { get { return (DataItem)DataContext; } }
         public abstract void RefreshComboBoxes(object DataContext);
         public abstract void RefreshComboBoxes();
     }

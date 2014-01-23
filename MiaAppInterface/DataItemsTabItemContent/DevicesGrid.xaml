@@ -10,11 +10,11 @@
         <ColumnDefinition></ColumnDefinition>
         <ColumnDefinition></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <y:ManagerGrid x:Name="ManagerGrid" DataContext="{Binding}">
-        <y:ManagerGrid.ContentGrid>
+    <y:TabItemGrid x:Name="ManagerGrid" DataContext="{Binding}">
+        <y:TabItemGrid.ContentGrid>
             <y:DevicesInfoGrid></y:DevicesInfoGrid>
-        </y:ManagerGrid.ContentGrid>
-    </y:ManagerGrid>
+        </y:TabItemGrid.ContentGrid>
+    </y:TabItemGrid>
     <Grid Grid.Column="1">
 
         <y:EventsListBox Margin="5" Grid.Column="1" ></y:EventsListBox>
