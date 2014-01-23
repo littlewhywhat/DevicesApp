@@ -28,16 +28,15 @@ namespace MiaAppInterface
             return tabItem;
         }
 
+        public abstract DataItem GetNewDataItem();
         public DataItemsTabItem GetInsertTabItem()
         {
-            var dataItem = Factory.GetEmptyDataItem();
-            dataItem.Name = "New item";
-            var tabItem = GetTabItemByDataItem(dataItem);
+
             //var managerGrid = tabItem.Content as ManagerGrid;
             //managerGrid.DataContext = new DataItemsChange() { NewDataItem = dataItem };
 
             //managerGrid.EnableInsertMode();
-            return tabItem;
+            return GetTabItemByDataItem(GetNewDataItem());
         }
     }
 }

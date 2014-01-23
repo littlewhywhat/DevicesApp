@@ -19,6 +19,11 @@ namespace MiaMain
             }
         }
 
+        public static string ToString(this DateTime time)
+        {
+            return time.Year + "." + time.Month + "." + time.Day + " " + time.TimeOfDay.ToString();
+        }
+
         public static void FillDic(this DataItemsFactory factory)
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(factory));
@@ -32,7 +37,16 @@ namespace MiaMain
                     if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory"))
                     {
                         var value = dataItemProperty.GetValue(dataItem, null);
-                        dictionary.Add(dataItemProperty.Name, value == null? null : value.ToString());
+                        string result = null;
+                        if (value != null)
+                            if (value is DateTime)
+                            {
+                                var date = ((DateTime)value);
+                                result = date.Year + "." + date.Month + "." + date.Day + " " + date.TimeOfDay.ToString();
+                            }
+                            else
+                                result = value.ToString();
+                        dictionary.Add(dataItemProperty.Name, result);
                     }
                 });
             return dictionary;

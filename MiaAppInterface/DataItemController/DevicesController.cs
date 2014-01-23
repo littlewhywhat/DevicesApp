@@ -17,5 +17,12 @@ namespace MiaAppInterface
         {
             return new DevicesGrid();
         }
+
+        public override DataItem GetNewDataItem()
+        {
+            var dataItem = Factory.GetEmptyDataItem();
+            dataItem.Name = "New item";
+            return dataItem;
+        }
     }
 }

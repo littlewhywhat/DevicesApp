@@ -297,13 +297,8 @@
                         </TextBox.Style>
                     </TextBox>
                     <ComboBox  TextSearch.TextPath="Name" 
-                          Margin="5" x:Name="comboBox" IsEditable="True" ItemsSource="{TemplateBinding ComboBox.ItemsSource}"  SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Name, BindsDirectlyToSource=True}"></TextBlock>
-                            </DataTemplate>
+                          Margin="5" x:Name="comboBox" ItemTemplate="{TemplateBinding ComboBox.ItemTemplate}" IsEditable="True" ItemsSource="{TemplateBinding ComboBox.ItemsSource}"  SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}">
 
-                        </ComboBox.ItemTemplate>
 
                     </ComboBox>
                 </Grid>
@@ -316,6 +311,7 @@
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+            
             <ResourceDictionary.MergedDictionaries >
                 <ResourceDictionary   >
                     <LinearGradientBrush x:Key="DefaultBorder" EndPoint="0,2" StartPoint="0,0">

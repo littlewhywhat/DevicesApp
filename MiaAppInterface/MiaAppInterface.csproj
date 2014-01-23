@@ -41,6 +41,12 @@
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +54,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -60,11 +69,21 @@
     <Compile Include="ComboBox\CompanyIdComboBox.xaml.cs">
       <DependentUpon>CompanyIdComboBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataItemController\EventsController.cs" />
+    <Compile Include="DataItemsTabControl.xaml.cs">
+      <DependentUpon>DataItemsTabControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataItemsTabItemContent\DataItemsInfoGrid.xaml.cs">
       <DependentUpon>DataItemsInfoGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataItemsTabItemContent\DeviceEventGrid.xaml.cs">
+      <DependentUpon>DeviceEventGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataItemsTabItemContent\DevicesGrid.xaml.cs">
       <DependentUpon>DevicesGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventsListBox.xaml.cs">
+      <DependentUpon>EventsListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerGrid.xaml.cs">
       <DependentUpon>ManagerGrid.xaml</DependentUpon>
@@ -111,11 +130,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DataItemsTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DataItemsTabItemContent\DataItemsInfoGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DataItemsTabItemContent\DeviceEventGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DataItemsTabItemContent\DevicesGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventsListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +225,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

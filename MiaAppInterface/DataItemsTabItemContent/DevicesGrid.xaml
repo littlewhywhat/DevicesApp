@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:y="clr-namespace:MiaAppInterface"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}">
+             d:DesignHeight="400" d:DesignWidth="500" DataContext="{Binding}">
     <Grid.ColumnDefinitions>
         <ColumnDefinition></ColumnDefinition>
         <ColumnDefinition></ColumnDefinition>
@@ -15,5 +15,11 @@
             <y:DevicesInfoGrid></y:DevicesInfoGrid>
         </y:ManagerGrid.ContentGrid>
     </y:ManagerGrid>
+    <Grid Grid.Column="1">
+
+        <y:EventsListBox Margin="5" Grid.Column="1" ></y:EventsListBox>
+        
+    </Grid>
+    
     
 </Grid>

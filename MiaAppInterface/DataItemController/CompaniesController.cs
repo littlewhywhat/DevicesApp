@@ -19,5 +19,12 @@ namespace MiaAppInterface
             dataGrid.contentGrid.Children.Add(new CompaniesInfoGrid());
             return dataGrid;
         }
+
+        public override DataItem GetNewDataItem()
+        {
+            var dataItem = Factory.GetEmptyDataItem();
+            dataItem.Name = "New item";
+            return dataItem;
+        }
     }
 }

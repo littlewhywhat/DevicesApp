@@ -54,20 +54,8 @@ namespace MiaAppInterface
             tabItem.IsSelected = true;
         }
 
-        private void Insert_Click(object sender, MouseButtonEventArgs e)
-        {
-            var tabItem = ((DataItemsController)DataContext).GetInsertTabItem();
-            DataItemsTabControl.Items.Add(tabItem);
-            tabItem.IsSelected = true;            
-        }
 
-        private void DataItemsTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var tabControl = sender as TabControl;
-            if (!(tabControl.SelectedItem is DataItemsTabItem))
-                if (e.RemovedItems.Count != 0)
-                    ((DataItemsTabItem)e.RemovedItems[0]).IsSelected = true;
-        }
+
 
         private void SearchGrid_KeyUp(object sender, KeyEventArgs e)
         {

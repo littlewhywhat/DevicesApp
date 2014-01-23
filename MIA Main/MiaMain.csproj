@@ -53,7 +53,8 @@
   <ItemGroup>
     <Compile Include="ActionTypeEnum.cs" />
     <Compile Include="DataItemsChange.cs" />
-    <Compile Include="DataItemsFactory\EventsFactory.cs" />
+    <Compile Include="DataItemsFactory\DeviceEventsFactory.cs" />
+    <Compile Include="DataItem\DeviceEvent.cs" />
     <Compile Include="DBAction\ChangeData\DeleteDataItem.cs" />
     <Compile Include="DBAction\ChangeData\TransactionData.cs" />
     <Compile Include="DicChangesGetter.cs" />

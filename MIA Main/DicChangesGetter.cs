@@ -16,7 +16,11 @@ namespace MiaMain
             ListsDic.Add("Companies", new List<Observer>());
             FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic().CollectionChanged += DevicesDicCollectionChanged;
             ListsDic.Add("Devices", new List<Observer>());
+            FactoriesVault.FactoriesDic["DeviceEvents"].GetDataItemsDic().CollectionChanged += DeviceEventsDicCollectionChanged;
+            ListsDic.Add("DeviceEvents", new List<Observer>());
         }
+
+
 
         public void AddObserver(Observer observer, IEnumerable<string> listOfDics)
         {
@@ -40,6 +44,11 @@ namespace MiaMain
         private void CompaniesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             ProcessListOfObservers("Companies", e);
+        }
+
+        private void DeviceEventsDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            ProcessListOfObservers("DeviceEvents", e);
         }
 
         private void ProcessListOfObservers(string listName, NotifyCollectionChangedEventArgs e)

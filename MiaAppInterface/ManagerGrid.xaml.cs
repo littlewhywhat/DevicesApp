@@ -27,12 +27,13 @@ namespace MiaAppInterface
             InitializeComponent();
             
         }
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Grid ContentGrid { get { return contentGrid; } set { contentGrid.Children.Add(value); } }
 
         private DataItemsInfoGrid DataItemsGrid
         {
-            get { return contentGrid.Children[0] as DataItemsInfoGrid; }
+            get { return (DataItemsInfoGrid)contentGrid.Children[0]; }
         }
         private DataItem CurrentDataItem
         {
@@ -88,7 +89,8 @@ namespace MiaAppInterface
             if (DataContext != null)
             {
                 var Change = (DataItemsChange)DataContext;
-                if (Change.Action == NotifyCollectionChangedAction.Remove)
+                if ((Change.Action == NotifyCollectionChangedAction.Remove) ||
+                ((Change.Action == NotifyCollectionChangedAction.Add)&&(Change.NewDataItem.Id == 0)))
                 {
                     DataItemsGrid.Refresh(Change.NewDataItem);
                     EnableInsertMode();

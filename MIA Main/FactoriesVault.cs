@@ -17,6 +17,8 @@ namespace MiaMain
             FactoriesDic.Add(devicesFactory.TableName, devicesFactory);
             var companiesFactory = new CompaniesFactory();
             FactoriesDic.Add(companiesFactory.TableName, companiesFactory);
+            var eventsFactory = new DeviceEventsFactory();
+            FactoriesDic.Add(eventsFactory.TableName, eventsFactory);
             ChangesGetter = new DicChangesGetter();
         }
         public static void FillFactories()
