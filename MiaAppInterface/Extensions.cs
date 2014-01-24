@@ -13,6 +13,30 @@ namespace MiaAppInterface
 {
     static class Extensions
     {
+        public static bool SearchContains(this string value, List<string> searchList)
+        {
+            bool result = false;
+            for (int i = 0; i < searchList.Count; i++)
+            {
+                var listItem = searchList[i];
+                if (value.Contains(listItem))
+                {
+                    result = true;
+                    searchList.Remove(listItem);
+                    i--;
+                }
+            }
+            return result;
+        }
+
+        public static String Search(this DataItem dataItem, List<string> searchList)
+        {
+            var resultCollection = dataItem.GetSearchPropertyValueDic().Values.Where( value => value.ToLower().SearchContains(searchList)).ToArray();
+            if (searchList.ToList().Count == 0)
+                return String.Join(" ", resultCollection);
+            return null;
+        }
+
         public static void DisposeChildren(this FrameworkElement depObjParent)
         {
             

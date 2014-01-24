@@ -57,7 +57,7 @@ namespace MiaMain
             var dictionary = new Dictionary<string, string>();
             dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
             {
-                if ((dataItem.Factory.FirstTableFields.Contains(dataItemProperty.Name)))
+                if ((dataItem.Factory.SearchTableFields.Contains(dataItemProperty.Name)))
                     dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem,null).ToString());
             });
             return dictionary;

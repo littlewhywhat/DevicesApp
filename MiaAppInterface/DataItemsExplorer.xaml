@@ -11,18 +11,35 @@
     </Window.Resources>
     
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" ></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="35"></RowDefinition>
-                <RowDefinition Height="8*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox Name="ControllerComboBox" 
+                      VerticalContentAlignment="Center" Style="{StaticResource Default}" Background="White" 
+                      SelectionChanged="ControllerComboBox_SelectionChanged" >
+                <ComboBoxItem  Name="Devices"  >
+                    <TextBlock Padding="1"  FontSize="12" Text="Изделия"></TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem Name="Companies">
+                    <TextBlock Padding="1" FontSize="12" Text="Компании"></TextBlock>
+                </ComboBoxItem>
+            </ComboBox>
+            <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" Grid.Column="1" 
                           DataContext="{Binding}" KeyUp="SearchGrid_KeyUp"></y:SearchGrid>
-            <y:DataItemsTreeView  x:Name="DataItemsTree" Grid.Row="1" Style="{StaticResource Default}">
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <y:DataItemsTreeView  x:Name="DataItemsTree" Style="{StaticResource Default}">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="TreeViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="DataItemsTreeView_DoubleClick"></EventSetter>
@@ -31,13 +48,12 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
             </y:DataItemsTreeView>
+            <y:DataItemsTabControl Style="{StaticResource Default}" x:Name="DataItemsTabControl" Grid.Column="1" />
         </Grid>
-        
-            
-            <y:DataItemsTabControl x:Name="DataItemsTabControl" Grid.Column="1" >
 
-            </y:DataItemsTabControl>
+
         
-        
+
+
     </Grid>
 </Window>

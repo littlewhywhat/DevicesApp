@@ -10,6 +10,7 @@ namespace MiaMain
     {
         public abstract List<String> FirstTableFields { get; }
         public abstract List<String> OtherTableFields { get; }
+        public abstract List<String> SearchTableFields { get; }
         public abstract string TableName { get; }
         public abstract DataItem GetEmptyDataItem();
         private ObservableDictionary<int, DataItem> DataItemsDic = new ObservableDictionary<int, DataItem>();
@@ -17,6 +18,8 @@ namespace MiaMain
         {
             return DataItemsDic;
         }
+        
+
         public DataItem GetFilledDataItem(int Id)
         {
             var dataItem = GetEmptyDataItem();

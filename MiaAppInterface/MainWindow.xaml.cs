@@ -24,7 +24,7 @@ namespace MiaAppInterface
         {
             InitializeComponent();
             FactoriesVault.FillFactories();
-            explorer = new DataItemsExplorer() { DataContext = new DevicesController()};
+            explorer = new DataItemsExplorer() ;
             explorer.Show();
         }
 

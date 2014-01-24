@@ -26,6 +26,8 @@ namespace MiaAppInterface
         public DataItemsExplorer()
         {
             InitializeComponent();
+            FactoriesVault.FillFactories();
+            ControllerComboBox.SelectedIndex = 0;
         }
 
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -65,6 +67,11 @@ namespace MiaAppInterface
                 var dataItem = ((ListBoxItem)searchGrid.searchPopUp.searchListBox.SelectedItem).Tag as DataItem;
                 OpenNewTab(dataItem);
             }
+        }
+
+        private void ControllerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataContext = Controller.GetController(((ComboBoxItem)ControllerComboBox.SelectedItem).Name);
         }
 
 

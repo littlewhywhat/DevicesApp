@@ -23,17 +23,17 @@ namespace MiaAppInterface
         {
             InitializeComponent();
         }
-        public void Search(DataItemsFactory factory)
+        public void Search(DataItemsFactory factory1)
         {
             //Items.Clear();
             var searchCriteria = DataContext.ToString();
             if (HasItems)
-                Items.Filter = item => ((Control)item).DataContext.ToString().ToLower().Contains(searchCriteria.ToLower());
+                Items.Filter = item => ((DataItem)((Control)item).Tag).Search(searchCriteria.ToLower().Split(new char[] {' '}).ToList()) != null;
             else
                 Items.Filter = null;
-                ItemsSource = factory.GetDataItemsDic().Select(item => new Result
-                (item.Value.GetSearchPropertyValueDic().Values.FirstOrDefault(value => value.ToLower().Contains(searchCriteria.ToLower())), item.Value)).Where(tuple => tuple.result != null).Select(tuple =>
-                    new ListBoxItem() { Content = tuple.reference.Name, Tag = tuple.reference, DataContext = tuple.result });
+                ItemsSource = FactoriesVault.FactoriesDic.Where(factory => factory.Value.TableName != "DeviceEvents").SelectMany(factory => factory.Value.GetDataItemsDic().Select(item => new Result
+                (item.Value.Search(searchCriteria.ToLower().Split(new char[] {' '}).ToList()), item.Value)).Where(tuple => tuple.result != null).Select(tuple =>
+                    new ListBoxItem() { Content = tuple.reference.Name, Tag = tuple.reference, DataContext = tuple.result }));
             //factory.GetDataItemsDic().ForEach(item =>
             //{
             //    if (item.Key.ToString() == searchCriteria)
