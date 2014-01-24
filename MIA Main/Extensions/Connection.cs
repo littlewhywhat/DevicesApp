@@ -12,7 +12,7 @@ namespace MiaMain
 {
     public static class Connection
     {
-        readonly static string ConnectionString = "Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDB";
+        readonly static string ConnectionString = "Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDBwithTypes";
         static Dictionary<DbConnection, DbTransaction> TransactionsDic = new Dictionary<DbConnection,DbTransaction>();
         public static DbConnection GetConnection()
         {

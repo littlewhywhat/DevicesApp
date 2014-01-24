@@ -13,15 +13,15 @@ namespace MiaMain
         Dictionary<string, List<Observer>> ListsDic = new Dictionary<string, List<Observer>>();
         public DicChangesGetter()
         {
-            FactoriesVault.FactoriesDic["Companies"].GetDataItemsDic().CollectionChanged += CompaniesDicCollectionChanged;
-            ListsDic.Add("Companies", new List<Observer>());
-            FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic().CollectionChanged += DevicesDicCollectionChanged;
-            ListsDic.Add("Devices", new List<Observer>());
-            FactoriesVault.FactoriesDic["DeviceEvents"].GetDataItemsDic().CollectionChanged += DeviceEventsDicCollectionChanged;
-            ListsDic.Add("DeviceEvents", new List<Observer>());
+            FactoriesVault.FactoriesDic[TableNames.Companies].GetDataItemsDic().CollectionChanged += CompaniesDicCollectionChanged;
+            ListsDic.Add(TableNames.Companies, new List<Observer>());
+            FactoriesVault.FactoriesDic[TableNames.Devices].GetDataItemsDic().CollectionChanged += DevicesDicCollectionChanged;
+            ListsDic.Add(TableNames.Devices.ToString(), new List<Observer>());
+            FactoriesVault.FactoriesDic[TableNames.DeviceEvents].GetDataItemsDic().CollectionChanged += DeviceEventsDicCollectionChanged;
+            ListsDic.Add(TableNames.DeviceEvents, new List<Observer>());
+            FactoriesVault.FactoriesDic[TableNames.DeviceTypes].GetDataItemsDic().CollectionChanged += DeviceTypesDicCollectionChanged;
+            ListsDic.Add(TableNames.DeviceTypes, new List<Observer>());
         }
-
-
 
         public void AddObserver(Observer observer, IEnumerable<string> listOfDics)
         {
@@ -42,17 +42,22 @@ namespace MiaMain
 
         private void DevicesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers("Devices", e);
+            ProcessListOfObservers(TableNames.Devices.ToString(), e);
         }
 
         private void CompaniesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers("Companies", e);
+            ProcessListOfObservers(TableNames.Companies.ToString(), e);
         }
 
         private void DeviceEventsDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers("DeviceEvents", e);
+            ProcessListOfObservers(TableNames.DeviceEvents.ToString(), e);
+        }
+
+        private void DeviceTypesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            ProcessListOfObservers(TableNames.DeviceTypes.ToString(), e);
         }
 
         private void ProcessListOfObservers(string listName, NotifyCollectionChangedEventArgs e)

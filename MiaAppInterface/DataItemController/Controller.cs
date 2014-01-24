@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MiaMain;
 
 namespace MiaAppInterface
 {
@@ -9,15 +10,12 @@ namespace MiaAppInterface
     {
         public static DataItemsController GetController(string Name)
         {
-            switch (Name)
-            {
-                case ("Devices"):
-                    return new DevicesController();
-                case ("Companies"):
-                    return new CompaniesController();
-                default:
-                    return null;
-            }
+            if (Name == TableNames.Devices)
+                return new DevicesController();
+            if (Name == TableNames.Companies)
+                return new CompaniesController();
+            return null;
+            
         }
     }
 }

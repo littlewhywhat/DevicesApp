@@ -25,8 +25,8 @@ namespace MiaAppInterface
         {
             InitializeComponent();
             Items.Clear();
-            Factory = FactoriesVault.FactoriesDic["Companies"] as CompaniesFactory;
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { "Companies" });
+            Factory = FactoriesVault.FactoriesDic[TableNames.Companies] as CompaniesFactory;
+            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.Companies });
         }
 
         private void ComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

@@ -14,11 +14,13 @@ namespace MiaMain
         static FactoriesVault()
         {
             var devicesFactory = new DevicesFactory();
-            FactoriesDic.Add(devicesFactory.TableName, devicesFactory);
+            FactoriesDic.Add(TableNames.Devices, devicesFactory);
             var companiesFactory = new CompaniesFactory();
-            FactoriesDic.Add(companiesFactory.TableName, companiesFactory);
+            FactoriesDic.Add(TableNames.Companies, companiesFactory);
             var eventsFactory = new DeviceEventsFactory();
-            FactoriesDic.Add(eventsFactory.TableName, eventsFactory);
+            FactoriesDic.Add(TableNames.DeviceEvents, eventsFactory);
+            var typesFactory = new DeviceTypesFactory();
+            FactoriesDic.Add(TableNames.DeviceTypes, typesFactory);
             ChangesGetter = new DicChangesGetter();
         }
         public static void FillFactories()

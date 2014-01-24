@@ -10,8 +10,8 @@ namespace MiaAppInterface
     public class EventsController : DataItemsController
     {
         int DeviceId { get; set; }
-        const string FactoryName = "DeviceEvents";
-        public EventsController(int deviceId): base(FactoryName)
+        
+        public EventsController(int deviceId): base(TableNames.DeviceEvents)
         { 
             DeviceId = deviceId;
         }

@@ -31,7 +31,7 @@ namespace MiaAppInterface
                 Items.Filter = item => ((DataItem)((Control)item).Tag).Search(searchCriteria.ToLower().Split(new char[] {' '}).ToList()) != null;
             else
                 Items.Filter = null;
-                ItemsSource = FactoriesVault.FactoriesDic.Where(factory => factory.Value.TableName != "DeviceEvents").SelectMany(factory => factory.Value.GetDataItemsDic().Select(item => new Result
+                ItemsSource = FactoriesVault.FactoriesDic.Where(factory => factory.Value.TableName != TableNames.DeviceEvents).SelectMany(factory => factory.Value.GetDataItemsDic().Select(item => new Result
                 (item.Value.Search(searchCriteria.ToLower().Split(new char[] {' '}).ToList()), item.Value)).Where(tuple => tuple.result != null).Select(tuple =>
                     new ListBoxItem() { Content = tuple.reference.Name, Tag = tuple.reference, DataContext = tuple.result }));
             //factory.GetDataItemsDic().ForEach(item =>

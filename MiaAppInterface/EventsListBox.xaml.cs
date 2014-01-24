@@ -31,8 +31,8 @@ namespace MiaAppInterface
         {
             InitializeComponent();
             ListBox.Items.Clear();
-            Factory = FactoriesVault.FactoriesDic["DeviceEvents"] as DeviceEventsFactory;
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { "DeviceEvents" });
+            Factory = FactoriesVault.FactoriesDic[TableNames.DeviceEvents] as DeviceEventsFactory;
+            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.DeviceEvents });
             
             FilterComboBox.SelectedIndex = 0;
 

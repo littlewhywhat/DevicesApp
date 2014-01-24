@@ -10,11 +10,10 @@ namespace MiaMain
         private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "Info" };
         private List<string> otherTableFields = new List<String> { "Info" };
         private List<string> searchTableFields = new List<String> { "Info", "Name" };
-        private string tableName = "Companies";
         public override List<string> FirstTableFields { get { return firstTableFields; } }
         public override List<string> OtherTableFields { get { return otherTableFields; } }
         public override List<string> SearchTableFields { get { return searchTableFields; } }
-        public override string TableName { get { return tableName; } }
+        public override string TableName { get { return TableNames.Companies; } }
         
         public override DataItem GetEmptyDataItem()
         {
@@ -23,7 +22,7 @@ namespace MiaMain
         protected override void DeleteReferences(DataItem dataItem, DbTransaction transaction)
         {
             base.DeleteReferences(dataItem, transaction);
-            var devicesDic = FactoriesVault.FactoriesDic["Devices"].GetDataItemsDic();
+            var devicesDic = FactoriesVault.FactoriesDic[TableNames.Devices].GetDataItemsDic();
             devicesDic.Select(keyValuePair => (Device)keyValuePair.Value).
                 Where(device => device.CompanyId == dataItem.Id).ForEach(device =>
                 {

@@ -9,8 +9,7 @@ namespace MiaAppInterface
 {
     public class CompaniesController : DataItemsController
     {
-        const string FactoryName = "Companies";
-        public CompaniesController() : base(FactoryName)
+        public CompaniesController() : base(TableNames.Companies)
         { }
 
         protected override Grid GetTabItemContent()

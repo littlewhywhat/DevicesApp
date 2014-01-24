@@ -54,7 +54,9 @@
     <Compile Include="ActionTypeEnum.cs" />
     <Compile Include="DataItemsChange.cs" />
     <Compile Include="DataItemsFactory\DeviceEventsFactory.cs" />
+    <Compile Include="DataItemsFactory\DeviceTypesFactory.cs" />
     <Compile Include="DataItem\DeviceEvent.cs" />
+    <Compile Include="DataItem\DeviceType.cs" />
     <Compile Include="DBAction\ChangeData\DeleteDataItem.cs" />
     <Compile Include="DBAction\ChangeData\TransactionData.cs" />
     <Compile Include="DicChangesGetter.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="FactoriesVault.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="TableNames.cs" />
     <Compile Include="UpdateClient.cs" />
   </ItemGroup>
   <ItemGroup>

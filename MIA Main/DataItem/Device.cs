@@ -12,6 +12,7 @@ namespace MiaMain
         public int CompanyId { get; set; }
         public string ProductNumber { get; set; }
         public string IVUK { get; set; }
+        public int TypeId { get; set; }
         public Device(DevicesFactory Factory) : base(Factory) { }
 
         public override bool IsTheSameType(DataItem dataItem)

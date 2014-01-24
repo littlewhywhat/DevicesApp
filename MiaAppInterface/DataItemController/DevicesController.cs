@@ -9,8 +9,7 @@ namespace MiaAppInterface
 {
     public class DevicesController : DataItemsController
     {
-        const string factoryName = "Devices";
-        public DevicesController() : base(factoryName)
+        public DevicesController() : base(TableNames.Devices)
         { }
 
         protected override Grid GetTabItemContent()
