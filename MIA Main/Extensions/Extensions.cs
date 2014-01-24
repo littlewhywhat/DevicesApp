@@ -42,7 +42,7 @@ namespace MiaMain
                             if (value is DateTime)
                             {
                                 var date = ((DateTime)value);
-                                result = date.Year + "." + date.Month + "." + date.Day + " " + date.TimeOfDay.ToString();
+                                result = date.Year + "." + date.Month + "." + date.Day + " " + date.Hour + ":" + date.Minute + ":" + date.Second;
                             }
                             else
                                 result = value.ToString();

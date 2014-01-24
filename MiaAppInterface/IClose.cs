@@ -7,6 +7,6 @@ namespace MiaAppInterface
 {
     public interface IClose
     {
-        void Close(ManagerGrid manager);
+        void Close(ControlManager manager);
     }
 }

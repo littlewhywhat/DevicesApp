@@ -16,7 +16,7 @@ namespace MiaAppInterface
         protected override Grid GetTabItemContent()
         {
             var dataGrid = new TabItemGrid();
-            dataGrid.contentGrid.Children.Add(new CompaniesInfoGrid());
+            dataGrid.ContentGrid = new CompaniesInfoGrid();
             return dataGrid;
         }
 

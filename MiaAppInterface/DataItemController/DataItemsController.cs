@@ -29,6 +29,8 @@ namespace MiaAppInterface
         }
 
         public abstract DataItem GetNewDataItem();
+        
+
         public DataItemsTabItem GetInsertTabItem()
         {
 

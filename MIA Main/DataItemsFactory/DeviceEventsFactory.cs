@@ -7,8 +7,8 @@ namespace MiaMain
 {
     public class DeviceEventsFactory : DataItemsFactory
     {
-        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "DeviceId", "Type" };
-        private List<string> otherTableFields = new List<String> { "Date" };
+        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "DeviceId", "Type", "Date" };
+        private List<string> otherTableFields = new List<String> {  };
         private string tableName = "DeviceEvents";
 
         public override List<string> FirstTableFields { get { return firstTableFields; } }

@@ -19,17 +19,25 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для TabItemGrid.xaml
     /// </summary>
-    public partial class TabItemGrid : ManagerGrid
+    public partial class TabItemGrid : ControlManager
     {
         public TabItemGrid()
         {
             InitializeComponent();
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public override DataItemsInfoGrid ContentGrid { get { return (DataItemsInfoGrid)contentGrid.Children[0]; } set { contentGrid.Children.Add(value); } }
-        
-        protected override IClose Closer { get { return (IClose)Parent; } }
+        private IClose GetCloser(FrameworkElement element)
+        {
+            var parent = element.Parent as FrameworkElement;
+            if ((parent == null) || (parent is IClose))
+                return parent as IClose;
+            else
+                return GetCloser(parent);
+        }
+
+        public override IClose Closer { get { return GetCloser(this); } set { } }
+
+        protected override Grid SocketGrid { get { return socketGrid; } }
 
         protected override DataItemsChange CurrentChange { get { return (DataItemsChange)DataContext; } }
 

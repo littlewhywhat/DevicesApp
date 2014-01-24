@@ -6,12 +6,26 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Windows;
+using System.Windows.Media;
 using MiaMain;
 
 namespace MiaAppInterface
 {
     static class Extensions
     {
+        public static void DisposeChildren(this FrameworkElement depObjParent)
+        {
+            
+            foreach (var depObjChild in LogicalTreeHelper.GetChildren(depObjParent))
+            {
+                if (depObjChild is FrameworkElement)
+                    if (depObjChild is IDisposable)
+                        ((IDisposable)depObjChild).Dispose();
+                    else
+                        DisposeChildren((FrameworkElement)depObjChild);
+            }
+        }
+
         public static void RefreshDataContext(this FrameworkElement element, object DataContext)
         {
             element.DataContext = null;

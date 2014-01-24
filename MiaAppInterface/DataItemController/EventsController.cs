@@ -18,15 +18,18 @@ namespace MiaAppInterface
         protected override Grid GetTabItemContent() 
         {
             var dataGrid = new TabItemGrid();
-            dataGrid.contentGrid.Children.Add(new DeviceEventGrid());
+            dataGrid.ContentGrid = new DeviceEventGrid();
             return dataGrid;
         }
+
+
 
         public override DataItem GetNewDataItem()
         {
             var dataItem = (DeviceEvent)Factory.GetEmptyDataItem();
             dataItem.DeviceId = DeviceId;
             dataItem.Name = "Новое событие";
+            dataItem.Date = DateTime.Now;
             return dataItem;
         }
     }

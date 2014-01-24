@@ -1,42 +1,44 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Controls;
-using System.Collections.Specialized;
 using MiaMain;
+using System.Windows;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace MiaAppInterface
 {
-    /// <summary>
-    /// Логика взаимодействия для DataGrid.xaml
-    /// </summary>
-    public abstract partial class ManagerGrid : Grid
+    public abstract class ControlManager : Grid
     {
-
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        ////public Grid ContentGrid { get { return contentGrid; } set { contentGrid.Children.Add(value); } }
-
-        ////private DataItemsInfoGrid DataItemsGrid
-        ////{
-        ////    get { return (DataItemsInfoGrid)contentGrid.Children[0]; }
-        ////}
-        ////private DataItem CurrentDataItem
-        ////{
-        ////    get { return ((DataItemsChange)DataContext).NewDataItem; }
-        ////}
-
-        public abstract DataItemsInfoGrid ContentGrid { get; set; }
-        protected abstract IClose Closer { get; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public DataItemsInfoGrid ContentGrid 
+        { 
+            get { return (DataItemsInfoGrid)SocketGrid.Children[0]; } 
+            set { SocketGrid.Children.Add(value); } 
+        }
+        public abstract IClose Closer { get; set; }
+        protected abstract Grid SocketGrid { get; }
         protected abstract DataItemsChange CurrentChange { get; }
         protected abstract Button UpdateButton { get; }
         protected abstract Button DeleteButton { get; }
         protected abstract Button ChangeButton { get; }
         protected abstract Button CancelButton { get; }
 
-        private DataItem CurrentDataItem { get { return CurrentChange.NewDataItem; } }
+        public DataItem CurrentDataItem { get { return CurrentChange.NewDataItem; } }
+
+        private void Close()
+        {
+            var closer = Closer;
+            if (closer != null)
+                closer.Close(this);
+        }
 
         protected void DeleteClick(RoutedEventArgs e)
         {
             CurrentDataItem.Delete();
-            Closer.Close(this);
+            Close();
             e.Handled = true;
         }
 
@@ -57,19 +59,19 @@ namespace MiaAppInterface
         {
             SwitchChangeMode(false);
             ContentGrid.Refresh(CurrentDataItem);
-        }  
+        }
 
-        public void SwitchChangeMode(bool position)
+        public virtual void SwitchChangeMode(bool position)
         {
             ContentGrid.ChangeMode = position;
             UpdateButton.IsEnabled = position;
             DeleteButton.IsEnabled = position;
             ChangeButton.IsEnabled = !position;
             CancelButton.IsEnabled = position;
-            ContentGrid.IsEnabled = position;
+            SocketGrid.IsEnabled = position;
         }
 
-        public void EnableInsertMode()
+        public virtual void EnableInsertMode()
         {
             SwitchChangeMode(true);
             CancelButton.IsEnabled = false;
@@ -96,7 +98,7 @@ namespace MiaAppInterface
             {
                 var Change = (DataItemsChange)DataContext;
                 if ((Change.Action == NotifyCollectionChangedAction.Remove) ||
-                ((Change.Action == NotifyCollectionChangedAction.Add)&&(Change.NewDataItem.Id == 0)))
+                ((Change.Action == NotifyCollectionChangedAction.Add) && (Change.NewDataItem.Id == 0)))
                 {
                     ContentGrid.Refresh(Change.NewDataItem);
                     EnableInsertMode();
@@ -107,7 +109,5 @@ namespace MiaAppInterface
                     ContentGrid.RefreshComboBoxes();
             }
         }
-
-
     }
 }

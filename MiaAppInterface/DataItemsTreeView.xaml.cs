@@ -1,4 +1,5 @@
 ﻿using MiaMain;
+using System;
 using System.Linq;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
@@ -79,18 +80,23 @@ namespace MiaAppInterface
 
         public void Update(DataItemsChange Change)
         {
-            switch (Change.Action)
+            try
             {
-                case NotifyCollectionChangedAction.Add :
-                    Add(Change.NewDataItem);
-                    break;
-                case NotifyCollectionChangedAction.Remove :
-                    Remove(Change.OldDataItem);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    Replace(Change.NewDataItem, Change.OldDataItem);
-                    break;
+                switch (Change.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        Add(Change.NewDataItem);
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        Remove(Change.OldDataItem);
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        Replace(Change.NewDataItem, Change.OldDataItem);
+                        break;
+                }
             }
+            catch (Exception)
+            { }
         }
 
         public void Add(DataItem dataItemNew)

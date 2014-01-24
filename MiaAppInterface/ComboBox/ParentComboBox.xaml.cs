@@ -91,9 +91,14 @@ namespace MiaAppInterface
 
         public void Update(DataItemsChange Change)
         {
-            if ((Change.Action == NotifyCollectionChangedAction.Replace) && (Change.NewDataItem.Id != ((DataItem)DataContext).Id))
-                return;
-            this.RefreshDataContext(DataContext);
+            try
+            {
+                if ((Change.Action == NotifyCollectionChangedAction.Replace) && (Change.NewDataItem.Id != ((DataItem)DataContext).Id))
+                    return;
+                this.RefreshDataContext(DataContext);
+            }
+            catch (Exception)
+            { }
         }
     }
 }

@@ -19,5 +19,14 @@ namespace MiaMain
             return new Device(this);
         }
 
+        protected override void DeleteReferences(DataItem dataItem, System.Data.Common.DbTransaction transaction)
+        {
+            FactoriesVault.FactoriesDic["DeviceEvents"].GetDataItemsDic().Values.ForEach(deviceEvent =>
+                {
+                    if (((DeviceEvent)deviceEvent).DeviceId == dataItem.Id)
+                        deviceEvent.Delete();
+                });
+            base.DeleteReferences(dataItem, transaction);
+        }
     }
 }

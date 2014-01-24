@@ -32,6 +32,7 @@ namespace MiaAppInterface
             foreach (TreeViewItem item in mainItem.Items)
             {
                 item.Items.Clear();
+                item.IsExpanded = false;
             }
             e.Handled = true;
         }

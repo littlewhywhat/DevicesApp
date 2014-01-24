@@ -14,22 +14,26 @@ using System.Windows.Shapes;
 using System.Collections;
 using System.Collections.Specialized;
 using MiaMain;
+using System.Collections.ObjectModel;
 
 namespace MiaAppInterface
 {
     /// <summary>
     /// Логика взаимодействия для EventsListBox.xaml
     /// </summary>
-    public partial class EventsListBox : Grid, Observer, IClose
+    public partial class EventsListBox : Grid, Observer, IClose, IDisposable
     {
         DataItemsFactory Factory;
         Device Device;
+        ObservableCollection<ListBoxItemGrid> ListBoxItemsCollection = new ObservableCollection<ListBoxItemGrid>();
+        EventsController controller;
         public EventsListBox()
         {
             InitializeComponent();
             ListBox.Items.Clear();
             Factory = FactoriesVault.FactoriesDic["DeviceEvents"] as DeviceEventsFactory;
             FactoriesVault.ChangesGetter.AddObserver(this, new string[] { "DeviceEvents" });
+            
             FilterComboBox.SelectedIndex = 0;
 
         }
@@ -41,61 +45,155 @@ namespace MiaAppInterface
         {
             if (DataContext != null)
             {
-                Device = (Device)((DataItemsChange)DataContext).NewDataItem;
-                GetItems();
-                
+                var device = (Device)((DataItemsChange)DataContext).NewDataItem;
+                if (Device == null)
+                {
+                    
+                    if (device.Id != 0)
+                    {
+                        Device = device;
+                        IsEnabled = true;
+                        GetItems();
+                        controller = new EventsController(Device.Id);
+
+
+                    }
+                }
+                else if (device.Id == 0)
+                {
+                    IsEnabled = false;
+                    ListBoxItemsCollection.Clear();
+                    Device = null;
+                }
             }
         }
 
         private void ListBoxItem_DoubleClick(object sender, RoutedEventArgs e)
         {
-            if (ListBox.SelectedItem != null)
-            {
-                var dataItem = (DataItem)ListBox.SelectedItem;
+            //if (ListBox.SelectedItem != null)
+            //{
+            //    var dataItem = (DataItem)ListBox.SelectedItem;
                 
-                e.Handled = true;
-            }   
+            //    e.Handled = true;
+            //}   
         }
 
 
         private void GetItems()
         {
-            ItemsSource = Factory.GetDataItemsDic().Select(keyValuePair => (DeviceEvent)keyValuePair.Value).
+            Factory.GetDataItemsDic().Select(keyValuePair => (DeviceEvent)keyValuePair.Value).
                 Where(deviceEvent => deviceEvent.DeviceId == Device.Id).
-                Select(item => new TabItemGrid() { ContentGrid = new DeviceEventGrid(), DataContext = new DataItemsChange() { Action = NotifyCollectionChangedAction.Add, NewDataItem = item } });
+                ForEach(item => ListBoxItemsCollection.Add(GetNewItem(item)));
+            ItemsSource = ListBoxItemsCollection;
+        }
+
+        private ListBoxItemGrid GetNewItem(DataItem item)
+        {
+            return new ListBoxItemGrid()
+                {
+                    Closer = this,
+                    ContentGrid = new DeviceEventGrid(),
+                    DataContext = new DataItemsChange() { Action = NotifyCollectionChangedAction.Add, NewDataItem = item }
+                };
         }
 
         public void Update(DataItemsChange Change)
         {
-            foreach (ManagerGrid item in Items)
+            try
             {
-                if (((Change.NewDataItem != null) && (Change.NewDataItem.Id == ((DataItemsChange)item.DataContext).NewDataItem.Id)) ||
-                ((Change.OldDataItem != null) && (Change.OldDataItem.Id == ((DataItemsChange)item.DataContext).NewDataItem.Id)))
+                if (Device != null)
                 {
-                    if ((Change.Action == NotifyCollectionChangedAction.Remove))
+                    ControlManager item = null;
+                    switch (Change.Action)
                     {
-                        Change.OldDataItem.Id = 0;
-                        Change.NewDataItem = Change.OldDataItem;
+                        case NotifyCollectionChangedAction.Replace:
+                            item = GetRelatedListBoxItem(Change.NewDataItem);
+                            if (item != null)
+                            {
+                                item.DataContext = Change;
+                                Items.Filter = Items.Filter;
+                            }
+                            break;
+                        case NotifyCollectionChangedAction.Remove:
+                            item = GetRelatedListBoxItem(Change.OldDataItem);
+                            if (item != null)
+                            {
+                                Change.OldDataItem.Id = 0;
+                                Change.NewDataItem = Change.OldDataItem;
+                                item.DataContext = Change;
+                                Items.Filter = Items.Filter;
+                            }
+                            break;
+                        case NotifyCollectionChangedAction.Add:
+                            item = GetRelatedListBoxItem(Change.NewDataItem);
+                            if (item != null)
+                            {
+                                item.DataContext = Change;
+                                Items.Filter = Items.Filter;
+                            }
+                            else
+                                if (IsRelatedByDeviceId((DeviceEvent)Change.NewDataItem))
+                                    ListBoxItemsCollection.Add(GetNewItem(Change.NewDataItem));
+                            break;
                     }
-                    item.DataContext = Change;
-                    return;
                 }
-                item.RefreshDataContext(item.DataContext);
             }
+            catch (Exception)
+            { }
+
+        }
+
+        private ControlManager GetRelatedListBoxItem(DataItem dataItem)
+        {
+            ControlManager listBoxItem = null;
+            if (IsRelatedByDeviceId((DeviceEvent)dataItem))
+                foreach (ControlManager item in ListBoxItemsCollection)
+                {
+                    if (dataItem.Id != ((DataItemsChange)item.DataContext).NewDataItem.Id)
+                    {
+                        item.RefreshDataContext(item.DataContext);
+                    }
+                    else
+                        listBoxItem = item;
+                }
+            return listBoxItem;
+        }
+        private bool IsRelatedByDeviceId(DeviceEvent deviceEvent)
+        {
+            return deviceEvent.DeviceId == Device.Id;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
             if (selectedFilter != "Все события")
-                Items.Filter = item => ((DeviceEvent)item).Type == selectedFilter;
+                Items.Filter = item => ((DeviceEvent)((ListBoxItemGrid)item).CurrentDataItem).Type == selectedFilter;
             else
                 Items.Filter = null;
         }
 
-        public void Close(ManagerGrid manager)
+        public void Close(ControlManager manager)
         {
-            Items.Remove(manager);
+            ListBoxItemsCollection.Remove((ListBoxItemGrid)manager);
+        }
+
+        private void Insert_Click(object sender, RoutedEventArgs e)
+        {
+            var deviceEvent = (DeviceEvent)controller.GetNewDataItem();
+            var selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
+            if (selectedFilter != "Все события")
+                deviceEvent.Type = selectedFilter;
+            ListBoxItemsCollection.Add(GetNewItem(deviceEvent));
+        }
+
+
+
+
+
+        public void Dispose()
+        {
+            FactoriesVault.ChangesGetter.RemoveObserver(this);
+            this.DisposeChildren();
         }
     }
 }

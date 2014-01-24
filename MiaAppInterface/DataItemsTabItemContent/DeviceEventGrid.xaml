@@ -5,17 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:y="clr-namespace:MiaAppInterface"
               xmlns:xctk="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+                     xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" >
     <StackPanel  DataContext="{Binding}" >
 
         <TextBlock>Название события:</TextBlock>
         <TextBox Margin="5" Name="EventName" Text="{Binding Path=Name}"></TextBox>
         <TextBlock>Тип события:</TextBlock>
-        <ComboBox  x:Name="FilterComboBox" Margin="5"  Width="100" SelectedValuePath="Content" SelectedValue="{Binding Path=Type}"   HorizontalAlignment="Right" Background="White" >
+        <ComboBox  x:Name="FilterComboBox" Margin="5"  Width="100" SelectedValuePath="Content" SelectedValue="{Binding Path=Type}" Background="White" >
             <ComboBoxItem>Работа</ComboBoxItem>
             <ComboBoxItem>Проверка</ComboBoxItem>
             <ComboBoxItem>Ремонт</ComboBoxItem>
         </ComboBox>
-        <xctk:DatePicker Margin="5" SelectedDate="{Binding Path=Date}"></xctk:DatePicker>
+        <xceed:DateTimePicker  Name="TimePicker" Margin="5"  Value="{Binding Path=Date}"></xceed:DateTimePicker>
     </StackPanel>
 </y:DataItemsInfoGrid>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 using System.Collections.Specialized;
+using System.Windows;
 
 namespace MiaMain
 {
@@ -24,8 +25,10 @@ namespace MiaMain
 
         public void AddObserver(Observer observer, IEnumerable<string> listOfDics)
         {
+            
             listOfDics.ForEach(dicName => ListsDic[dicName].Add(observer));
         }
+
 
         public void RemoveObserver(Observer observer)
         {
@@ -34,6 +37,7 @@ namespace MiaMain
                 if (observerList.Contains(observer))
                     observerList.Remove(observer);
             });
+            
         }
 
         private void DevicesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -18,7 +18,7 @@ namespace MiaAppInterface
     /// <summary>
     /// Логика взаимодействия для CompanyIdComboBox.xaml
     /// </summary>
-    public partial class CompanyIdComboBox : ComboBox, Observer
+    public partial class CompanyIdComboBox : ComboBox, Observer, IDisposable
     {
         CompaniesFactory Factory;
         public CompanyIdComboBox()
@@ -65,8 +65,22 @@ namespace MiaAppInterface
 
         public void Update(DataItemsChange Change)
         {
-            this.RefreshDataContext(DataContext);
+            try
+            {
+                this.RefreshDataContext(DataContext);
+            }
+            catch(Exception)
+            {
+
+            }
+
         }
 
+
+        public void Dispose()
+        {
+            FactoriesVault.ChangesGetter.RemoveObserver(this);
+            this.DisposeChildren();
+        }
     }
 }

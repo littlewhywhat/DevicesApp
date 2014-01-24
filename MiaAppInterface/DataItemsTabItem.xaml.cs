@@ -32,21 +32,30 @@ namespace MiaAppInterface
             var tabControl = (TabControl)this.Parent;
             tabControl.Items.Remove(this);
             FactoriesVault.ChangesGetter.RemoveObserver(this);
+            ((FrameworkElement)Content).DisposeChildren();
+            
         }
 
         public void Update(DataItemsChange Change)
         {
-            if (((Change.NewDataItem != null) &&(Change.NewDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)) || 
-                ((Change.OldDataItem != null) &&(Change.OldDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)))
+            try
             {
-                if ((Change.Action == NotifyCollectionChangedAction.Replace)) 
-                    Replace(Change);
-                if ((Change.Action == NotifyCollectionChangedAction.Remove))
-                    Remove(Change);
-                DataContext = Change;
-                return;
+                if (((Change.NewDataItem != null) && (Change.NewDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)) ||
+                    ((Change.OldDataItem != null) && (Change.OldDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)))
+                {
+                    if ((Change.Action == NotifyCollectionChangedAction.Replace))
+                        Replace(Change);
+                    if ((Change.Action == NotifyCollectionChangedAction.Remove))
+                        Remove(Change);
+                    Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
+                    DataContext = Change;
+                    return;
+                }
+                this.RefreshDataContext(DataContext);
+                
             }
-            this.RefreshDataContext(DataContext);
+            catch (Exception)
+            { }
         }
 
         public void Remove(DataItemsChange Change)
@@ -60,7 +69,7 @@ namespace MiaAppInterface
             Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
         }
 
-        void IClose.Close(ManagerGrid manager)
+        void IClose.Close(ControlManager manager)
         {
             CloseTabItem();
         }

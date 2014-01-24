@@ -16,7 +16,7 @@ namespace MiaMain
             var Transaction = Connection.GetTransaction(connection);
             try
             {
-                PerformTransaction(Transaction);
+                PerformTransaction(Transaction); 
                 Connection.TransactionCommit(Transaction);
             }
             catch (Exception)
