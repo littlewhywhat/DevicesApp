@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MiaAppInterface.DataItemsExplorer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:y="clr-namespace:MiaAppInterface"
+        xmlns:y="clr-namespace:MiaAppInterface" Closed="Window_Closed"
         Height="530" Width="700" WindowStartupLocation="CenterScreen" DataContextChanged="Window_DataContextChanged">
     <Window.Resources>
         <Style TargetType="FrameworkElement" x:Key="Default">
@@ -20,7 +20,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ComboBox Name="ControllerComboBox" 
+            <ComboBox Name="ControllerComboBox"  
                       VerticalContentAlignment="Center" Style="{StaticResource Default}" Background="White" 
                       SelectionChanged="ControllerComboBox_SelectionChanged" >
                 <ComboBoxItem  Name="Devices"  >

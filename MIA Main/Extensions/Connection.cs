@@ -12,12 +12,27 @@ namespace MiaMain
 {
     public static class Connection
     {
-        readonly static string ConnectionString = "Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDBwithTypes";
+        //readonly static string connectionString = "Data Source=" + "WHYWHAT-PC\\SQLEXPRESS" + "; Integrated Security = SSPI; Initial Catalog=" + "MiaDBwithTypes";
+        public static string ConnectionString { get; set; }
+        
         static Dictionary<DbConnection, DbTransaction> TransactionsDic = new Dictionary<DbConnection,DbTransaction>();
+
+        public static DbConnectionStringBuilder GetConnectionStringBuilder()
+        {
+            return new SqlConnectionStringBuilder();
+        }
+
         public static DbConnection GetConnection()
         {
             return new SqlConnection(ConnectionString);
         }
+
+        public static bool CheckConnection()
+        {
+            try { using (var connection = GetConnection()) { connection.Open(); } return true; }
+            catch (Exception) { return false; }           
+        }
+
         public static DbCommand GetCommand(string commandText)
         {
             return new SqlCommand(commandText, (SqlConnection)GetConnection());
@@ -62,5 +77,6 @@ namespace MiaMain
         {
             return (List<LogRow>)DBHelper.PerformDBAction(GetConnection(), new GetLoggingReader(timestamp));
         }
+
     }
 }

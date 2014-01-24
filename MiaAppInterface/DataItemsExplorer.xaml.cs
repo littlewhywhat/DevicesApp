@@ -26,10 +26,9 @@ namespace MiaAppInterface
         public DataItemsExplorer()
         {
             InitializeComponent();
-            FactoriesVault.FillFactories();
             ControllerComboBox.SelectedIndex = 0;
         }
-
+        
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             DataItemsTree.BuildTree((DataItemsController)DataContext);
@@ -72,6 +71,11 @@ namespace MiaAppInterface
         private void ControllerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataContext = Controller.GetController(((ComboBoxItem)ControllerComboBox.SelectedItem).Name);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
 

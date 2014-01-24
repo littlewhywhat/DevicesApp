@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework.Aero" />
@@ -72,6 +73,10 @@
     </Compile>
     <Compile Include="ComboBox\CompanyIdComboBox.xaml.cs">
       <DependentUpon>CompanyIdComboBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConnectionStringBuilder.cs" />
+    <Compile Include="ConnectionWindow.xaml.cs">
+      <DependentUpon>ConnectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ControlManager\ControlManager.cs" />
     <Compile Include="ControlManager\ListBoxItemGrid.xaml.cs">
@@ -123,6 +128,7 @@
     <Compile Include="GoogleSearch\SearchPopUp.xaml.cs">
       <DependentUpon>SearchPopUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PrepareApp.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -134,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ComboBox\CompanyIdComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConnectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

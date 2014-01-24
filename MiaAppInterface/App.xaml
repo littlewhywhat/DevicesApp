@@ -4,7 +4,8 @@
              xmlns:s="clr-namespace:System;assembly=mscorlib"
              xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              xmlns:y="clr-namespace:MiaAppInterface"
-             StartupUri="DataItemsExplorer.xaml">
+             Startup="Application_Startup" ShutdownMode="OnExplicitShutdown"
+             >
     
     <Application.Resources>
         <ResourceDictionary>
