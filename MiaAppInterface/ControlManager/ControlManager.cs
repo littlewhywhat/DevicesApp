@@ -83,8 +83,11 @@ namespace MiaAppInterface
             if ((CurrentChange.Action == NotifyCollectionChangedAction.Remove) ||
             ((CurrentChange.Action == NotifyCollectionChangedAction.Add) && (CurrentChange.NewDataItem.Id == 0)))
             {
-                ContentGrid.Refresh(CurrentChange.NewDataItem);
-                EnableInsertMode();
+
+                    ContentGrid.Refresh(CurrentChange.NewDataItem);
+                    EnableInsertMode();
+
+                
             }
             if (!ContentGrid.ChangeMode)
                 ContentGrid.Refresh(CurrentChange.NewDataItem);
@@ -92,22 +95,6 @@ namespace MiaAppInterface
                 ContentGrid.RefreshComboBoxes();
         }
 
-        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext != null)
-            {
-                var Change = (DataItemsChange)DataContext;
-                if ((Change.Action == NotifyCollectionChangedAction.Remove) ||
-                ((Change.Action == NotifyCollectionChangedAction.Add) && (Change.NewDataItem.Id == 0)))
-                {
-                    ContentGrid.Refresh(Change.NewDataItem);
-                    EnableInsertMode();
-                }
-                if (!ContentGrid.ChangeMode)
-                    ContentGrid.Refresh(Change.NewDataItem);
-                else
-                    ContentGrid.RefreshComboBoxes();
-            }
-        }
+        
     }
 }

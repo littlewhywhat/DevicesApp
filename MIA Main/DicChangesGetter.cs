@@ -63,15 +63,18 @@ namespace MiaMain
         private void ProcessListOfObservers(string listName, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action != NotifyCollectionChangedAction.Reset)
-                foreach (var observer in ListsDic[listName])
+                ListsDic[listName].ForEach(observer =>
                 {
                     DataItemsChange Change = new DataItemsChange() { Action = e.Action };
                     if ((e.OldItems != null) && (e.OldItems.Count != 0))
                         Change.OldDataItem = ((KeyValuePair<int, DataItem>)e.OldItems[0]).Value;
                     if ((e.NewItems != null) && (e.NewItems.Count != 0))
+                    {
                         Change.NewDataItem = ((KeyValuePair<int, DataItem>)e.NewItems[0]).Value;
+                        Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
+                    }
                     PerformActionOnObserver(observer, () => observer.Update(Change));
-                };
+                });
         }
 
         private void PerformActionOnObserver(Observer observer, Action action)

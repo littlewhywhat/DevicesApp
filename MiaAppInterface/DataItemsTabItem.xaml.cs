@@ -32,8 +32,7 @@ namespace MiaAppInterface
             var tabControl = (TabControl)this.Parent;
             tabControl.Items.Remove(this);
             FactoriesVault.ChangesGetter.RemoveObserver(this);
-            ((FrameworkElement)Content).DisposeChildren();
-            
+            ((FrameworkElement)Content).DisposeChildren();           
         }
 
         public void Update(DataItemsChange Change)
@@ -43,12 +42,10 @@ namespace MiaAppInterface
                 if (((Change.NewDataItem != null) && (Change.NewDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)) ||
                     ((Change.OldDataItem != null) && (Change.OldDataItem.Id == ((DataItemsChange)DataContext).NewDataItem.Id)))
                 {
-                    if ((Change.Action == NotifyCollectionChangedAction.Replace))
-                        Replace(Change);
                     if ((Change.Action == NotifyCollectionChangedAction.Remove))
                         Remove(Change);
-                    Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
-                    DataContext = Change;
+                    else 
+                        DataContext = Change;
                     return;
                 }
                 this.RefreshDataContext(DataContext);
@@ -60,13 +57,17 @@ namespace MiaAppInterface
 
         public void Remove(DataItemsChange Change)
         {
-            Change.OldDataItem.Id = 0;
-            Change.NewDataItem = Change.OldDataItem;
-        }
+            var tabItem = (TabItemGrid)this.FindFirstChild<TabItemGrid>();
+            if (tabItem != null)
+            {
+                tabItem.Update.Focus();
+                var tabItemDataItem = (DataItem)((FrameworkElement)tabItem.ContentGrid).DataContext;
+                tabItemDataItem.Id = 0;
+                DataContext = new DataItemsChange() { 
+                    NewDataItem = tabItemDataItem, 
+                    Action = NotifyCollectionChangedAction.Add };
 
-        public void Replace(DataItemsChange Change)
-        {
-            Change.NewDataItem.Fill(Change.NewDataItem.Factory.OtherTableFields);
+            }
         }
 
         void IClose.Close(ControlManager manager)
