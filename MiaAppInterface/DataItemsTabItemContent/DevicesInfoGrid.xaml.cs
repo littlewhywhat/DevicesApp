@@ -38,5 +38,16 @@ namespace MiaAppInterface
             DevicesCompanyIdComboBox.RefreshDataContext(DataContext);
             DevicesParentComboBox.RefreshDataContext(DataContext);
         }
+
+        private void DevicesTypeIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DevicesTypeIdComboBox.IsEnabled)
+            {
+                var device = (Device)DevicesTypeIdComboBox.DataContext;
+                var selectedItem = ((DeviceType)DevicesTypeIdComboBox.SelectedItem);
+                if ((device != null) && (selectedItem != null))
+                    DevicesParentComboBox.RefreshDataContext(DataContext);
+            }
+        }
     }
 }

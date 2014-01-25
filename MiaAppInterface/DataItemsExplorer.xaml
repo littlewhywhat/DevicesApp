@@ -29,6 +29,9 @@
                 <ComboBoxItem Name="Companies">
                     <TextBlock Padding="1" FontSize="12" Text="Компании"></TextBlock>
                 </ComboBoxItem>
+                <ComboBoxItem Name="DeviceTypes">
+                    <TextBlock Padding="1" FontSize="12" Text="Типы изделий"></TextBlock>
+                </ComboBoxItem>
             </ComboBox>
             <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" Grid.Column="1" 
                           DataContext="{Binding}" KeyUp="SearchGrid_KeyUp"></y:SearchGrid>

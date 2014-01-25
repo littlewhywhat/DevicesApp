@@ -74,6 +74,9 @@
     <Compile Include="ComboBox\CompanyIdComboBox.xaml.cs">
       <DependentUpon>CompanyIdComboBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComboBox\TypeIdComboBox.xaml.cs">
+      <DependentUpon>TypeIdComboBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionStringBuilder.cs" />
     <Compile Include="ConnectionWindow.xaml.cs">
       <DependentUpon>ConnectionWindow.xaml</DependentUpon>
@@ -83,6 +86,7 @@
       <DependentUpon>ListBoxItemGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\Controller.cs" />
+    <Compile Include="DataItemController\DeviceTypesController.cs" />
     <Compile Include="DataItemController\EventsController.cs" />
     <Compile Include="DataItemsTabControl.xaml.cs">
       <DependentUpon>DataItemsTabControl.xaml</DependentUpon>
@@ -95,6 +99,9 @@
     </Compile>
     <Compile Include="DataItemsTabItemContent\DevicesGrid.xaml.cs">
       <DependentUpon>DevicesGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml.cs">
+      <DependentUpon>DeviceTypesInfoGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventsListBox.xaml.cs">
       <DependentUpon>EventsListBox.xaml</DependentUpon>
@@ -143,6 +150,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ComboBox\TypeIdComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConnectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -164,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataItemsTabItemContent\DevicesGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

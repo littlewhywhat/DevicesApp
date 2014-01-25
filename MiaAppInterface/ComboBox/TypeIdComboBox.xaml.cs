@@ -16,17 +16,17 @@ using MiaMain;
 namespace MiaAppInterface
 {
     /// <summary>
-    /// Логика взаимодействия для CompanyIdComboBox.xaml
+    /// Логика взаимодействия для TypeIdComboBox.xaml
     /// </summary>
-    public partial class CompanyIdComboBox : ComboBox, Observer, IDisposable
+    public partial class TypeIdComboBox : ComboBox, Observer, IDisposable
     {
-        CompaniesFactory Factory;
-        public CompanyIdComboBox()
+        DeviceTypesFactory Factory;
+        public TypeIdComboBox()
         {
             InitializeComponent();
             Items.Clear();
-            Factory = FactoriesVault.FactoriesDic[TableNames.Companies] as CompaniesFactory;
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.Companies });
+            Factory = FactoriesVault.FactoriesDic[TableNames.DeviceTypes] as DeviceTypesFactory;
+            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.DeviceTypes });
         }
 
         private void ComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -35,9 +35,9 @@ namespace MiaAppInterface
             {
                 var device = DataContext as Device;
                 ItemsSource = GetItems(device);
-                if (Factory.GetDataItemsDic().ContainsKey(device.CompanyId))
+                if (Factory.GetDataItemsDic().ContainsKey(device.TypeId))
                 {
-                    SelectedItem = Factory.GetDataItemsDic()[device.CompanyId];
+                    SelectedItem = Factory.GetDataItemsDic()[device.TypeId];
                 }
                 else
                     SelectedIndex = 0;
@@ -47,7 +47,7 @@ namespace MiaAppInterface
         {
             var items = Factory.GetDataItemsDic().Select(item => item.Value).ToList();
             var emptyItem = Factory.GetEmptyDataItem();
-            emptyItem.Name = "Без компании";
+            emptyItem.Name = "Тип неопределен";
             items.Insert(0, emptyItem);
             return items;
         }
@@ -57,9 +57,9 @@ namespace MiaAppInterface
             if (IsEnabled)
             {
                 var device = (Device)DataContext;
-                var selectedItem = ((Company)this.SelectedItem);
+                var selectedItem = ((DeviceType)this.SelectedItem);
                 if ((device != null) && (selectedItem != null))
-                    device.CompanyId = selectedItem.Id;
+                    device.TypeId = selectedItem.Id;
             }
         }
 

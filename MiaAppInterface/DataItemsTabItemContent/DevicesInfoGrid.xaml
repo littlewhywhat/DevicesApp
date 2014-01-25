@@ -6,7 +6,7 @@
              xmlns:y="clr-namespace:MiaAppInterface"
              xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{x:Null}" >
+             d:DesignHeight="350" d:DesignWidth="300" DataContext="{x:Null}" >
     <Grid.Resources>
         <Style TargetType="FrameworkElement" x:Key="Default">
             <Setter Property="Margin" Value="5"></Setter>
@@ -26,6 +26,8 @@
         <TextBox Name="DeviceIVUK" Text="{Binding Path=IVUK}"></TextBox>
         <TextBlock>Компания:</TextBlock>
         <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox"></y:CompanyIdComboBox>
+        <TextBlock>Тип изделия:</TextBlock>
+        <y:TypeIdComboBox   x:Name="DevicesTypeIdComboBox" SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
         <y:ParentComboBox Tag="{Binding ElementName=DeviceFullName, Path=DataContext}" x:Name="DevicesParentComboBox" ></y:ParentComboBox>
 

@@ -14,6 +14,8 @@ namespace MiaAppInterface
                 return new DevicesController();
             if (Name == TableNames.Companies)
                 return new CompaniesController();
+            if (Name == TableNames.DeviceTypes)
+                return new DeviceTypesController();
             return null;
             
         }
