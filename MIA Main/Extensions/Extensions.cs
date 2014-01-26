@@ -52,16 +52,7 @@ namespace MiaMain
             return dictionary;
         }
 
-        public static Dictionary<string, string> GetSearchPropertyValueDic(this DataItem dataItem)
-        {
-            var dictionary = new Dictionary<string, string>();
-            dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
-            {
-                if ((dataItem.Factory.SearchTableFields.Contains(dataItemProperty.Name)))
-                    dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(dataItem,null).ToString());
-            });
-            return dictionary;
-        }
+        
 
         public static void ChangeInDb(this DataItem dataItem)
         {

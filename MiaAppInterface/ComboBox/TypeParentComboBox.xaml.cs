@@ -49,16 +49,31 @@ namespace MiaAppInterface
             var deviceTypesDic = FactoriesVault.FactoriesDic[TableNames.DeviceTypes].GetDataItemsDic();
             var devicesDic = FactoriesVault.FactoriesDic[TableNames.Devices].GetDataItemsDic();
             var deviceType = deviceTypesDic[device.TypeId];
-            if (deviceType.ParentId == 0)
+            var parentType = GetParentType(deviceType);
+            if (parentType == null)
                 return new List<DataItem>();
             var parentListByParentTypeId = devicesDic.Values.Where(parentDevice =>
-                ((parentDevice.Id != device.Id) && ((Device)parentDevice).TypeId == deviceType.ParentId)).ToList();
+                ((parentDevice.Id != device.Id) && ((Device)parentDevice).TypeId == parentType.Id)).ToList();
             devicesDic.Values.ForEach(childDevice =>
                 {
                     if ((((Device)childDevice).TypeId == device.TypeId) && (childDevice.ParentId != 0) && (parentListByParentTypeId.Contains(devicesDic[childDevice.ParentId])))
                         parentListByParentTypeId.Remove(devicesDic[childDevice.ParentId]);
                 });
             return parentListByParentTypeId;
+        }
+
+        private DataItem GetParentType(DataItem dataItem)
+        {
+            if (dataItem.ParentId != 0)
+            {
+                var parentType = dataItem.Factory.GetDataItemsDic()[dataItem.ParentId];
+                if (((DeviceType)parentType).IsMarker)
+                    return GetParentType(parentType);
+                else
+                    return parentType;
+            }
+            else
+                return null;
         }
 
         private DataItem GetWithoutParentItem(DataItemsFactory factory)

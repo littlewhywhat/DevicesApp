@@ -9,7 +9,7 @@ namespace MiaMain
     {
         private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "IsMarker"};
         private List<string> otherTableFields = new List<String> { "Name"};
-        private List<string> searchTableFields = new List<String> { "Name" };
+        private List<string> searchTableFields = new List<String> { "Name", "Marker" };
 
         public override List<string> FirstTableFields { get { return firstTableFields; } }
         public override List<string> OtherTableFields { get { return otherTableFields; } }

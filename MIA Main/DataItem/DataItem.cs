@@ -21,5 +21,16 @@ namespace MiaMain
             return (IsTheSameType(dataItem) && Id == dataItem.Id);
         }
         public abstract bool IsTheSameType(DataItem dataItem);
+
+        public virtual Dictionary<string, string> GetSearchPropertyValueDic()
+        {
+            var dictionary = new Dictionary<string, string>();
+            GetType().GetProperties().ForEach(dataItemProperty =>
+            {
+                if ((Factory.SearchTableFields.Contains(dataItemProperty.Name)))
+                    dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(this, null).ToString());
+            });
+            return dictionary;
+        }
     }
 }

@@ -19,5 +19,16 @@ namespace MiaMain
         {
             return dataItem is Device;
         }
+
+        public override Dictionary<string, string> GetSearchPropertyValueDic()
+        {
+            var searchPropertyValueDic = base.GetSearchPropertyValueDic();
+            if (TypeId != 0)
+            {
+                var deviceType = FactoriesVault.FactoriesDic[TableNames.DeviceTypes].GetDataItemsDic()[TypeId];
+                deviceType.GetSearchPropertyValueDic().ForEach(keyValuePair => searchPropertyValueDic.Add("Type" + keyValuePair.Key, keyValuePair.Value));
+            }
+            return searchPropertyValueDic;
+        }
     }
 }
