@@ -6,7 +6,7 @@ namespace MiaMain
 {
     public class DevicesFactory : DataItemsFactory
     {
-        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "CompanyId", "FullName", "IVUK", "ProductNumber" };
+        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "CompanyId", "FullName", "IVUK", "ProductNumber", "TypeId" };
         private List<string> otherTableFields = new List<String> { "FullName" };
         private List<string> searchTableFields = new List<String> { "Name", "FullName", "IVUK", "ProductNumber" };
         

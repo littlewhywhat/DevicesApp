@@ -34,7 +34,7 @@ namespace MiaMain
             var dictionary = new Dictionary<string, string>();
             dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
                 {
-                    if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory"))
+                    if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory") && (dataItemProperty.Name != "Marker"))
                     {
                         var value = dataItemProperty.GetValue(dataItem, null);
                         string result = null;
@@ -91,10 +91,23 @@ namespace MiaMain
             var dataItemClone = dataItem.Factory.GetEmptyDataItem();
             dataItem.GetType().GetProperties().ForEach(propertyInfo =>
                 {
-                    if (propertyInfo.Name != "Factory")
+                    if ((propertyInfo.Name != "Factory") && (propertyInfo.Name != "Marker"))
                         dataItemClone.GetType().GetProperty(propertyInfo.Name).SetValue(dataItemClone, Convert.ChangeType(propertyInfo.GetValue(dataItem, null), propertyInfo.PropertyType),null);
                 });
             return dataItemClone;
+        }
+
+        public static string GetMarker(this DeviceType deviceType)
+        {
+            if (deviceType.ParentId != 0)
+            {
+                var parentType = (DeviceType)FactoriesVault.FactoriesDic[TableNames.DeviceTypes].GetDataItemsDic()[deviceType.ParentId];
+                if (parentType.IsMarker)
+                    return parentType.Name;
+                else
+                    return parentType.GetMarker();
+            }
+            return "Без маркера";
         }
     }
 

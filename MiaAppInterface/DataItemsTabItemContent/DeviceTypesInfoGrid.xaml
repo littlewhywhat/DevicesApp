@@ -6,7 +6,7 @@
              xmlns:y="clr-namespace:MiaAppInterface"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" DataContext="{x:Null}" >
-    <StackPanel Name="Main" DataContext="{Binding}" >
+    <StackPanel Name="Main" DataContext="{Binding}" DataContextChanged="Main_DataContextChanged">
         <StackPanel.Resources>
             <Style BasedOn="{StaticResource DefaultTextBox}"  TargetType="{x:Type TextBox}"></Style>
         </StackPanel.Resources>
@@ -14,5 +14,11 @@
         <TextBox Name="DeviceTypeName" Text="{Binding Path=Name}"></TextBox>
         <TextBlock>Родительский тип:</TextBlock>
         <y:ParentComboBox x:Name="DeviceTypesParentComboBox" ></y:ParentComboBox>
+        <Grid>
+            <TextBlock>Маркер:</TextBlock>
+            <CheckBox Name="IsMarker" HorizontalAlignment="Center" IsChecked="{Binding Path=IsMarker}"></CheckBox>
+        </Grid>
+        <TextBlock Name="PreviousMarker"></TextBlock>
+        
     </StackPanel>
 </y:DataItemsInfoGrid>

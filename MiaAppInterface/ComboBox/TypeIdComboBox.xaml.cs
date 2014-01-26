@@ -45,7 +45,7 @@ namespace MiaAppInterface
         }
         private List<DataItem> GetItems(DataItem dataItem)
         {
-            var items = Factory.GetDataItemsDic().Select(item => item.Value).ToList();
+            var items = Factory.GetDataItemsDic().Values.Where(deviceType => !((DeviceType)deviceType).IsMarker).ToList();
             var emptyItem = Factory.GetEmptyDataItem();
             emptyItem.Name = "Тип неопределен";
             items.Insert(0, emptyItem);

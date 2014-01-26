@@ -30,13 +30,13 @@ namespace MiaAppInterface
         public override void RefreshComboBoxes(object dataContext)
         {
             DevicesCompanyIdComboBox.RefreshDataContext(dataContext);
-            DevicesParentComboBox.RefreshDataContext(dataContext);
+            DevicesTypeParentComboBox.RefreshDataContext(dataContext);
         }
 
         public override void RefreshComboBoxes()
         {
             DevicesCompanyIdComboBox.RefreshDataContext(DataContext);
-            DevicesParentComboBox.RefreshDataContext(DataContext);
+            DevicesTypeParentComboBox.RefreshDataContext(DataContext);
         }
 
         private void DevicesTypeIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,7 +46,7 @@ namespace MiaAppInterface
                 var device = (Device)DevicesTypeIdComboBox.DataContext;
                 var selectedItem = ((DeviceType)DevicesTypeIdComboBox.SelectedItem);
                 if ((device != null) && (selectedItem != null))
-                    DevicesParentComboBox.RefreshDataContext(DataContext);
+                    DevicesTypeParentComboBox.RefreshDataContext(DataContext);
             }
         }
     }

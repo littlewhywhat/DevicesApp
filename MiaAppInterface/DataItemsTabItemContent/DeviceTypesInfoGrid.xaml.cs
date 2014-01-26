@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MiaMain;
 
 namespace MiaAppInterface
 {
@@ -32,6 +33,19 @@ namespace MiaAppInterface
         public override void RefreshComboBoxes()
         {
             DeviceTypesParentComboBox.RefreshDataContext(DataContext);
+        }
+
+        private void Main_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                var type = (DeviceType)DataContext;
+                if (type.Id == 0)
+                    IsMarker.IsEnabled = true;
+                else
+                    IsMarker.IsEnabled = false;
+                PreviousMarker.Text = ((DeviceType)DataContext).GetMarker();
+            }
         }
     }
 }

@@ -26,10 +26,14 @@
         <TextBox Name="DeviceIVUK" Text="{Binding Path=IVUK}"></TextBox>
         <TextBlock>Компания:</TextBlock>
         <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox"></y:CompanyIdComboBox>
-        <TextBlock>Тип изделия:</TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock>Тип изделия:</TextBlock>
+            <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=DevicesTypeIdComboBox, Path=SelectedValue.Marker}"></TextBlock>
+        </StackPanel>
+        
         <y:TypeIdComboBox   x:Name="DevicesTypeIdComboBox" SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
-        <y:ParentComboBox Tag="{Binding ElementName=DeviceFullName, Path=DataContext}" x:Name="DevicesParentComboBox" ></y:ParentComboBox>
+        <y:TypeParentComboBox x:Name="DevicesTypeParentComboBox" ></y:TypeParentComboBox>
 
     </StackPanel>
 </y:DataItemsInfoGrid>

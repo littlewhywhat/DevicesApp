@@ -9,6 +9,9 @@ namespace MiaMain
     {
         public DeviceType(DeviceTypesFactory Factory):base(Factory)
         { }
+        public string Marker { get { return this.GetMarker(); } }
+
+        public bool IsMarker { get; set; }
 
         public override bool IsTheSameType(DataItem dataItem)
         {

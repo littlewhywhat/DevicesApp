@@ -8,7 +8,11 @@
           DataContextChanged="ComboBox_DataContextChanged" SelectionChanged="ComboBox_SelectionChanged">
     <ComboBox.ItemTemplate>
         <DataTemplate>
-            <TextBlock Text="{Binding Path=Name, BindsDirectlyToSource=True}"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Path=Name, BindsDirectlyToSource=True}" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Margin="5,0,0,0" Text="{Binding Path=Marker, BindsDirectlyToSource=True}" HorizontalAlignment="Right"></TextBlock>
+            </StackPanel>
+            
         </DataTemplate>
 
     </ComboBox.ItemTemplate>

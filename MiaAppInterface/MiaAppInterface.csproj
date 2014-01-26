@@ -77,6 +77,9 @@
     <Compile Include="ComboBox\TypeIdComboBox.xaml.cs">
       <DependentUpon>TypeIdComboBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComboBox\TypeParentComboBox.xaml.cs">
+      <DependentUpon>TypeParentComboBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionStringBuilder.cs" />
     <Compile Include="ConnectionWindow.xaml.cs">
       <DependentUpon>ConnectionWindow.xaml</DependentUpon>
@@ -84,6 +87,9 @@
     <Compile Include="ControlManager\ControlManager.cs" />
     <Compile Include="ControlManager\ListBoxItemGrid.xaml.cs">
       <DependentUpon>ListBoxItemGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ControlManager\TypeTabItemGrid.xaml.cs">
+      <DependentUpon>TypeTabItemGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemController\Controller.cs" />
     <Compile Include="DataItemController\DeviceTypesController.cs" />
@@ -154,11 +160,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ComboBox\TypeParentComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConnectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlManager\ListBoxItemGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ControlManager\TypeTabItemGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
