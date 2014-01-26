@@ -19,6 +19,8 @@ namespace MiaMain
         {
             return dataItem is Device;
         }
+        
+        
 
         public override Dictionary<string, string> GetSearchPropertyValueDic()
         {

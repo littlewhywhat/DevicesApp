@@ -13,6 +13,7 @@ namespace MiaMain
 
         public bool IsMarker { get; set; }
 
+        
         public override bool IsTheSameType(DataItem dataItem)
         {
             return dataItem is DeviceType;

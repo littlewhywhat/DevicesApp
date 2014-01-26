@@ -49,7 +49,7 @@ namespace MiaAppInterface
             var tabItem = DataItemsTabControl.GetTabItemByDataContext(dataItem);
             if (tabItem == null)
             {
-                tabItem = ((DataItemsController)DataContext).GetTabItem(dataItem);
+                tabItem = Controller.GetController(dataItem.Factory.TableName).GetTabItem(dataItem);
                 DataItemsTabControl.Items.Add(tabItem);
             }
             tabItem.IsSelected = true;
