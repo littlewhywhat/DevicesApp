@@ -9,34 +9,29 @@ namespace InterfaceToClient
 {
     public class DeviceControllersFactory : DataItemControllersFactory
     {
-        public DeviceControllersFactory(DevicesFactory factory) : base(factory)
+        public DeviceControllersFactory()
         { }
-
-        private DevicesDictionary DevicesDic { get { return (DevicesDictionary)DataItemsDic; } }
 
         public override DataItemController GetController(DataItem dataItem)
         {
             return new DeviceController(dataItem, this);
         }
 
-        public List<DataItem> GetDevicesWithCompanyId(int CompanyId)
-        {
-            return DevicesDic.GetDevicesWithCompanyId(CompanyId);                
-        }
-
-        public List<DataItem> GetDevicesWithTypeId(int TypeId)
-        {
-            return DevicesDic.GetDevicesWithTypeId(TypeId);
-        }
-
-        protected override DataItemsDictionary GetDataItemsDictionary(DataItemsFactory factory)
-        {
-            return new DevicesDictionary((DevicesFactory)factory);
-        }
-
         protected override Grid GetTabItemContent()
         {
             return new DevicesGrid();
+        }
+
+        protected override DataItemsFactory GetFactory()
+        {
+            return new DevicesFactory();
+        }
+
+        public override DataItemsTabItem GetTabItem(DataItemController dataItemController)
+        {
+            var tabItem = base.GetTabItem(dataItemController);
+            FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { TableNames.DeviceTypes });
+            return tabItem;
         }
     }
 }

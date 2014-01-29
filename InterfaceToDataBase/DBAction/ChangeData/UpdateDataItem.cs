@@ -11,7 +11,7 @@ namespace InterfaceToDataBase
     {
         public UpdateDataItem(DataItem dataItem)
             : base(dataItem, ActionType.UPDATE)
-        { }
+        {}
 
         protected override string GetMainCommandText()
         {

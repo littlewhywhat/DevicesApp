@@ -12,7 +12,7 @@
     </Grid.ColumnDefinitions>
     <y:TabItemGrid x:Name="ManagerGrid" DataContext="{Binding}">
         <y:TabItemGrid.ContentGrid>
-            <y:DevicesInfoGrid></y:DevicesInfoGrid>
+            <y:DevicesInfoGrid DataContext="{Binding}"></y:DevicesInfoGrid>
         </y:TabItemGrid.ContentGrid>
     </y:TabItemGrid>
     <Grid Grid.Column="1">

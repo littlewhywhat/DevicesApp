@@ -94,6 +94,7 @@
     <Compile Include="ControlManager\TypeTabItemGrid.xaml.cs">
       <DependentUpon>TypeTabItemGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataContextControl.cs" />
     <Compile Include="DataItemControllerChangedEventArgs.cs" />
     <Compile Include="DataItemControllerFactory\CompanyControllersFactory.cs" />
     <Compile Include="DataItemControllerFactory\DeviceControllersFactory.cs" />
@@ -125,10 +126,16 @@
     <Compile Include="DataItemsTabItemContent\DevicesGrid.xaml.cs">
       <DependentUpon>DevicesGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataItemsTabItemContent\DeviceTypesInfoGridShort.xaml.cs">
+      <DependentUpon>DeviceTypesInfoGridShort.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml.cs">
       <DependentUpon>DeviceTypesInfoGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DicChangesGetter.cs" />
+    <Compile Include="EnableTextBox.xaml.cs">
+      <DependentUpon>EnableTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EventsListBox.xaml.cs">
       <DependentUpon>EventsListBox.xaml</DependentUpon>
     </Compile>
@@ -216,7 +223,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DataItemsTabItemContent\DeviceTypesInfoGridShort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnableTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

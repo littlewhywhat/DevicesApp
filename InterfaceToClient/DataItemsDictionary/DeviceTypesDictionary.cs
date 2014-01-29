@@ -6,9 +6,20 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class DeviceTypesDictionary : DataItemsDictionary
+    public class DeviceTypesDictionary : DataItemControllersDictionary
     {
-        public DeviceTypesDictionary(DeviceTypesFactory factory) : base(factory)
+        public DeviceTypesDictionary()
         { }
+
+
+        protected override DataItemControllersFactory GetFactory()
+        {
+            return new DeviceTypeControllersFactory();
+        }
+
+        public IEnumerable<DataItemController> GetTypesWithoutMarker()
+        {
+            return DataItemControllersDic.Values.Where(dataItemController => !((DeviceTypeController)dataItemController).IsMarker);
+        }
     }
 }

@@ -10,6 +10,6 @@ namespace InterfaceToClient
         public DataItemController NewController { get; set; }
         public DataItemController OldController { get; set; }
         public NotifyCollectionChangedAction Action { get; set; }
-
+        public string TableName { get; set; }
     }
 }

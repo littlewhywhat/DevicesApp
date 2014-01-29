@@ -9,7 +9,7 @@ namespace InterfaceToClient
 {
     public class DeviceTypeControllersFactory : DataItemControllersFactory
     {
-        public DeviceTypeControllersFactory(DeviceTypesFactory factory) : base(factory)
+        public DeviceTypeControllersFactory()
         { }
 
         public override DataItemController GetController(DataItem dataItem)
@@ -17,16 +17,16 @@ namespace InterfaceToClient
             return new DeviceTypeController((DeviceType)dataItem, this);
         }
 
-        protected override DataItemsDictionary GetDataItemsDictionary(DataItemsFactory factory)
-        {
-            return new DeviceTypesDictionary((DeviceTypesFactory)factory);
-        }
-
         protected override Grid GetTabItemContent()
         {
             var dataGrid = new TabItemGrid();
             dataGrid.ContentGrid = new DeviceTypesInfoGrid();
             return dataGrid;
+        }
+
+        protected override DataItemsFactory GetFactory()
+        {
+            return new DeviceTypesFactory();
         }
     }
 }

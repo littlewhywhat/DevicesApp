@@ -25,17 +25,17 @@ namespace InterfaceToClient
                 LogRowList.ForEach(change =>
                 {
                     
-                    var controllerFactory = FactoriesVault.Dic[change.TableName];
+                    var controllerDic = FactoriesVault.Dic[change.TableName];
                     switch (change.ActionType)
                     {
                         case "INSERT":
-                            controllerFactory.DataItemsDic.AddDataItem(change.ItemId);
+                            controllerDic.AddDataItem(change.ItemId);
                             break;
                         case "DELETE":
-                            controllerFactory.DataItemsDic.RemoveDataItem(change.ItemId);
+                            controllerDic.RemoveDataItem(change.ItemId);
                             break;
                         case "UPDATE":
-                            controllerFactory.DataItemsDic.UpdateDataItem(change.ItemId);
+                            controllerDic.UpdateDataItem(change.ItemId);
                             break;
                     }
                 });

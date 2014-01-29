@@ -29,16 +29,16 @@ namespace InterfaceToClient
         {
             if (DataContext != null)
             {
-                var dataItem = (Device)DataContext;
-                var parentsList = new List<DataItem>() { GetWithoutParentItem(dataItem.Factory) };
-                parentsList.AddRange(dataItem.TypeId != 0 ? GetParentsByType(dataItem) : GetParents(dataItem));
-                DataItem currentParrent = dataItem.ParentId != 0 ?
-                    dataItem.Factory.DataItemsDic[dataItem.ParentId] : parentsList[0];
-                ItemsSource = parentsList;
-                if (parentsList.Contains(currentParrent))
-                    SelectedItem = currentParrent;
-                else
-                    SelectedIndex = 0;
+                //var dataItem = (Device)DataContext;
+                //var parentsList = new List<DataItem>() { GetWithoutParentItem(dataItem.Factory) };
+                //parentsList.AddRange(dataItem.TypeId != 0 ? GetParentsByType(dataItem) : GetParents(dataItem));
+                //DataItem currentParrent = dataItem.ParentId != 0 ?
+                //    dataItem.Factory.DataItemsDic[dataItem.ParentId] : parentsList[0];
+                //ItemsSource = parentsList;
+                //if (parentsList.Contains(currentParrent))
+                //    SelectedItem = currentParrent;
+                //else
+                //    SelectedIndex = 0;
             }
         }
 
@@ -63,15 +63,15 @@ namespace InterfaceToClient
 
         private DataItem GetParentType(DataItem dataItem)
         {
-            if (dataItem.ParentId != 0)
-            {
-                var parentType = dataItem.Factory.DataItemsDic[dataItem.ParentId];
-                if (((DeviceType)parentType).IsMarker)
-                    return GetParentType(parentType);
-                else
-                    return parentType;
-            }
-            else
+            //if (dataItem.ParentId != 0)
+            //{
+            //    var parentType = dataItem.Factory.DataItemsDic[dataItem.ParentId];
+            //    if (((DeviceType)parentType).IsMarker)
+            //        return GetParentType(parentType);
+            //    else
+            //        return parentType;
+            //}
+            //else
                 return null;
         }
 
@@ -84,11 +84,12 @@ namespace InterfaceToClient
 
         private List<DataItem> GetParents(DataItem dataItem)
         {
-            var DataItemEnumerable = dataItem.Factory.DataItemsDic.Values.
-                Where(item => item.Id != dataItem.Id).ToList();
-            if (dataItem.Id == 0)
-                return DataItemEnumerable;
-            return FilterPossibleRecursion(DataItemEnumerable, dataItem.Id);
+            //var DataItemEnumerable = dataItem.Factory.DataItemsDic.Values.
+            //    Where(item => item.Id != dataItem.Id).ToList();
+            //if (dataItem.Id == 0)
+            //    return DataItemEnumerable;
+            //return FilterPossibleRecursion(DataItemEnumerable, dataItem.Id);
+            return null;
         }
         
         private List<DataItem> FilterPossibleRecursion(List<DataItem> list, int id)

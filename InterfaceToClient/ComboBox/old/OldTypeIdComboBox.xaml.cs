@@ -33,23 +33,24 @@ namespace InterfaceToClient
         {
             if (DataContext != null)
             {
-                var device = DataContext as Device;
-                ItemsSource = GetItems(device);
-                if (Factory.DataItemsDic.ContainsKey(device.TypeId))
-                {
-                    SelectedItem = Factory.DataItemsDic[device.TypeId];
-                }
-                else
-                    SelectedIndex = 0;
+                //var device = DataContext as Device;
+                //ItemsSource = GetItems(device);
+                //if (Factory.DataItemsDic.ContainsKey(device.TypeId))
+                //{
+                //    SelectedItem = Factory.DataItemsDic[device.TypeId];
+                //}
+                //else
+                //    SelectedIndex = 0;
             }
         }
         private List<DataItem> GetItems(DataItem dataItem)
         {
-            var items = Factory.DataItemsDic.Values.Where(deviceType => !((DeviceType)deviceType).IsMarker).ToList();
-            var emptyItem = Factory.GetEmptyDataItem();
-            emptyItem.Name = "Тип неопределен";
-            items.Insert(0, emptyItem);
-            return items;
+            //var items = Factory.DataItemsDic.Values.Where(deviceType => !((DeviceType)deviceType).IsMarker).ToList();
+            //var emptyItem = Factory.GetEmptyDataItem();
+            //emptyItem.Name = "Тип неопределен";
+            //items.Insert(0, emptyItem);
+            //return items;
+            return null;
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

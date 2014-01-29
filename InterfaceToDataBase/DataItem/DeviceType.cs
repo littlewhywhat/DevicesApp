@@ -11,6 +11,8 @@ namespace InterfaceToDataBase
         { }
 
         public bool IsMarker { get; set; }
+        public string FullName { get; set; }
+        public string IVUK { get; set; }
 
         public override bool IsTheSameType(DataItem dataItem)
         {

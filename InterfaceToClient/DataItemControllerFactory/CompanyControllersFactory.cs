@@ -9,7 +9,7 @@ namespace InterfaceToClient
 {
     public class CompanyControllersFactory : DataItemControllersFactory
     {
-        public CompanyControllersFactory(CompaniesFactory factory) : base(factory)
+        public CompanyControllersFactory()
         { }
 
         public override DataItemController GetController(DataItem dataItem)
@@ -17,16 +17,16 @@ namespace InterfaceToClient
             return new CompanyController((Company)dataItem, this);
         }
 
-        protected override DataItemsDictionary GetDataItemsDictionary(DataItemsFactory factory)
-        {
-            return new CompaniesDictionary((CompaniesFactory)factory);
-        }
-
         protected override Grid GetTabItemContent()
         {
             var dataGrid = new TabItemGrid();
             dataGrid.ContentGrid = new CompaniesInfoGrid();
             return dataGrid;
+        }
+
+        protected override DataItemsFactory GetFactory()
+        {
+            return new CompaniesFactory();
         }
 
     }

@@ -35,14 +35,23 @@ namespace InterfaceToClient
                 if (Items.SourceCollection.Cast<DataItemController>().Contains(CurrentController))
                     SelectedItem = CurrentController;
                 else
-                    SelectedItem = 0;
+                    SelectedIndex = 0;
             }
+            else
+                ItemsSource = null;
         }
 
         protected abstract DataItemController GetCurrentSelection();
-        protected abstract IEnumerable<DataItemController> GetControllers();
+        protected abstract IEnumerable<DataItemController> GetControllersWithoutEmpty();
+        protected abstract DataItemController GetEmptyController();
         protected abstract void ChangeCurrentDataContextBySelectedItem();
 
+        private List<DataItemController> GetControllers()
+        {
+            var result = GetControllersWithoutEmpty().ToList();
+            result.Insert(0, GetEmptyController());
+            return result;
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ChangeMode)
@@ -56,6 +65,6 @@ namespace InterfaceToClient
         protected DataItemController CurrentDataContext { get { return DataContext as DataItemController; } }
         protected DataItemController CurrentSelectedItem { get { return SelectedItem as DataItemController; } }
         protected bool IsCurrentDataContextNull { get { return CurrentDataContext == null; } }
-        protected bool IsCurrentSelectedItemNull { get { return CurrentDataContext == null; } }
+        protected bool IsCurrentSelectedItemNull { get { return CurrentSelectedItem == null; } }
     }
 }

@@ -12,6 +12,53 @@ namespace InterfaceToClient
 {
     public abstract class ControlManager : Grid
     {
+#region
+        //public static readonly DependencyProperty DataItemControllerContextProperty = DependencyProperty.Register("DataItemControllerContext", typeof(DataItemController),
+        //                        typeof(ControlManager),
+        //                        new FrameworkPropertyMetadata(null,
+        //                                FrameworkPropertyMetadataOptions.Inherits,
+        //                                new PropertyChangedCallback(OnDataItemControllerContextChanged)));
+
+        //internal static readonly EventPrivateKey DataItemControllerContextChangedKey = new EventPrivateKey();
+
+
+        //public event DependencyPropertyChangedEventHandler DataItemControllerContextChanged
+        //{
+        //    add { EventHandlersStoreAdd(DataItemControllerContextChangedKey, value); }
+        //    remove { EventHandlersStoreRemove(DataItemControllerContextChangedKey, value); }
+        //}
+
+        ///// 
+
+        /////     DataContext Property
+        ///// 
+
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        //[Localizability(LocalizationCategory.NeverLocalize)]
+        //public object DataItemControllerContext
+        //{
+        //    get { return GetValue(DataItemControllerContextProperty); }
+        //    set { SetValue(DataItemControllerContextProperty, value); }
+        //}
+
+        //private static void OnDataItemControllerContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    ((ControlManager)d).RaiseDependencyPropertyChanged(DataContextChangedKey, e);
+        //}
+        //private void RaiseDependencyPropertyChanged(EventPrivateKey key, DependencyPropertyChangedEventArgs args)
+        //{
+        //    var store = EventHandlersStore;
+        //    if (store != null)
+        //    {
+        //        Delegate handler = store.Get(key);
+        //        if (handler != null)
+        //        {
+        //            ((DependencyPropertyChangedEventHandler)handler)(this, args);
+        //        }
+        //    }
+        //}
+#endregion
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public DataItemsInfoGrid ContentGrid 
         { 
@@ -20,13 +67,13 @@ namespace InterfaceToClient
         }
         public abstract IClose Closer { get; set; }
         protected abstract Grid SocketGrid { get; }
-        protected abstract DataItemControllerChangedEventArgs CurrentChange { get; }
+        public abstract DataItemController CurrentDataItemController { get; }
         protected abstract Button UpdateButton { get; }
         protected abstract Button DeleteButton { get; }
         protected abstract Button ChangeButton { get; }
         protected abstract Button CancelButton { get; }
 
-        public DataItemController CurrentDataItemController { get { return CurrentChange.NewController; } }
+        //public DataItemController CurrentDataItemController { get { return CurrentChange.NewController; } }
 
         private void Close()
         {
@@ -37,33 +84,33 @@ namespace InterfaceToClient
 
         protected void DeleteClick(RoutedEventArgs e)
         {
-            CurrentDataItemController.Delete();
+            var dataItemController = CurrentDataItemController;
             Close();
+            dataItemController.Delete();
             e.Handled = true;
         }
 
         protected void UpdateClick()
         {
             SwitchChangeMode(false);
-            ContentGrid.CurrentDataItem.ChangeInDb();
+            CurrentDataItemController.ChangeInDb();
         }
 
         protected void ChangeClick()
         {
-            var dataItemControllerNew = CurrentDataItemController.Clone();
+            CurrentDataItemController.ChangeMode = true;
             SwitchChangeMode(true);
-            ContentGrid.Refresh(dataItemControllerNew);
+            //ContentGrid.Refresh(dataItemControllerNew);
         }
 
         protected void CancelClick()
         {
             SwitchChangeMode(false);
-            ContentGrid.Refresh(CurrentDataItemController);
+            CurrentDataItemController.ChangeMode = false;
         }
 
         public virtual void SwitchChangeMode(bool position)
         {
-            ContentGrid.ChangeMode = position;
             UpdateButton.IsEnabled = position;
             DeleteButton.IsEnabled = position;
             ChangeButton.IsEnabled = !position;
@@ -80,17 +127,17 @@ namespace InterfaceToClient
 
         protected void PossessChangeOfCurrentChange()
         {
-            if ((CurrentChange.Action == NotifyCollectionChangedAction.Remove) ||
-            ((CurrentChange.Action == NotifyCollectionChangedAction.Add) && (CurrentChange.NewController.InsertMode)))
-            {
+            //if ((CurrentChange.Action == NotifyCollectionChangedAction.Remove) ||
+            //((CurrentChange.Action == NotifyCollectionChangedAction.Add) && (CurrentChange.NewController.InsertMode)))
+            //{
 
-                    ContentGrid.Refresh(CurrentChange.NewController);
-                    EnableInsertMode(); 
-            }
-            if (!ContentGrid.ChangeMode)
-                ContentGrid.Refresh(CurrentChange.NewController);
-            else
-                ContentGrid.RefreshComboBoxes();
+            //        ContentGrid.Refresh(CurrentChange.NewController);
+            //        EnableInsertMode(); 
+            //}
+            //if (!ContentGrid.ChangeMode)
+            //    ContentGrid.Refresh(CurrentChange.NewController);
+            //else
+            //    ContentGrid.RefreshComboBoxes();
         }
 
         

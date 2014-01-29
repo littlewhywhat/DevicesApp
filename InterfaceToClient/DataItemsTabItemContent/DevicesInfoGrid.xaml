@@ -6,32 +6,28 @@
              xmlns:y="clr-namespace:InterfaceToClient"
              xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="300" DataContext="{x:Null}" >
+             d:DesignHeight="383.8" d:DesignWidth="301.6"  DataContext="{Binding}" DataContextChanged="DataItemsInfoGrid_DataContextChanged">
     <Grid.Resources>
         <Style TargetType="FrameworkElement" x:Key="Default">
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </Grid.Resources>
     <StackPanel Style="{StaticResource Default}" >
-
-        <TextBlock>Короткое название изделия</TextBlock>
-        <TextBox Name="DeviceName" Text="{Binding Path=Name}"></TextBox>
-        <TextBlock >Полное название изделия:</TextBlock>
-        <TextBox Name="DeviceFullName" Text="{Binding Path=FullName}"></TextBox>
+        <y:DeviceTypesInfoGridShort DataContext="{Binding Path=Element.Type}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
+        
         <TextBlock>Заводской номер:</TextBlock>
-        <TextBox Name="DeviceProductNumber" Text="{Binding Path=ProductNumber}"></TextBox>
-        <TextBlock>ИВУК:</TextBlock>
-        <TextBox Name="DeviceIVUK" Text="{Binding Path=IVUK}"></TextBox>
+        <y:EnableTextBox x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Element.Name}"></y:EnableTextBox>
+        
         <TextBlock>Компания:</TextBlock>
-        <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox"></y:CompanyIdComboBox>
+        <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox" DataContext="{Binding Path=Element}"></y:CompanyIdComboBox>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Тип изделия:</TextBlock>
             <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=DevicesTypeIdComboBox, Path=SelectedValue.Marker}"></TextBlock>
         </StackPanel>
-        
-        <y:TypeIdComboBox   x:Name="DevicesTypeIdComboBox" SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"></y:TypeIdComboBox>
+
+        <y:TypeIdComboBox x:Name="DevicesTypeIdComboBox" DataContext="{Binding Path=Element}" SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
-        <y:ParentComboBox x:Name="DevicesTypeParentComboBox" ></y:ParentComboBox>
+        <y:ParentComboBox x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" DataContext="{Binding Path=Element}" ></y:ParentComboBox>
 
     </StackPanel>
 </y:DataItemsInfoGrid>

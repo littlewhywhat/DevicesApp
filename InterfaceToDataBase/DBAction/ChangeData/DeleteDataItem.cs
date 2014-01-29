@@ -10,7 +10,7 @@ namespace InterfaceToDataBase
 {
     public class DeleteDataItem : ChangeData
     {
-        internal DeleteDataItem(DataItem dataitem): base(dataitem, ActionType.DELETE)
+        public DeleteDataItem(DataItem dataitem): base(dataitem, ActionType.DELETE)
         { }
 
         protected override string GetMainCommandText()

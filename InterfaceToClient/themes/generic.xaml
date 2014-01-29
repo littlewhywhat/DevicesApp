@@ -308,7 +308,7 @@
 
     <ResourceDictionary.MergedDictionaries >
         <ResourceDictionary   >
-            <LinearGradientBrush x:Key="DefaultBorder" EndPoint="0,2" StartPoint="0,0">
+            <LinearGradientBrush x:Key="dDefaultBorder" EndPoint="0,2" StartPoint="0,0">
                 <GradientStop Color="#FFABADB3" Offset="0.05"/>
                 <GradientStop Color="#FFE2E3EA" Offset="0.07"/>
                 <GradientStop Color="#FFE3E9EF" Offset="1"/>

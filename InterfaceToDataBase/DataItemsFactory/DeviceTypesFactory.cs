@@ -7,7 +7,7 @@ namespace InterfaceToDataBase
 {
     public class DeviceTypesFactory : DataItemsFactory
     {
-        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "IsMarker"};
+        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "IsMarker", "FullName", "IVUK"};
         private List<string> otherTableFields = new List<String> { "Name"};
         private List<string> searchTableFields = new List<String> { "Name", "Marker" };
 
@@ -21,7 +21,11 @@ namespace InterfaceToDataBase
             return new DeviceType(this);
         }
 
-
-
+        public override DataItem GetDataItemDefault()
+        {
+            var dataItem = (DeviceType)GetEmptyDataItem();
+            dataItem.Name = "Новый тип";
+            return dataItem;
+        }
     }
 }

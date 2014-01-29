@@ -33,7 +33,7 @@ namespace InterfaceToClient
         }
         private void Insert_Click(object sender, MouseButtonEventArgs e)
         {
-            var tabItem = ((DataItemControllersFactory)DataContext).GetInsertTabItem();
+            var tabItem = ((DataItemControllersDictionary)DataContext).Factory.GetInsertTabItem();
             Items.Add(tabItem);
             tabItem.IsSelected = true;
         }
@@ -44,15 +44,15 @@ namespace InterfaceToClient
             {
                 if (item is DataItemsTabItem)
                 {
-                    DataItemControllerChangedEventArgs dataContext = null;
+                    DataContextControl<DataItemController> dataContext = null;
                     if (item.Dispatcher.CheckAccess())
-                        dataContext = (DataItemControllerChangedEventArgs)item.DataContext;
+                        dataContext = (DataContextControl<DataItemController>)item.DataContext;
                     else
                     {
-                        item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataItemControllerChangedEventArgs)item.DataContext));
+                        item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataContextControl<DataItemController>)item.DataContext));
                         while (dataContext == null) ;
                     }
-                    if (dataContext.NewController.Equals(dataItemController))
+                    if (dataContext.Element == dataItemController)
                         return item;
                 }
             }

@@ -10,89 +10,42 @@ namespace InterfaceToClient
 {
     public abstract class DataItemControllersFactory
     {
-        EventHandler<DataItemControllerChangedEventArgs> CollectionChanged;
-        public DataItemsDictionary DataItemsDic;
-        public DataItemControllersFactory(DataItemsFactory factory)
+        protected DataItemsFactory Factory;
+        public DataItemControllersFactory()
         {
-            DataItemsDic = GetDataItemsDictionary(factory);
-            DataItemsDic.SetCollectionChangedHandler(DataItemsDic_CollectionChanged);
+            Factory = GetFactory();
         }
-        protected abstract DataItemsDictionary GetDataItemsDictionary(DataItemsFactory factory);
-
-
-        public string TableName { get { return DataItemsDic.TableName; } }
-
-        private void DataItemsDic_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected abstract DataItemsFactory GetFactory();
+        public void FillDataItemControllersDic(DataItemControllersDictionary dataItemsDic)
         {
-            if (e.Action != NotifyCollectionChangedAction.Reset)
-                if (CollectionChanged != null)
-                {
-                    DataItemControllerChangedEventArgs Change = new DataItemControllerChangedEventArgs() { Action = e.Action };
-                    if ((e.OldItems != null) && (e.OldItems.Count != 0))
-                        Change.OldController = GetController(((KeyValuePair<int, DataItem>)e.OldItems[0]).Value);
-                    if ((e.NewItems != null) && (e.NewItems.Count != 0))
-                        Change.NewController = GetController(((KeyValuePair<int, DataItem>)e.NewItems[0]).Value);
-                    CollectionChanged.GetInvocationList().ToList().ForEach(handler =>
-                        ((EventHandler<DataItemControllerChangedEventArgs>)handler).Invoke(this, Change));
-                }
+            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(Factory, dataItemsDic));
         }
-        public void SetCollectionChangedHandler(EventHandler<DataItemControllerChangedEventArgs> handler)
-        {
-            CollectionChanged += handler;
-        }
-        
-        public DataItemController GetDataItemController(int Id)
-        {
-            var dataItem = DataItemsDic.GetDataItemById(Id);
-            if (dataItem != null)
-                return GetController(dataItem);
-            else
-                return null;
-        }
-
-        private IEnumerable<DataItemController> PackInControllers( IEnumerable<DataItem> dataItems)
-        {
-            return dataItems.Select(dataItem => GetController(dataItem));
-        }
-
+        public string TableName { get { return Factory.TableName; } }
         public abstract DataItemController GetController(DataItem dataItem);
-        
-        public DataItemController GetEmptyController()
+        public DataItemController GetController(int id)
         {
-            return GetController(DataItemsDic.GetEmptyDataItem());
+            return GetController(Factory.GetFirstFilledDataItem(id));
         }
-
-        internal virtual IEnumerable<DataItemController> GetPossibleParents(DataItemController dataItemController)
+        public DataItemController GetControllerEmpty()
         {
-            return null;
+            return GetController(Factory.GetEmptyDataItem());
         }
-
-        internal virtual List<DataItemController> GetChildren(DataItemController dataItemController)
+        public DataItemController GetControllerDefault()
         {
-            return PackInControllers(DataItemsDic.GetChildrenByParentId(dataItemController.Id)).ToList();
-        }
-
-        public IEnumerable<SearchResult> Search(List<string> searchList)
-        {
-            return DataItemsDic.GetValues().Select(dataItem => GetController(dataItem))
-                .Select(dataItemController => new SearchResult(dataItemController.Search(searchList), dataItemController));
-        }
-
-        internal virtual DataItemsTabItem GetTabItem(DataItemController dataItemController)
-        {
-            return GetTabItemByDataItem(dataItemController);
+            return GetController(Factory.GetDataItemDefault());
         }
 
         protected abstract Grid GetTabItemContent();
 
-        private DataItemsTabItem GetTabItemByDataItem(DataItemController dataItemController)
+        public virtual DataItemsTabItem GetTabItem(DataItemController dataItemController)
         {
-            var tabItem = new DataItemsTabItem() { DataContext = new DataItemControllerChangedEventArgs() { NewController = dataItemController }, Content = GetTabItemContent() };
+            var dataContext = new DataContextControl<DataItemController>();
+            dataContext.SetElement(dataItemController);
+
+            var tabItem = new DataItemsTabItem() { DataContext =  dataContext , Content = GetTabItemContent() };
             FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { TableName });
             return tabItem;
         }
-
-
 
         public DataItemsTabItem GetInsertTabItem()
         {
@@ -101,8 +54,11 @@ namespace InterfaceToClient
             //managerGrid.DataContext = new DataItemsChange() { NewDataItem = dataItem };
 
             //managerGrid.EnableInsertMode();
-            return GetTabItemByDataItem(GetEmptyController());
+            return GetTabItem(GetControllerDefault());
         }
-               
+
+        
+
+
     }
 }

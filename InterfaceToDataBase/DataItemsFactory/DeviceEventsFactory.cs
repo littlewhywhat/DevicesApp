@@ -21,5 +21,13 @@ namespace InterfaceToDataBase
         {
             return new DeviceEvent(this);
         }
+
+        public override DataItem GetDataItemDefault()
+        {
+            var dataItem = (DeviceEvent)GetEmptyDataItem();
+            dataItem.Name = "Новое событие";
+            dataItem.Date = DateTime.Now;
+            return dataItem;
+        }
     }
 }

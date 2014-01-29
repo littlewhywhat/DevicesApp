@@ -32,7 +32,7 @@ namespace InterfaceToClient
                 Items.Filter = item => ((DataItemController)((Control)item).Tag).Search(searchCriteria.ToLower().Split(new char[] {' '}).ToList()) != null;
             else
                 Items.Filter = null;
-                ItemsSource = FactoriesVault.Dic.Values.Where(factory => factory.TableName != TableNames.DeviceEvents).SelectMany(factory => factory.Search(searchList)).Where(tuple => tuple.Result != null).Select(tuple =>
+                ItemsSource = FactoriesVault.Dic.Values.Where(dictionary => dictionary.Factory.TableName != TableNames.DeviceEvents).SelectMany(factory => factory.Search(searchList)).Where(tuple => tuple.Result != null).Select(tuple =>
                     new ListBoxItem() { Content = tuple.Reference.Name, Tag = tuple.Reference, DataContext = tuple.Result });
             //factory.DataItemsDic.ForEach(item =>
             //{

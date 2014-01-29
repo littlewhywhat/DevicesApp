@@ -19,7 +19,12 @@ namespace InterfaceToDataBase
         {
             return new Company(this);
         }
-        
 
+        public override DataItem GetDataItemDefault()
+        {
+            var dataItem = (Company)GetEmptyDataItem();
+            dataItem.Name = "Новая компания";
+            return dataItem;
+        }
     }
 }

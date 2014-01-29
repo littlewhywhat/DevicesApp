@@ -12,8 +12,8 @@ namespace InterfaceToDataBase
     public class FillDataDic : GetData
     {
         protected DataItemsFactory Factory { get; set; }
-        protected ObservableDictionary<int, DataItem> DataItemsDic { get; set; }
-        public FillDataDic(DataItemsFactory factory, ObservableDictionary<int, DataItem> dataItemsDic)
+        protected IDataItemDic DataItemsDic { get; set; }
+        public FillDataDic(DataItemsFactory factory, IDataItemDic dataItemsDic)
         {
             Factory = factory;
             DataItemsDic = dataItemsDic;
@@ -29,7 +29,7 @@ namespace InterfaceToDataBase
         protected override void Fill(DbDataReader reader, DataItem dataItem)
         {
             base.Fill(reader, dataItem);
-            DataItemsDic.Add(dataItem.Id, dataItem);
+            DataItemsDic.AddDataItem(dataItem);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace InterfaceToClient
         
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            DataItemsTree.BuildTree((DataItemControllersFactory)DataContext);
+            DataItemsTree.BuildTree((DataItemControllersDictionary)DataContext);
         }
 
         private void DataItemsTreeView_DoubleClick (object sender, MouseButtonEventArgs e)
@@ -49,7 +49,7 @@ namespace InterfaceToClient
             var tabItem = DataItemsTabControl.GetTabItemByDataContext(dataItemController);
             if (tabItem == null)
             {
-                tabItem = dataItemController.Factory.GetTabItem(dataItemController);
+                tabItem = dataItemController.GetTabItem();
                 DataItemsTabControl.Items.Add(tabItem);
             }
             tabItem.IsSelected = true;

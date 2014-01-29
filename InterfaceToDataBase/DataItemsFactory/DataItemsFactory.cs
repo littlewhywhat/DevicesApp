@@ -13,10 +13,8 @@ namespace InterfaceToDataBase
         public abstract List<String> SearchTableFields { get; }
         public abstract string TableName { get; }
         public abstract DataItem GetEmptyDataItem();
-        private ObservableDictionary<int, DataItem> dataItemsDic = new ObservableDictionary<int, DataItem>();
-        public ObservableDictionary<int, DataItem> DataItemsDic { get { return dataItemsDic; } }
-
-        public DataItem GetFilledDataItem(int Id)
+        public abstract DataItem GetDataItemDefault();
+        public DataItem GetFirstFilledDataItem(int Id)
         {
             var dataItem = GetEmptyDataItem();
             dataItem.Id = Id;
@@ -24,9 +22,5 @@ namespace InterfaceToDataBase
             return dataItem;
         }
 
-        public void FillDataItemsDic(ObservableDictionary<int, DataItem> DataItemsDic)
-        {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(this, DataItemsDic));
-        }
     }
 }

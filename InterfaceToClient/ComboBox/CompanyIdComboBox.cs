@@ -16,15 +16,22 @@ namespace InterfaceToClient
             return DeviceControllerDataContext.Company;
         }
 
-        protected override IEnumerable<DataItemController> GetControllers()
+        protected override IEnumerable<DataItemController> GetControllersWithoutEmpty()
         {
             return DeviceControllerDataContext.GetCompanies();
         }
 
         protected override void ChangeCurrentDataContextBySelectedItem()
         {
-            DeviceControllerDataContext.Company = CurrentSelectedItem;
+            DeviceControllerDataContext.Company = (CompanyController)CurrentSelectedItem;
         }
 
+
+        protected override DataItemController GetEmptyController()
+        {
+            var controller = FactoriesVault.Dic[TableNames.Companies].Factory.GetControllerEmpty();
+            controller.Name = "Без компании";
+            return controller;
+        }
     }
 }

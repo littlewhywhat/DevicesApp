@@ -11,19 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
     /// <summary>
-    /// Логика взаимодействия для CompaniesTabItemContent.xaml
+    /// Логика взаимодействия для DeviceTypesComboBoxes.xaml
     /// </summary>
-    public partial class CompaniesInfoGrid : DataItemsInfoGrid
+    public partial class DeviceTypesInfoGridShort : StackPanel
     {
-        public CompaniesInfoGrid()
+        public DeviceTypesInfoGridShort()
         {
-            InitializeComponent();   
+            InitializeComponent();
         }
-
     }
 }

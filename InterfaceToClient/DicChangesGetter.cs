@@ -14,19 +14,18 @@ namespace InterfaceToClient
         Dictionary<string, List<Observer>> ListsDic = new Dictionary<string, List<Observer>>();
         public DicChangesGetter()
         {
-            FactoriesVault.Dic[TableNames.Devices].SetCollectionChangedHandler(DevicesDicCollectionChanged);
+            FactoriesVault.Dic[TableNames.Devices].DataItemControllersDic.CollectionChanged += DevicesDicCollectionChanged;
             ListsDic.Add(TableNames.Devices, new List<Observer>());
-            FactoriesVault.Dic[TableNames.DeviceTypes].SetCollectionChangedHandler(DeviceTypesDicCollectionChanged);
+            FactoriesVault.Dic[TableNames.DeviceTypes].DataItemControllersDic.CollectionChanged += DeviceTypesDicCollectionChanged;
             ListsDic.Add(TableNames.DeviceTypes, new List<Observer>());
-            FactoriesVault.Dic[TableNames.DeviceEvents].SetCollectionChangedHandler(DeviceEventsDicCollectionChanged);
+            FactoriesVault.Dic[TableNames.DeviceEvents].DataItemControllersDic.CollectionChanged += DeviceEventsDicCollectionChanged;
             ListsDic.Add(TableNames.DeviceEvents, new List<Observer>());
-            FactoriesVault.Dic[TableNames.Companies].SetCollectionChangedHandler(CompaniesDicCollectionChanged);
+            FactoriesVault.Dic[TableNames.Companies].DataItemControllersDic.CollectionChanged += CompaniesDicCollectionChanged;
             ListsDic.Add(TableNames.Companies, new List<Observer>());
         }
 
         public void AddObserver(Observer observer, IEnumerable<string> listOfDics)
         {
-            
             listOfDics.ForEach(dicName => ListsDic[dicName].Add(observer));
         }
 
@@ -40,24 +39,34 @@ namespace InterfaceToClient
             });   
         }
 
-        private void DevicesDicCollectionChanged(object sender, DataItemControllerChangedEventArgs e)
+        private void DevicesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers(TableNames.Devices, e);
+            ProcessListOfObservers(TableNames.Devices, InterpretChangedEventArgs(e, TableNames.Devices));
         }
 
-        private void CompaniesDicCollectionChanged(object sender, DataItemControllerChangedEventArgs e)
+        private void CompaniesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers(TableNames.Companies, e);
+            ProcessListOfObservers(TableNames.Companies, InterpretChangedEventArgs(e, TableNames.Companies));
         }
 
-        private void DeviceEventsDicCollectionChanged(object sender, DataItemControllerChangedEventArgs e)
+        private void DeviceEventsDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers(TableNames.DeviceEvents, e);
+            ProcessListOfObservers(TableNames.DeviceEvents, InterpretChangedEventArgs(e, TableNames.DeviceEvents));
         }
 
-        private void DeviceTypesDicCollectionChanged(object sender, DataItemControllerChangedEventArgs e)
+        private void DeviceTypesDicCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ProcessListOfObservers(TableNames.DeviceTypes, e);
+            ProcessListOfObservers(TableNames.DeviceTypes, InterpretChangedEventArgs(e, TableNames.DeviceTypes));
+        }
+
+        private DataItemControllerChangedEventArgs InterpretChangedEventArgs(NotifyCollectionChangedEventArgs e, string TableName)
+        {
+            var Change = new DataItemControllerChangedEventArgs() { Action = e.Action, TableName = TableName };
+            if ((e.OldItems != null) && (e.OldItems.Count != 0))
+                Change.OldController = ((KeyValuePair<int, DataItemController>)e.OldItems[0]).Value;
+            if ((e.NewItems != null) && (e.NewItems.Count != 0))
+                Change.NewController = ((KeyValuePair<int, DataItemController>)e.NewItems[0]).Value;
+            return Change;
         }
 
         private void ProcessListOfObservers(string listName, DataItemControllerChangedEventArgs e)

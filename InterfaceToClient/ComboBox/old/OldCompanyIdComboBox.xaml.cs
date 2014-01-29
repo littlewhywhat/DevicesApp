@@ -32,25 +32,26 @@ namespace InterfaceToClient
 
         private void ComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (DataContext != null)
-            {
-                var device = DataContext as Device;
-                ItemsSource = GetItems(device);
-                if (Factory.DataItemsDic.ContainsKey(device.CompanyId))
-                {
-                    SelectedItem = Factory.DataItemsDic[device.CompanyId];
-                }
-                else
-                    SelectedIndex = 0;
-            }
+            //if (DataContext != null)
+            //{
+            //    var device = DataContext as Device;
+            //    ItemsSource = GetItems(device);
+            //    if (Factory.DataItemsDic.ContainsKey(device.CompanyId))
+            //    {
+            //        SelectedItem = Factory.DataItemsDic[device.CompanyId];
+            //    }
+            //    else
+            //        SelectedIndex = 0;
+            //}
         }
         private List<DataItem> GetItems(DataItem dataItem)
         {
-            var items = Factory.DataItemsDic.Select(item => item.Value).ToList();
-            var emptyItem = Factory.GetEmptyDataItem();
-            emptyItem.Name = "Без компании";
-            items.Insert(0, emptyItem);
-            return items;
+            //var items = Factory.DataItemsDic.Select(item => item.Value).ToList();
+            //var emptyItem = Factory.GetEmptyDataItem();
+            //emptyItem.Name = "Без компании";
+            //items.Insert(0, emptyItem);
+            //return items;
+            return null;
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -7,20 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="35" d:DesignWidth="300" DataContextChanged="ComboBox_DataContextChanged" 
           SelectionChanged="ComboBox_SelectionChanged">
+    <ComboBox.ItemTemplate>
+        <DataTemplate>
+            <TextBlock Text="{Binding Path=Name, BindsDirectlyToSource=True}"></TextBlock>
+        </DataTemplate>
+
+    </ComboBox.ItemTemplate>
     <ComboBox.Template>
         <ControlTemplate TargetType="ComboBox">
             <Grid>
-                <TextBox Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem.Name }" Padding="0" >
-                    <TextBox.Style>
-                        <Style TargetType="TextBox"  >
-
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
+                <y:EnableTextBox Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem.Name }" Padding="0" ></y:EnableTextBox>
                 <ComboBox  TextSearch.TextPath="Name" 
                           Margin="5" x:Name="comboBox" ItemTemplate="{TemplateBinding ComboBox.ItemTemplate}" IsEditable="True" ItemsSource="{TemplateBinding ComboBox.ItemsSource}"  SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}">
-
-
                 </ComboBox>
             </Grid>
             <ControlTemplate.Triggers>

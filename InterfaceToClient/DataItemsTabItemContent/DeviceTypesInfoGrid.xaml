@@ -5,20 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{x:Null}" >
+             d:DesignHeight="300" d:DesignWidth="300"  >
     <StackPanel Name="Main" DataContext="{Binding}" DataContextChanged="Main_DataContextChanged">
-        <StackPanel.Resources>
-            <Style BasedOn="{StaticResource DefaultTextBox}"  TargetType="{x:Type TextBox}"></Style>
-        </StackPanel.Resources>
-        <TextBlock>Название типа:</TextBlock>
-        <TextBox Name="DeviceTypeName" Text="{Binding Path=Name}"></TextBox>
+        <y:DeviceTypesInfoGridShort DataContext="{Binding}"></y:DeviceTypesInfoGridShort>
         <TextBlock>Родительский тип:</TextBlock>
-        <y:OldParentComboBox x:Name="DeviceTypesParentComboBox" ></y:OldParentComboBox>
+        <y:ParentComboBox x:Name="DeviceTypesParentComboBox" ></y:ParentComboBox>
         <Grid>
-            <TextBlock>Маркер:</TextBlock>
-            <CheckBox Name="IsMarker" HorizontalAlignment="Center" IsChecked="{Binding Path=IsMarker}"></CheckBox>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="13*"/>
+                <ColumnDefinition Width="12*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2">Маркер:</TextBlock>
+            <CheckBox Name="IsMarker" HorizontalAlignment="Center" IsChecked="{Binding Path=IsMarker}" Grid.ColumnSpan="2" Margin="143.6,0"></CheckBox>
         </Grid>
         <TextBlock Name="PreviousMarker"></TextBlock>
-        
+
     </StackPanel>
 </y:DataItemsInfoGrid>

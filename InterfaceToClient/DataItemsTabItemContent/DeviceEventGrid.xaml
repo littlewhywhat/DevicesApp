@@ -10,7 +10,7 @@
     <StackPanel  DataContext="{Binding}" >
 
         <TextBlock>Название события:</TextBlock>
-        <TextBox Margin="5" Name="EventName" Text="{Binding Path=Name}"></TextBox>
+        <y:EnableTextBox Margin="5" x:Name="EventName" Text="{Binding Path=Name}"></y:EnableTextBox>
         <TextBlock>Тип события:</TextBlock>
         <ComboBox  x:Name="FilterComboBox" Margin="5"  Width="100" SelectedValuePath="Content" SelectedValue="{Binding Path=Type}" Background="White" >
             <ComboBoxItem>Работа</ComboBoxItem>

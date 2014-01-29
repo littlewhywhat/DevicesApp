@@ -27,18 +27,6 @@ namespace InterfaceToClient
         }
 
 
-        public override void RefreshComboBoxes(object dataContext)
-        {
-            DevicesCompanyIdComboBox.RefreshDataContext(dataContext);
-            DevicesTypeParentComboBox.RefreshDataContext(dataContext);
-        }
-
-        public override void RefreshComboBoxes()
-        {
-            DevicesCompanyIdComboBox.RefreshDataContext(DataContext);
-            DevicesTypeParentComboBox.RefreshDataContext(DataContext);
-        }
-
         private void DevicesTypeIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DevicesTypeIdComboBox.IsEnabled)
@@ -46,8 +34,23 @@ namespace InterfaceToClient
                 var deviceController = (DeviceController)DevicesTypeIdComboBox.DataContext;
                 var selectedItem = ((DeviceTypeController)DevicesTypeIdComboBox.SelectedItem);
                 if ((deviceController != null) && (selectedItem != null))
-                    DevicesTypeParentComboBox.RefreshDataContext(DataContext);
+                    ((DeviceController)DevicesTypeParentComboBox.DataContext).Refresh();
             }
+        }
+
+        private void DevicesTypeParentComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void DataItemsInfoGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void DeviceProductNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

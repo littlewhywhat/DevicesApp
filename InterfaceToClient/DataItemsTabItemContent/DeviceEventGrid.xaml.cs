@@ -26,14 +26,5 @@ namespace InterfaceToClient
             
         }
 
-        public override void RefreshComboBoxes(object DataContext)
-        {
-            
-        }
-
-        public override void RefreshComboBoxes()
-        {
-
-        }
     }
 }

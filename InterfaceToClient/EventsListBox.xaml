@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:y="clr-namespace:InterfaceToClient" 
              mc:Ignorable="d" 
-             d:DesignHeight="400" IsEnabled="{Binding Path=InsertMode}" d:DesignWidth="300" IsEnabledChanged="Events_IsEnabledChanged" DataContext="{Binding Mode=OneTime}">
+             d:DesignHeight="400"  d:DesignWidth="300" IsEnabled="False" IsEnabledChanged="Events_IsEnabledChanged" DataContextChanged="Grid_DataContextChanged" DataContext="{Binding Mode=OneTime}">
+    
     <Grid.RowDefinitions>
         <RowDefinition Height="35"></RowDefinition>
         <RowDefinition Height="4*"></RowDefinition> 

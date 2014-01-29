@@ -6,9 +6,14 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class CompaniesDictionary : DataItemsDictionary
+    public class CompaniesDictionary : DataItemControllersDictionary
     {
-        public CompaniesDictionary(CompaniesFactory factory) : base(factory)
+        public CompaniesDictionary()
         { }
+
+        protected override DataItemControllersFactory GetFactory()
+        {
+            return new CompanyControllersFactory();
+        }
     }
 }

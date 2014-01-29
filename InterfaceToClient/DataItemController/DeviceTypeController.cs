@@ -10,19 +10,77 @@ namespace InterfaceToClient
     {
         public DeviceTypeController(DeviceType dataItem, DeviceTypeControllersFactory factory) : base(dataItem, factory)
         { }
+        protected override DataItemControllersDictionary GetDictionary()
+        {
+            return FactoriesVault.Dic[Factory.TableName];
+        }
+        public DataItemController ParentWithoutMarker
+                {
+                    get
+                    {
+                        if (HasParents)
+                        {
+                            var parent = (DeviceTypeController)Parent;
+                            if (parent.IsMarker)
+                                return parent.Parent;
+                            return parent;
+                        }
+                        return Parent;
+                    }
+                }
 
         public DeviceType DeviceType { get { return (DeviceType)DataItem; } }
-        public DeviceType DeviceTypeParent { get { return (DeviceType)DataItemParent; } }
-        public DeviceTypeController DeviceTypeParentController { get { return (DeviceTypeController)Parent; } }
+
+        const string _FullName = "FullName";
+        const string _IVUK = "IVUK";
+        const string _IsMarker = "IsMarker";
+        protected override void OnPropertyChanged()
+        {
+            base.OnPropertyChanged();
+            OnPropertyChanged(_FullName);
+            OnPropertyChanged(_IsMarker);
+            OnPropertyChanged(_IVUK);
+        }
+
+        public string FullName
+        {
+            get { return DeviceType.FullName; }
+            set
+            {
+                DeviceType.FullName = value;
+                OnPropertyChanged();
+            }
+        }
+        public string IVUK
+        {
+            get { return DeviceType.IVUK; }
+            set
+            {
+                DeviceType.IVUK = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsMarker
+        {
+            get { return DeviceType.IsMarker; }
+            set
+            {
+                DeviceType.IsMarker = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool HasParentsWithoutMarker { get { return Parent != null; } }
+
+
+        public DeviceTypeController DeviceTypeParentController { get { return HasParents? (DeviceTypeController)Parent : null; } }
         public string Marker { get { return GetMarker(); } }
-        public bool IsMarker { get { return DeviceType.IsMarker; } }
+        
         private string GetMarker()
         {
             if (HasParents)
             {
-                var parentType = Factory.GetDataItemController(DataItem.ParentId);
                 if (DeviceTypeParentController.IsMarker)
-                    return DeviceTypeParent.Name;
+                    return DeviceTypeParentController.Name;
                 else
                     return DeviceTypeParentController.GetMarker();
             }
@@ -32,11 +90,8 @@ namespace InterfaceToClient
         protected override List<TransactionData> GetDeleteReferencesActions()
         {
             var actions = base.GetDeleteReferencesActions();
-            actions.AddRange(((DeviceControllersFactory)FactoriesVault.Dic[TableNames.Devices]).GetDevicesWithTypeId(DeviceType.Id).Select(device =>
-            {
-                ((Device)device).TypeId = 0;
-                return (TransactionData)new UpdateDataItem(device);
-            }));
+            actions.AddRange(((DevicesDictionary)FactoriesVault.Dic[TableNames.Devices]).GetDevicesWithTypeId(DeviceType.Id)
+                .Select(deviceController => (TransactionData)((DeviceController)deviceController).DeleteTypeTransaction()));
             return actions;
         }
 
@@ -44,5 +99,6 @@ namespace InterfaceToClient
         {
             return controller is DeviceTypeController;
         }
+
     }
 }

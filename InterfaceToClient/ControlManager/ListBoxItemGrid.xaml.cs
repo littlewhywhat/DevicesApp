@@ -30,7 +30,7 @@ namespace InterfaceToClient
 
         protected override Grid SocketGrid { get { return socketGrid; } }
 
-        protected override DataItemControllerChangedEventArgs CurrentChange { get { return (DataItemControllerChangedEventArgs)DataContext; } }
+        public override DataItemController CurrentDataItemController { get { return (DataItemController)DataContext; } }
 
         protected override Button UpdateButton { get { return Update; } }
 
@@ -67,7 +67,10 @@ namespace InterfaceToClient
         private void ListBoxItemGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext != null)
-                PossessChangeOfCurrentChange();
+            {
+                if (CurrentDataItemController.InsertMode)
+                    EnableInsertMode();
+            }
         }
     }
 }

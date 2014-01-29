@@ -30,12 +30,11 @@ namespace InterfaceToClient
             InitializeComponent();
             ListBox.Items.Clear();
             FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.DeviceEvents });
-            
             FilterComboBox.SelectedIndex = 0;
-
         }
         //private bool DeviceControllerIsSet { get { return DeviceControllerDataContext != null;  } }
-        public DeviceController DeviceControllerDataContext { get { return (DeviceController)DataContext; } }
+        public DeviceController DeviceControllerDataContext 
+            { get { return (DeviceController)((DataContextControl<DataItemController>)DataContext).Element; } }
         IEnumerable ItemsSource { get { return ListBox.ItemsSource; } set { ListBox.ItemsSource = value; } }
         ItemCollection Items { get { return ListBox.Items; }  }
 
@@ -52,7 +51,7 @@ namespace InterfaceToClient
                 {
                     Closer = this,
                     ContentGrid = new DeviceEventGrid(),
-                    DataContext = new DataItemControllerChangedEventArgs() { Action = NotifyCollectionChangedAction.Add, NewController = item }
+                    DataContext = item 
                 };
         }
 
@@ -69,7 +68,7 @@ namespace InterfaceToClient
                             item = GetRelatedListBoxItem(Change.NewController);
                             if (item != null)
                             {
-                                item.DataContext = Change;
+                                item.DataContext = Change.NewController;
                                 Items.Filter = Items.Filter;
                             }
                             break;
@@ -79,7 +78,7 @@ namespace InterfaceToClient
                             {
                                 Change.OldController.GetInInsertMode();
                                 Change.NewController = Change.OldController;
-                                item.DataContext = Change;
+                                item.DataContext = Change.NewController;
                                 Items.Filter = Items.Filter;
                             }
                             break;
@@ -87,7 +86,7 @@ namespace InterfaceToClient
                             item = GetRelatedListBoxItem(Change.NewController);
                             if (item != null)
                             {
-                                item.DataContext = Change;
+                                item.DataContext = Change.NewController;
                                 Items.Filter = Items.Filter;
                             }
                             else
@@ -119,7 +118,7 @@ namespace InterfaceToClient
         }
         private bool IsRelatedByDeviceId(DeviceEventController deviceEventController)
         {
-            return deviceEventController.Device == DeviceControllerDataContext.Id;
+            return deviceEventController.Device.Id == DeviceControllerDataContext.Id;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -138,7 +137,7 @@ namespace InterfaceToClient
 
         private void Insert_Click(object sender, RoutedEventArgs e)
         {
-            var deviceEvent = (DeviceEventController)FactoriesVault.Dic[TableNames.DeviceEvents].GetEmptyController();
+            var deviceEvent = DeviceControllerDataContext.GetNewEventController();
             var selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
             if (selectedFilter != "Все события")
                 deviceEvent.Type = selectedFilter;
@@ -156,7 +155,18 @@ namespace InterfaceToClient
             if (IsEnabled)
                 GetItems();
             else
-                Items.Clear();
+                EventsCollection.Clear();
+        }
+
+        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                if (DeviceControllerDataContext.InsertMode == IsEnabled)
+                {
+                    IsEnabled = !DeviceControllerDataContext.InsertMode;
+                }
+            }
         }
     }
 }

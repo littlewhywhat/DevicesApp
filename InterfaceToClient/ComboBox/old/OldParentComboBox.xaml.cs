@@ -32,14 +32,14 @@ namespace InterfaceToClient
         {
             if (DataContext != null)
             {
-                var dataItem = DataContext as DataItem;
-                ItemsSource = GetItems(dataItem);
-                if (dataItem.Factory.DataItemsDic.ContainsKey(dataItem.ParentId))
-                {
-                    SelectedItem = dataItem.Factory.DataItemsDic[dataItem.ParentId];
-                }
-                else
-                    SelectedIndex = 0;
+                //var dataItem = DataContext as DataItem;
+                //ItemsSource = GetItems(dataItem);
+                //if (dataItem.Factory.DataItemsDic.ContainsKey(dataItem.ParentId))
+                //{
+                //    SelectedItem = dataItem.Factory.DataItemsDic[dataItem.ParentId];
+                //}
+                //else
+                //    SelectedIndex = 0;
             }
         }
         private List<DataItem> GetItems(DataItem dataItem)
@@ -53,11 +53,12 @@ namespace InterfaceToClient
 
         private List<DataItem> GetFilteredParentList(DataItem dataItem)
         {
-            var DataItemEnumerable = dataItem.Factory.DataItemsDic.Select(item => item.Value).
-                Where(item => item.Id != dataItem.Id).ToList();
-            if (dataItem.Id == 0)
-                return DataItemEnumerable;
-            return Filter(DataItemEnumerable, dataItem.Id);
+            //var DataItemEnumerable = dataItem.Factory.DataItemsDic.Select(item => item.Value).
+            //    Where(item => item.Id != dataItem.Id).ToList();
+            //if (dataItem.Id == 0)
+            //    return DataItemEnumerable;
+            //return Filter(DataItemEnumerable, dataItem.Id);
+            return null;
         }
         
         private List<DataItem> Filter(List<DataItem> list, int id)

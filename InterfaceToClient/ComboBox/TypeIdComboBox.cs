@@ -16,15 +16,21 @@ namespace InterfaceToClient
             return DeviceControllerDataContext.Type;
         }
 
-        protected override IEnumerable<DataItemController> GetControllers()
+        protected override IEnumerable<DataItemController> GetControllersWithoutEmpty()
         {
             return DeviceControllerDataContext.GetTypes();
         }
 
         protected override void ChangeCurrentDataContextBySelectedItem()
         {
-            DeviceControllerDataContext.Type = (DeviceController)CurrentSelectedItem;
+            DeviceControllerDataContext.Type = (DeviceTypeController)CurrentSelectedItem;
         }
 
+        protected override DataItemController GetEmptyController()
+        {
+            var controller = FactoriesVault.Dic[TableNames.DeviceTypes].Factory.GetControllerEmpty();
+            controller.Name = "Тип не определен";
+            return controller;
+        }
     }
 }

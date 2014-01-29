@@ -13,18 +13,18 @@ namespace InterfaceToClient
     /// </summary>
     public partial class DataItemsTreeView : TreeView, Observer
     {
-        private DataItemControllersFactory Factory;
+        private DataItemControllersDictionary Dictionary;
         public DataItemsTreeView()
         {
             InitializeComponent();
         }
-        public void BuildTree(DataItemControllersFactory factory)
+        public void BuildTree(DataItemControllersDictionary dictionary)
         {
             Items.Clear();
             Dispose();
-            Factory = factory;
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { Factory.TableName });
-            Factory.GetChildren(Factory.GetEmptyController()).ForEach(dataItemController =>
+            Dictionary = dictionary;
+            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { Dictionary.Factory.TableName });
+            Dictionary.GetDevicesWithoutParents().ForEach(dataItemController =>
                 {
                     AddTreeViewItemByDataItemController(dataItemController);
                 });
@@ -32,12 +32,12 @@ namespace InterfaceToClient
 
         public List<DataItemsTreeViewItem> GetNodesFromDicWithParentId(DataItemController dataItemController)
         {
-            return Factory.GetChildren(dataItemController).Select(controller => new DataItemsTreeViewItem() { DataContext = controller }).ToList();
+            return Dictionary.GetChildrenByParentId(dataItemController.Id).Select(controller => new DataItemsTreeViewItem() { DataContext = controller }).ToList();
         }
 
         private DataItemsTreeViewItem AddTreeViewItemByDataItemController(DataItemController dataItemController)
         {
-            var treeViewItemParent = FindTreeViewItemById(dataItemController.Parent.Id);
+            var treeViewItemParent = FindTreeViewItemById(dataItemController.HasParents? dataItemController.Parent.Id : 0);
             if ((treeViewItemParent != null) && ((treeViewItemParent is TreeView) || ((treeViewItemParent.Parent is TreeView) 
                 || (((TreeViewItem)treeViewItemParent.Parent).IsExpanded))))
             {
@@ -107,15 +107,14 @@ namespace InterfaceToClient
         public void Remove(DataItemController dataItemController)
         {
             RemoveTreeViewItem(FindTreeViewItemById(dataItemController.Id));
-            Factory.DataItemsDic.GetChildrenByParentId(0).Where(dataItem => FindTreeViewItemById(dataItem.Id) == null)
-                .Select(dataItem => Factory.GetController(dataItem)).ToList().ForEach(controller =>
-                    AddTreeViewItemByDataItemController(controller));
+            Dictionary.GetDevicesWithoutParents().Where(controller => FindTreeViewItemById(controller.Id) == null)
+                .ToList().ForEach(controller => AddTreeViewItemByDataItemController(controller));
         }
 
         public void Replace(DataItemController dataItemControllerNew, DataItemController dataItemControllerOld)
         {
             var treeViewItem = FindTreeViewItemById(dataItemControllerOld.Id);
-            if (dataItemControllerNew.Parent.Id != dataItemControllerOld.Parent.Id)
+            if (dataItemControllerNew.Parent != dataItemControllerOld.Parent)
             {
                 RemoveTreeViewItem(treeViewItem);
                 treeViewItem = AddTreeViewItemByDataItemController(dataItemControllerNew);

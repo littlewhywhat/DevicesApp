@@ -26,15 +26,6 @@ namespace InterfaceToClient
             InitializeComponent();
         }
 
-        public override void RefreshComboBoxes(object dataContext)
-        {
-            DeviceTypesParentComboBox.RefreshDataContext(dataContext);
-        }
-
-        public override void RefreshComboBoxes()
-        {
-            DeviceTypesParentComboBox.RefreshDataContext(DataContext);
-        }
 
         private void Main_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

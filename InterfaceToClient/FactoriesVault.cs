@@ -8,14 +8,14 @@ namespace InterfaceToClient
 {
     public static class FactoriesVault
     {
-        public static Dictionary<string, DataItemControllersFactory> Dic = new Dictionary<string, DataItemControllersFactory>();
+        public static Dictionary<string, DataItemControllersDictionary> Dic = new Dictionary<string, DataItemControllersDictionary>();
         public static DicChangesGetter ChangesGetter;
         private static void InitFactoriesVault()
         {
-            Dic.Add(TableNames.Devices, new DeviceControllersFactory(new DevicesFactory()));
-            Dic.Add(TableNames.DeviceTypes, new DeviceTypeControllersFactory(new DeviceTypesFactory()));
-            Dic.Add(TableNames.DeviceEvents, new DeviceEventControllersFactory(new DeviceEventsFactory()));
-            Dic.Add(TableNames.Companies, new CompanyControllersFactory(new CompaniesFactory()));
+            Dic.Add(TableNames.Devices, new DevicesDictionary());
+            Dic.Add(TableNames.DeviceTypes, new DeviceTypesDictionary());
+            Dic.Add(TableNames.DeviceEvents, new DeviceEventsDictionary());
+            Dic.Add(TableNames.Companies, new CompaniesDictionary());
             ChangesGetter = new DicChangesGetter();
         }
         public static void FillFactories()

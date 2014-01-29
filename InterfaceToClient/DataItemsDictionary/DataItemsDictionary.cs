@@ -8,59 +8,74 @@ using System.Collections.Specialized;
 
 namespace InterfaceToClient
 {
-    public abstract class DataItemsDictionary
+    public abstract class DataItemControllersDictionary : IDataItemDic
     {
-        protected ObservableDictionary<int, DataItem> DataItemsDic = new ObservableDictionary<int, DataItem>();
-        protected DataItemsFactory Factory;
-        public DataItemsDictionary(DataItemsFactory factory)
+        public DataItemControllersFactory Factory;
+        public ObservableDictionary<int, DataItemController> DataItemControllersDic = new ObservableDictionary<int, DataItemController>();
+        public DataItemControllersDictionary()
         {
-            Factory = factory;
-            Factory.FillDataItemsDic(DataItemsDic);
+            Factory = GetFactory();
+            Factory.FillDataItemControllersDic(this);
+        }
+        protected abstract DataItemControllersFactory GetFactory();
+        public void AddDataItem(DataItem dataItem)
+        {
+ 	        DataItemControllersDic.Add(dataItem.Id, Factory.GetController(dataItem));
+        }
+        public void AddDataItem(int id)
+        {
+            DataItemControllersDic.Add(id, Factory.GetController(id));
+        }
+        public void UpdateDataItem(int id)
+        {
+            DataItemControllersDic[id] = Factory.GetController(id);
+        }
+        public void RemoveDataItem(int id)
+        {
+            DataItemControllersDic.Remove(id);
+        }
+        public DataItemController GetDataItemControllerById(int Id)
+        {
+            return DataItemControllersDic.ContainsKey(Id) ? DataItemControllersDic[Id] : null;
         }
 
-        public void SetCollectionChangedHandler(NotifyCollectionChangedEventHandler handler)
+        public virtual List<DataItemController> GetPossibleParents(DataItemController dataItemController)
         {
-            DataItemsDic.CollectionChanged += handler;
+            var result = DataItemControllersDic.Values.Where(controller => controller.Id != dataItemController.Id).ToList();
+            if (!dataItemController.HasParents)
+                return result;
+            return FilterPossibleRecursion(result, dataItemController.Id);
         }
 
-        public void AddDataItem(int Id)
+        private List<DataItemController> FilterPossibleRecursion(List<DataItemController> parentsList, int id)
         {
-            var dataItem = Factory.GetFilledDataItem(Id);
-            DataItemsDic.Add(dataItem.Id, dataItem);
-        }
-        public void RemoveDataItem(int Id)
-        {
-            DataItemsDic.Remove(Id);
-        }
-        public void UpdateDataItem(int Id)
-        {
-            var dataItem = Factory.GetFilledDataItem(Id);
-            DataItemsDic[Id] = dataItem;
-        }
-
-        internal DataItem GetDataItemById(int Id)
-        {
-            return DataItemsDic.ContainsKey(Id) ? DataItemsDic[Id] : null;
+            for (int i = 0; i < parentsList.Count; i++)
+            {
+                var item = parentsList[i];
+                if (item.HasTheSameParentId(id))
+                {
+                    FilterPossibleRecursion(parentsList, item.Id);
+                    i = parentsList.IndexOf(item) - 1;
+                    parentsList.Remove(item);
+                }
+            }
+            return parentsList;
         }
 
-        public IEnumerable<DataItem> GetChildrenByParentId(int Id)
+        public IEnumerable<DataItemController> GetDevicesWithoutParents()
         {
-            return DataItemsDic.Values.Where(dataItem => dataItem.ParentId == Id);
-        }
-        public IEnumerable<DataItem> GetValues()
-        {
-            return DataItemsDic.Values;
+            return GetChildrenByParentId(0);
         }
 
-        public string TableName
+        public IEnumerable<DataItemController> GetChildrenByParentId(int Id)
         {
-            get { return Factory.TableName; }
+            return DataItemControllersDic.Values.Where(dataItemController => dataItemController.HasTheSameParentId(Id));
         }
 
-
-        internal DataItem GetEmptyDataItem()
+        public IEnumerable<SearchResult> Search(List<string> searchList)
         {
-            return Factory.GetEmptyDataItem();
+            return DataItemControllersDic.Values.Select(dataItemController => new SearchResult(dataItemController.Search(searchList), dataItemController));
         }
+
     }
 }

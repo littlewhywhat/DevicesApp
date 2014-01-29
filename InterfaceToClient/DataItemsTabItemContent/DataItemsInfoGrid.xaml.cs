@@ -20,15 +20,7 @@ namespace InterfaceToClient
     /// </summary>
     public abstract partial class DataItemsInfoGrid : Grid
     {
-        public bool ChangeMode { get; set; }
-        public void Refresh(object DataContext)
-        {
-                this.RefreshDataContext(DataContext);
-                RefreshComboBoxes(DataContext);
-        }
 
         public DataItemController CurrentDataItem { get { return (DataItemController)DataContext; } }
-        public abstract void RefreshComboBoxes(object DataContext);
-        public abstract void RefreshComboBoxes();
     }
 }

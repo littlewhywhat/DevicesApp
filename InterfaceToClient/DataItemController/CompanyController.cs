@@ -10,18 +10,25 @@ namespace InterfaceToClient
     {
         public CompanyController(Company company, CompanyControllersFactory factory) : base(company, factory)
         { }
+        protected override DataItemControllersDictionary GetDictionary()
+        {
+            return FactoriesVault.Dic[Factory.TableName];
+        }
+        const string _Info = "Info";
+        protected override void OnPropertyChanged()
+        {
+            base.OnPropertyChanged();
+            OnPropertyChanged(_Info);
+        }
 
+        public DevicesDictionary Dictionary { get { return (DevicesDictionary)GetDictionary(); } }
         private Company Company { get { return (Company)DataItem; } }
+        public string Info { get { return Company.Info; } set { Company.Info = value; OnPropertyChanged(); } }
         protected override List<TransactionData> GetDeleteReferencesActions()
         {
             var actions = base.GetDeleteReferencesActions();
-            actions.AddRange(((DeviceControllersFactory)FactoriesVault.Dic[TableNames.Devices]).
-                GetDevicesWithCompanyId(Company.Id).Select(device =>
-                {
-                    new FillDataItem(device, device.Factory.OtherTableFields).Act(Connection.GetConnection());
-                    ((Device)device).CompanyId = 0;
-                    return (TransactionData)new UpdateDataItem(device);
-                }));
+            actions.AddRange(Dictionary.GetDevicesWithCompanyId(Company.Id).Select(deviceController =>
+                (TransactionData)((DeviceController)deviceController).DeleteCompanyTransaction()).ToList());
             return actions;
         }
 
@@ -29,5 +36,6 @@ namespace InterfaceToClient
         {
             return controller is CompanyController;
         }
+
     }
 }

@@ -17,6 +17,8 @@ namespace InterfaceToClient
 {
     public partial class DataItemsTabItem : TabItem, Observer, IClose
     {
+        public DataItemController CurrentDataItemController { get { return DataContextControl.Element; } }
+        public DataContextControl<DataItemController> DataContextControl { get { return (DataContextControl<DataItemController>)DataContext; } }
         public DataItemsTabItem()
         {
             InitializeComponent();
@@ -37,17 +39,17 @@ namespace InterfaceToClient
         public void Update(DataItemControllerChangedEventArgs Change)
         {
             try
-            {
-                if (((Change.NewController != null) && (Change.NewController.Id == ((DataItemControllerChangedEventArgs)DataContext).NewController.Id)) ||
-                    ((Change.OldController != null) && (Change.OldController.Id == ((DataItemControllerChangedEventArgs)DataContext).NewController.Id)))
+            { 
+                if  (Change.NewController == CurrentDataItemController ||
+                    Change.OldController == CurrentDataItemController)
                 {
                     if ((Change.Action == NotifyCollectionChangedAction.Remove))
-                        Remove(Change);
+                        CurrentDataItemController.GetInInsertMode();
                     else 
-                        DataContext = Change;
+                        DataContextControl.SetElement(Change.NewController);
                     return;
                 }
-                this.RefreshDataContext(DataContext);
+                DataContextControl.Refresh();
                 
             }
             catch (Exception)
@@ -73,7 +75,6 @@ namespace InterfaceToClient
         {
             CloseTabItem();
         }
-
 
         public void Dispose()
         {
