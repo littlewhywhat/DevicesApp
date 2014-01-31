@@ -33,13 +33,13 @@ namespace InterfaceToClient
 
         public override DataItemController CurrentDataItemController { get { return (DataItemController)DataContext; } }
 
-        protected override Button UpdateButton { get { return Update; } }
+        protected override FrameworkElement UpdateButton { get { return Update; } }
 
-        protected override Button DeleteButton { get { return Delete; } }
+        protected override FrameworkElement DeleteButton { get { return Delete; } }
 
-        protected override Button ChangeButton { get { return Change; } }
+        protected override FrameworkElement ChangeButton { get { return Change; } }
 
-        protected override Button CancelButton { get { return Cancel; } }
+        protected override FrameworkElement CancelButton { get { return Cancel; } }
 
         private void Update_Click(object sender, RoutedEventArgs e) { UpdateClick(); }
 
@@ -61,8 +61,15 @@ namespace InterfaceToClient
         public override void SwitchChangeMode(bool position)
         {
             base.SwitchChangeMode(position);
+            HideFrameworkElement(position, Change);
+            HideFrameworkElement(!position, Update);
             Cancel.Visibility = System.Windows.Visibility.Visible;
             Undo.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void HideFrameworkElement(bool position, FrameworkElement element)
+        {
+            element.Visibility = position ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
         }
 
         private void ListBoxItemGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -73,5 +80,6 @@ namespace InterfaceToClient
                     EnableInsertMode();
             }
         }
+
     }
 }

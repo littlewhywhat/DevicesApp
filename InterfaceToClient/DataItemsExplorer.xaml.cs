@@ -60,10 +60,10 @@ namespace InterfaceToClient
 
         private void SearchGrid_KeyUp(object sender, KeyEventArgs e)
         {
-            if (sender is SearchGrid)
+            if (sender is SearchGrid && e.Key == Key.Enter)
             {
                 var searchGrid = (SearchGrid)sender;
-                var dataItemController = (DataItemController)((ListBoxItem)searchGrid.searchPopUp.searchListBox.SelectedItem).Tag;
+                var dataItemController = (DataItemController)((FrameworkElement)searchGrid.searchPopUp.searchListBox.SelectedItem).DataContext;
                 OpenNewTab(dataItemController);
             }
         }

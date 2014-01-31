@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" DataContextChanged="Grid_DataContextChanged" >
     <TextBox DataContext="{x:Null}"  FontSize="15" Name="searchTextBox" SizeChanged="searchTextBox_SizeChanged" KeyUp="searchTextBox_KeyUp"></TextBox>
     <y:SearchPopUp x:Name="searchPopUp" DataContext="{Binding ElementName=searchTextBox, Path=Text}"  >
     

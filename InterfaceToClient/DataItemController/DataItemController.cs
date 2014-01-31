@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Controls;
 using InterfaceToDataBase;
 using System.ComponentModel;
+using System.Windows;
 
 namespace InterfaceToClient
 {
@@ -29,6 +30,13 @@ namespace InterfaceToClient
         }
         public DataItemControllersFactory Factory;
         protected abstract DataItemControllersDictionary GetDictionary();
+        
+        public FrameworkElement GetPanel()
+        {
+            var border = Factory.GetPanel();
+            border.DataContext = this;
+            return border;
+        }
 
         #region propertychanged implementation
         protected const string _Name = "Name";

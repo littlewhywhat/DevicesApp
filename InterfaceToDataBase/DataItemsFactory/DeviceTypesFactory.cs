@@ -9,7 +9,7 @@ namespace InterfaceToDataBase
     {
         private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "IsMarker", "FullName", "IVUK"};
         private List<string> otherTableFields = new List<String> { "Name"};
-        private List<string> searchTableFields = new List<String> { "Name", "Marker" };
+        private List<string> searchTableFields = new List<String> { "Name", "Marker", "FullName", "IVUK" };
 
         public override List<string> FirstTableFields { get { return firstTableFields; } }
         public override List<string> OtherTableFields { get { return otherTableFields; } }

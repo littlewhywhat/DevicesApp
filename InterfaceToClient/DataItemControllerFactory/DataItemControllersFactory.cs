@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.Specialized;
 using InterfaceToDataBase;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace InterfaceToClient
@@ -61,8 +62,6 @@ namespace InterfaceToClient
             return new ListBoxItemGrid() { ContentGrid = GetDataItemsInfoGrid(), DataContext = dataItemController };
         }
 
-        
-
-
+        internal abstract FrameworkElement GetPanel();
     }
 }

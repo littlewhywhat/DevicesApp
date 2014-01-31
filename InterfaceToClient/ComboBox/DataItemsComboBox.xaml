@@ -15,8 +15,8 @@
     </ComboBox.ItemTemplate>
     <ComboBox.Template>
         <ControlTemplate TargetType="ComboBox">
-            <Grid>
-                <y:EnableTextBox Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem.Name }" Padding="0" ></y:EnableTextBox>
+            <Grid Focusable="False">
+                <y:EnableTextBox Focusable="False" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem.Name }" Padding="0" ></y:EnableTextBox>
                 <ComboBox  TextSearch.TextPath="Name" 
                           Margin="5" x:Name="comboBox" ItemTemplate="{TemplateBinding ComboBox.ItemTemplate}" IsEditable="True" ItemsSource="{TemplateBinding ComboBox.ItemsSource}"  SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}">
                 </ComboBox>

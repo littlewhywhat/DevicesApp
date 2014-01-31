@@ -12,19 +12,36 @@
         <RowDefinition Height="35"></RowDefinition>
         <RowDefinition Height="4*"></RowDefinition> 
     </Grid.RowDefinitions>
-    <ComboBox x:Name="FilterComboBox" Margin="5"  Width="100"   HorizontalAlignment="Right" Background="White" SelectionChanged="ComboBox_SelectionChanged" >
-        <ComboBoxItem>Все события</ComboBoxItem>
-        <ComboBoxItem>Работа</ComboBoxItem>
-        <ComboBoxItem>Проверка</ComboBoxItem>
-        <ComboBoxItem>Ремонт</ComboBoxItem>
+    <Grid Margin="0,0,0,5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Width="30" Margin="0,0,0,0" Background="#FFF9F9F9" Name="Insert"   HorizontalAlignment="Left" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Insert_Click">
+            <Canvas >
+                <Line Name="Line1" X1="-5" Y1="0" X2="5" Y2="0"  Stroke="Black"></Line>
+                <Line Name="Line2" X1="0" Y1="-5" X2="0" Y2="5"  Stroke="Black"></Line>
+            </Canvas>
+        </Button>
+        <ComboBox Grid.Column="1" x:Name="FilterComboBox"    HorizontalAlignment="Stretch" Background="#FFF9F9F9"
+              SelectionChanged="ComboBox_SelectionChanged"  FontSize="15" Padding="10,0,0,0" VerticalContentAlignment="Center">
+            <ComboBoxItem>Все события</ComboBoxItem>
+            <ComboBoxItem >Работа</ComboBoxItem>
+            <ComboBoxItem >Проверка</ComboBoxItem>
+            <ComboBoxItem>Ремонт</ComboBoxItem>
 
-    </ComboBox>
-    <Button Name="Insert" Margin="5" HorizontalAlignment="Left" Click="Insert_Click">Insert</Button>
-    <ListBox x:Name="ListBox" Grid.Row="1" >
+        </ComboBox>
+    </Grid>
+    
+    
+    <ListBox x:Name="ListBox" Grid.Row="1" HorizontalContentAlignment="Stretch">
         
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
-                
+                <Setter Property="Padding" Value="0"></Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
                 <Setter Property="FontSize" Value="14"></Setter>
             </Style>
         </ListBox.ItemContainerStyle>

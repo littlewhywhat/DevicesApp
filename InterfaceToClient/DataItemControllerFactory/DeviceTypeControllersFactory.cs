@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows;
 using InterfaceToDataBase;
 
 namespace InterfaceToClient
@@ -25,6 +26,11 @@ namespace InterfaceToClient
         protected override DataItemsFactory GetFactory()
         {
             return new DeviceTypesFactory();
+        }
+
+        internal override FrameworkElement GetPanel()
+        {
+            return new DeviceTypePanel();
         }
     }
 }

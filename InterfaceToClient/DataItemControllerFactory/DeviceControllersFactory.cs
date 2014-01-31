@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows;
 using InterfaceToDataBase;
 
 namespace InterfaceToClient
@@ -37,6 +38,11 @@ namespace InterfaceToClient
         protected override DataItemsInfoGrid GetDataItemsInfoGrid()
         {
             return new DevicesInfoGrid();
+        }
+
+        internal override FrameworkElement GetPanel()
+        {
+            return (FrameworkElement)new DevicePanel();
         }
     }
 }

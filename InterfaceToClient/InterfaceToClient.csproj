@@ -64,6 +64,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buttons\CancelButton.xaml.cs">
+      <DependentUpon>CancelButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Buttons\DeleteButton.xaml.cs">
+      <DependentUpon>DeleteButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Buttons\UpdateButton.xaml.cs">
+      <DependentUpon>UpdateButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ComboBox\CompanyIdComboBox.cs" />
     <Compile Include="ComboBox\DataItemsComboBox.xaml.cs">
       <DependentUpon>DataItemsComboBox.xaml</DependentUpon>
@@ -96,6 +105,12 @@
     <Compile Include="DataItemController\DeviceController.cs" />
     <Compile Include="DataItemController\DeviceEventController.cs" />
     <Compile Include="DataItemController\DeviceTypeController.cs" />
+    <Compile Include="DataItemPanels\DevicePanel.xaml.cs">
+      <DependentUpon>DevicePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataItemPanels\DeviceTypePanel.xaml.cs">
+      <DependentUpon>DeviceTypePanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataItemsDictionary\CompaniesDictionary.cs" />
     <Compile Include="DataItemsDictionary\DataItemsDictionary.cs" />
     <Compile Include="DataItemsDictionary\DeviceEventsDictionary.cs" />
@@ -118,6 +133,9 @@
     </Compile>
     <Compile Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml.cs">
       <DependentUpon>DeviceTypesInfoGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataListBoxItemxaml.xaml.cs">
+      <DependentUpon>DataListBoxItemxaml.xaml</DependentUpon>
     </Compile>
     <Compile Include="DicChangesGetter.cs" />
     <Compile Include="EnableTextBox.xaml.cs">
@@ -156,6 +174,21 @@
     <Compile Include="Observer.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="UpdateClient.cs" />
+    <Compile Include="UpdateDeleteButton.xaml.cs">
+      <DependentUpon>UpdateDeleteButton.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Buttons\CancelButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Buttons\DeleteButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Buttons\UpdateButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ComboBox\DataItemsComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +206,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlManager\TypeTabItemGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemPanels\DevicePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemPanels\DeviceTypePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataListBoxItemxaml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlManager\TabItemGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateDeleteButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

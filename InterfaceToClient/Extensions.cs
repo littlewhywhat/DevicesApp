@@ -30,11 +30,15 @@ namespace InterfaceToClient
             return result;
         }
 
-        public static String Search(this DataItemController dataItemController, List<string> searchList)
+        public static String Search(this DataItemController dataItemController, List<string> searchListParameter)
         {
-            var resultCollection = dataItemController.GetSearchPropertyValueDic().Values.Where( value => value.ToLower().SearchContains(searchList)).ToArray();
-            if (searchList.ToList().Count == 0)
-                return String.Join(" ", resultCollection);
+            if (searchListParameter.Count != 0)
+            {
+                var searchList = new List<string>(searchListParameter);
+                var resultCollection = dataItemController.GetSearchPropertyValueDic().Values.Where(value => value.ToLower().SearchContains(searchList)).ToArray();
+                if (searchList.ToList().Count == 0)
+                    return String.Join(" ", resultCollection);
+            }
             return null;
         }
 

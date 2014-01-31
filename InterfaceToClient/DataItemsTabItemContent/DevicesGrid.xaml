@@ -16,9 +16,7 @@
         </y:TabItemGrid.ContentGrid>
     </y:TabItemGrid>
     <Grid Grid.Column="1">
-
-        <y:EventsListBox Margin="5" Grid.Column="1" DataContext="{Binding Mode=OneTime}"></y:EventsListBox>
-        
+        <y:EventsListBox Grid.Row="1" Margin="5" DataContext="{Binding Mode=OneTime}" ></y:EventsListBox>
     </Grid>
     
     

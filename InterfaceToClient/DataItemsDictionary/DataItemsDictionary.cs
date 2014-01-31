@@ -5,6 +5,7 @@ using System.Text;
 using InterfaceToDataBase;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Windows;
 
 namespace InterfaceToClient
 {
@@ -79,9 +80,15 @@ namespace InterfaceToClient
             return DataItemControllersDic.Values.Where(dataItemController => dataItemController.HasTheSameParentId(Id));
         }
 
-        public IEnumerable<SearchResult> Search(List<string> searchList)
+        public IEnumerable<FrameworkElement> Search(List<string> searchList)
         {
-            return DataItemControllersDic.Values.Select(dataItemController => new SearchResult(dataItemController.Search(searchList), dataItemController));
+            return DataItemControllersDic.Values.Select(dataItemController =>
+                new SearchResult(dataItemController.Search(searchList), dataItemController)).Where(searchResult => searchResult.Result != null).Select(searchResult =>
+                    {
+                        var panel = searchResult.Reference.GetPanel();
+                        panel.Tag = searchResult.Result;
+                        return panel;
+                    });
         }
 
         const string _WithoutParent = "Без родителя";

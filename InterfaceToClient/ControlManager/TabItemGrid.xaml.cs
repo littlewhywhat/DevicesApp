@@ -41,13 +41,13 @@ namespace InterfaceToClient
 
         public override DataItemController CurrentDataItemController { get { return (DataItemController)DataContext; } }
 
-        protected override Button UpdateButton { get { return Update; } }
+        protected override FrameworkElement UpdateButton { get { return Update; } }
 
-        protected override Button DeleteButton { get { return Delete; } }
+        protected override FrameworkElement DeleteButton { get { return Delete; } }
 
-        protected override Button ChangeButton { get { return Change; } }
+        protected override FrameworkElement ChangeButton { get { return Change; } }
 
-        protected override Button CancelButton { get { return Cancel; } }
+        protected override FrameworkElement CancelButton { get { return Cancel; } }
 
         private void Update_Click(object sender, RoutedEventArgs e) { UpdateClick(); }
 

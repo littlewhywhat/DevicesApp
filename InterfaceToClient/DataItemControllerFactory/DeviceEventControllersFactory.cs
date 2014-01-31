@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows;
 using InterfaceToDataBase;
 
 namespace InterfaceToClient
@@ -27,5 +28,10 @@ namespace InterfaceToClient
             return new DeviceEventsFactory();
         }
 
+
+        internal override FrameworkElement GetPanel()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,17 +6,32 @@
               xmlns:y="clr-namespace:InterfaceToClient"
               xmlns:xctk="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
                      xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" >
-    <StackPanel  DataContext="{Binding}" >
-
-        <TextBlock>Название события:</TextBlock>
-        <y:EnableTextBox Margin="5" x:Name="EventName" Text="{Binding Path=Name}"></y:EnableTextBox>
-        <TextBlock>Тип события:</TextBlock>
-        <ComboBox  x:Name="FilterComboBox" Margin="5"  Width="100" SelectedValuePath="Content" SelectedValue="{Binding Path=Type}" Background="White" >
-            <ComboBoxItem>Работа</ComboBoxItem>
-            <ComboBoxItem>Проверка</ComboBoxItem>
-            <ComboBoxItem>Ремонт</ComboBoxItem>
-        </ComboBox>
-        <xceed:DateTimePicker  Name="TimePicker" Margin="5"  Value="{Binding Path=Date}"></xceed:DateTimePicker>
+             mc:Ignorable="d" Width="350" Height="65" >
+    
+        <StackPanel  DataContext="{Binding}" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <y:EnableTextBox Grid.Column="1" x:Name="EventName" Text="{Binding Path=Name}"></y:EnableTextBox>
+        </Grid>
+        
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox HorizontalAlignment="Left"  x:Name="FilterComboBox" Margin="5,0,0,5"  Width="140" SelectedValuePath="Content" 
+                      SelectedValue="{Binding Path=Type, FallbackValue='Тип неопределен'}" Background="White" >
+                <ComboBoxItem>Работа</ComboBoxItem>
+                <ComboBoxItem>Проверка</ComboBoxItem>
+                <ComboBoxItem>Ремонт</ComboBoxItem>
+                <ComboBoxItem>Тип неопределен</ComboBoxItem>
+            </ComboBox>
+            <xceed:DateTimePicker Text="fas" Width="195" TimeFormat="ShortTime" Margin="0,0,5,5" Grid.Column="1" Name="TimePicker" Value="{Binding Path=Date}"/>
+        </Grid>
+        
     </StackPanel>
+    
 </y:DataItemsInfoGrid>

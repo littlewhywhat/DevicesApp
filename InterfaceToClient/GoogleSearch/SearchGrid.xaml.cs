@@ -39,16 +39,19 @@ namespace InterfaceToClient
                         searchPopUp.IsOpen = false;
                 }
                 else
+                {
                     searchPopUp.IsOpen = false;
+                    searchPopUp.searchListBox.ItemsSource = null;
+                }
         }
 
         void searchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = searchPopUp.searchListBox.SelectedItem as ListBoxItem;
+            var selectedItem = (FrameworkElement)searchPopUp.searchListBox.SelectedItem;
             if (searchPopUp.searchListBox.SelectedItem != null)
             {
-                searchTextBox.DataContext = selectedItem.DataContext.ToString();
-                searchTextBox.Text = selectedItem.DataContext.ToString();
+                searchTextBox.DataContext = selectedItem.Tag.ToString();
+                searchTextBox.Text = selectedItem.Tag.ToString();
                 searchTextBox.DataContext = null;
                 selectedItem.BringIntoView();
                 searchTextBox.CaretIndex = searchTextBox.Text.Length;
@@ -106,6 +109,11 @@ namespace InterfaceToClient
         {
             searchPopUp.Margin = new Thickness(searchTextBox.Margin.Top, searchTextBox.ActualHeight, searchTextBox.Margin.Right, 0);
             searchPopUp.searchListBox.Width = searchTextBox.ActualWidth;
+        }
+
+        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            searchPopUp.searchListBox.SearchDictionary = (DataItemControllersDictionary)DataContext;
         }
     }
 }

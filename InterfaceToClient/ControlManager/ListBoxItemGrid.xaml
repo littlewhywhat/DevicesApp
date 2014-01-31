@@ -5,24 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d"  
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="ListBoxItemGrid_DataContextChanged"
-                  InsertMode="{Binding Path=InsertMode}">
-    <Grid.RowDefinitions>
-        <RowDefinition Height="35"></RowDefinition>
-        <RowDefinition ></RowDefinition>
-    </Grid.RowDefinitions>
-    <StackPanel Orientation="Horizontal">
-        <Button Background="#FFF9F9F9" Margin="5" Name="Change" Click="Change_Click">Change</Button>
-        <Button Background="#FFF9F9F9" Margin="5" Name="Update" Click="Update_Click" IsEnabled="False">Update</Button>
-        <Button Background="#FFF9F9F9" Margin="5" Name="Delete" Click="Delete_Click" IsEnabled="False">Delete</Button>
-        <Grid>
-            <Button Background="#FFF9F9F9" Margin="5" Name="Cancel" Click="Cancel_Click" IsEnabled="False">Cancel</Button>
-            <Button Background="#FFF9F9F9" Visibility="Hidden" Margin="5" Name="Undo" Click="Undo_Click" >Cancel</Button>
-        </Grid>
-        
+             d:DesignHeight="75" Height="75" d:DesignWidth="350" DataContext="{Binding}" DataContextChanged="ListBoxItemGrid_DataContextChanged"
+                  InsertMode="{Binding Path=InsertMode}" >
+    <Border Background="WhiteSmoke"  BorderThickness="1" Padding="0">
+        <Border.BorderBrush>
+            <LinearGradientBrush EndPoint="0,2" StartPoint="0,0">
+                <GradientStop Color="#FFABADB3" Offset="0.05"/>
+                <GradientStop Color="#FFE2E3EA" Offset="0.07"/>
+                <GradientStop Color="#FFE3E9EF" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Grid Background="Transparent">
+    <StackPanel Orientation="Horizontal"  Margin="5,5">
+        <Canvas Width="25" >
+            <y:UpdateButton  x:Name="Update" Click="Update_Click" Visibility="Hidden"  Content="U"/>
+            <y:UpdateButton x:Name="Change" Click="Change_Click" Content="C"/>
+        </Canvas>
+        <Canvas Width="25" >
+            <y:DeleteButton x:Name="Delete" Click="Delete_Click" IsEnabled="False" >D</y:DeleteButton>
+        </Canvas>
+        <Canvas Width="35" >
+            <y:CancelButton x:Name="Cancel" Click="Cancel_Click" IsEnabled="False" >C</y:CancelButton>
+            <y:CancelButton x:Name="Undo" Click="Undo_Click" Visibility="Hidden">U</y:CancelButton>
+        </Canvas>
     </StackPanel>
-    <Grid Name="socketGrid" Grid.Row="1" IsEnabled="False">
-
+    <Grid Name="socketGrid" VerticalAlignment="Bottom" IsEnabled="False">
+        
     </Grid>
+            </Grid>
+    </Border>
 </y:ControlManager>
 

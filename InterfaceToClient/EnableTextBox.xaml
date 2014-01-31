@@ -13,7 +13,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border     
+                        <Border Focusable="False"     
                                      BorderThickness="1" Margin="5" Padding="2" Background="White">
                             <Border.BorderBrush>
                                 <LinearGradientBrush EndPoint="0,2" StartPoint="0,0">

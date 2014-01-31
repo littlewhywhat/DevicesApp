@@ -27,5 +27,10 @@ namespace InterfaceToClient
             return new CompaniesFactory();
         }
 
+
+        internal override System.Windows.FrameworkElement GetPanel()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

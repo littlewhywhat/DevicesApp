@@ -98,10 +98,10 @@ namespace InterfaceToClient
         public abstract IClose Closer { get; set; }
         protected abstract Grid SocketGrid { get; }
         public abstract DataItemController CurrentDataItemController { get; }
-        protected abstract Button UpdateButton { get; }
-        protected abstract Button DeleteButton { get; }
-        protected abstract Button ChangeButton { get; }
-        protected abstract Button CancelButton { get; }
+        protected abstract FrameworkElement UpdateButton { get; }
+        protected abstract FrameworkElement DeleteButton { get; }
+        protected abstract FrameworkElement ChangeButton { get; }
+        protected abstract FrameworkElement CancelButton { get; }
 
         //public DataItemController CurrentDataItemController { get { return CurrentChange.NewController; } }
 
