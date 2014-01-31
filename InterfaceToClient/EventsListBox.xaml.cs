@@ -24,108 +24,78 @@ namespace InterfaceToClient
     public partial class EventsListBox : Grid, Observer, IClose
     {
         ObservableCollection<ListBoxItemGrid> EventsCollection = new ObservableCollection<ListBoxItemGrid>();
-       
+        const string _AllEventsFilter = "Все события";
+        private string CurrentFilter { get { return ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString(); } }
+        private bool IsCurrentFilterAllEvents { get { return CurrentFilter == _AllEventsFilter; } }
+
         public EventsListBox()
         {
             InitializeComponent();
-            ListBox.Items.Clear();
+            ItemsSource = EventsCollection;
             FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.DeviceEvents });
             FilterComboBox.SelectedIndex = 0;
+            
         }
-        //private bool DeviceControllerIsSet { get { return DeviceControllerDataContext != null;  } }
-        public DeviceController DeviceControllerDataContext 
-            { get { return (DeviceController)((DataContextControl<DataItemController>)DataContext).Element; } }
+        public DeviceController DeviceControllerDataContext { get { return (DeviceController)DataContext; } }
         IEnumerable ItemsSource { get { return ListBox.ItemsSource; } set { ListBox.ItemsSource = value; } }
         ItemCollection Items { get { return ListBox.Items; }  }
 
         private void GetItems()
         {
             DeviceControllerDataContext.GetEvents().ToList().
-                ForEach(item => EventsCollection.Add(GetNewItem(item)));
-            ItemsSource = EventsCollection;
+                ForEach(item => EventsCollection.Add(item.GetListBoxItemGrid()));
         }
-
-        private ListBoxItemGrid GetNewItem(DataItemController item)
+        private void RefreshFilter()
         {
-            return new ListBoxItemGrid()
-                {
-                    Closer = this,
-                    ContentGrid = new DeviceEventGrid(),
-                    DataContext = item 
-                };
+            Items.Filter = Items.Filter;
         }
 
         public void Update(DataItemControllerChangedEventArgs Change)
         {
             try
             {
-                if (DataContext != null)
-                {
-                    ControlManager item = null;
+                if (DeviceControllerDataContext.EventIsRelated((DeviceEventController)Change.NewController) 
+                    || DeviceControllerDataContext.EventIsRelated((DeviceEventController)Change.OldController))
+                { 
+                    ControlManager item = GetRelatedListBoxItem(DeviceControllerDataContext);
                     switch (Change.Action)
                     {
                         case NotifyCollectionChangedAction.Replace:
                             item = GetRelatedListBoxItem(Change.NewController);
-                            if (item != null)
-                            {
-                                item.DataContext = Change.NewController;
-                                Items.Filter = Items.Filter;
-                            }
+                            item.CurrentDataItemController.RefreshDataItemByController(Change.NewController);
                             break;
                         case NotifyCollectionChangedAction.Remove:
                             item = GetRelatedListBoxItem(Change.OldController);
                             if (item != null)
-                            {
-                                Change.OldController.GetInInsertMode();
-                                Change.NewController = Change.OldController;
-                                item.DataContext = Change.NewController;
-                                Items.Filter = Items.Filter;
-                            }
+                                item.CurrentDataItemController.GetInInsertMode();
                             break;
                         case NotifyCollectionChangedAction.Add:
                             item = GetRelatedListBoxItem(Change.NewController);
-                            if (item != null)
-                            {
-                                item.DataContext = Change.NewController;
-                                Items.Filter = Items.Filter;
-                            }
-                            else
-                                if (IsRelatedByDeviceId((DeviceEventController)Change.NewController))
-                                    EventsCollection.Add(GetNewItem(Change.NewController));
+                            if (item == null)
+                                EventsCollection.Add(Change.NewController.GetListBoxItemGrid());
                             break;
                     }
+                    RefreshFilter();
                 }
             }
             catch (Exception)
             { }
-
         }
 
         private ControlManager GetRelatedListBoxItem(DataItemController dataItemController)
         {
-            ControlManager listBoxItem = null;
-            if (IsRelatedByDeviceId((DeviceEventController)dataItemController))
-                foreach (ControlManager item in EventsCollection)
-                {
-                    if (dataItemController.Id != ((DataItemControllerChangedEventArgs)item.DataContext).NewController.Id)
-                    {
-                        item.RefreshDataContext(item.DataContext);
-                    }
-                    else
-                        listBoxItem = item;
-                }
-            return listBoxItem;
-        }
-        private bool IsRelatedByDeviceId(DeviceEventController deviceEventController)
-        {
-            return deviceEventController.Device.Id == DeviceControllerDataContext.Id;
+            foreach (ControlManager item in EventsCollection)
+                if (dataItemController != item.CurrentDataItemController)
+                    item.CurrentDataItemController.Refresh();
+                else
+                    return item;
+            return null;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
-            if (selectedFilter != "Все события")
-                Items.Filter = item => ((DeviceEventController)((ListBoxItemGrid)item).CurrentDataItemController).Type == selectedFilter;
+            if (!IsCurrentFilterAllEvents)
+                Items.Filter = item => ((DeviceEventController)((ListBoxItemGrid)item).CurrentDataItemController).Type == CurrentFilter;
             else
                 Items.Filter = null;
         }
@@ -138,16 +108,21 @@ namespace InterfaceToClient
         private void Insert_Click(object sender, RoutedEventArgs e)
         {
             var deviceEvent = DeviceControllerDataContext.GetNewEventController();
+            AssignCurrentFilter(deviceEvent);
+            EventsCollection.Add(deviceEvent.GetListBoxItemGrid());
+        }
+
+        private void AssignCurrentFilter(DeviceEventController deviceEvent)
+        {
             var selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
             if (selectedFilter != "Все события")
                 deviceEvent.Type = selectedFilter;
-            EventsCollection.Add(GetNewItem(deviceEvent));
         }
 
         public void Dispose()
         {
             FactoriesVault.ChangesGetter.RemoveObserver(this);
-            this.DisposeChildren();
+            this.DisposeChildrenObservers();
         }
 
         private void Events_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -158,15 +133,6 @@ namespace InterfaceToClient
                 EventsCollection.Clear();
         }
 
-        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext != null)
-            {
-                if (DeviceControllerDataContext.InsertMode == IsEnabled)
-                {
-                    IsEnabled = !DeviceControllerDataContext.InsertMode;
-                }
-            }
-        }
+        
     }
 }

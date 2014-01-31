@@ -39,12 +39,13 @@ namespace InterfaceToDataBase
 
         protected abstract string GetMainCommandText();
 
-        public override void PerformTransaction(DbTransaction Transaction)
+        public override object PerformTransaction(DbTransaction Transaction)
         {
             var result = ExecMainCommand(Transaction);
             ExecLogCommand(Transaction);
             if (result == 0)
                 throw new Exception();
+            return null;
         }
     }
 }

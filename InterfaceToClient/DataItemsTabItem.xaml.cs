@@ -17,8 +17,8 @@ namespace InterfaceToClient
 {
     public partial class DataItemsTabItem : TabItem, Observer, IClose
     {
-        public DataItemController CurrentDataItemController { get { return DataContextControl.Element; } }
-        public DataContextControl<DataItemController> DataContextControl { get { return (DataContextControl<DataItemController>)DataContext; } }
+        public DataItemController CurrentDataItemController { get { return (DataItemController)DataContext; } }
+        
         public DataItemsTabItem()
         {
             InitializeComponent();
@@ -45,11 +45,11 @@ namespace InterfaceToClient
                 {
                     if ((Change.Action == NotifyCollectionChangedAction.Remove))
                         CurrentDataItemController.GetInInsertMode();
-                    else 
-                        DataContextControl.SetElement(Change.NewController);
+                    else
+                        CurrentDataItemController.RefreshDataItemByController(Change.NewController);
                     return;
                 }
-                DataContextControl.Refresh();
+                CurrentDataItemController.Refresh();
                 
             }
             catch (Exception)
@@ -79,7 +79,7 @@ namespace InterfaceToClient
         public void Dispose()
         {
             FactoriesVault.ChangesGetter.RemoveObserver(this);
-            ((FrameworkElement)Content).DisposeChildren();   
+            ((FrameworkElement)Content).DisposeChildrenObservers();   
         }
     }
 }

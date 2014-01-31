@@ -37,31 +37,37 @@ namespace InterfaceToDataBase
             return new SqlCommand(commandText, (SqlConnection)GetConnection());
         }
 
-        public static DbTransaction GetTransaction(DbConnection connection)
-        {
-            if (!TransactionsDic.ContainsKey(connection))
-                TransactionsDic.Add(connection, connection.BeginTransaction());
-            return TransactionsDic[connection];
-        }
+        //public static DbTransaction GetTransaction(DbConnection connection)
+        //{
+        //    if (!TransactionsDic.ContainsKey(connection))
+        //        TransactionsDic.Add(connection, connection.BeginTransaction());
+        //    return TransactionsDic[connection];
+        //}
 
-        public static void TransactionCommit(DbTransaction transaction)
-        {
-            TransactionsDic.Remove(transaction.Connection);
-            transaction.Commit();
-        }
+        //public static void TransactionCommit(DbTransaction transaction)
+        //{
+        //    TransactionsDic.Remove(transaction.Connection);
+        //    transaction.Commit();
+        //}
 
-        public static void TransactionRollBack(DbTransaction transaction)
-        {
-            TransactionsDic.Remove(transaction.Connection);
-            transaction.Rollback();
-        }
+        //public static void TransactionRollBack(DbTransaction transaction)
+        //{
+        //    TransactionsDic.Remove(transaction.Connection);
+        //    transaction.Rollback();
+        //}
 
         public static DbCommand GetCommand(string commandText, DbConnection connection)
         {
             var command = connection.CreateCommand();
             command.CommandText = commandText;
-            if (TransactionsDic.ContainsKey(connection))
-                command.Transaction = TransactionsDic[connection];
+            
+            return command;
+        }
+        public static DbCommand GetCommand(string commandText, DbTransaction transaction)
+        {
+            var command = transaction.Connection.CreateCommand();
+            command.CommandText = commandText;
+            command.Transaction = transaction;
             return command;
         }
         public static DbParameter GetTimestampParameter(string parameterName, object value)

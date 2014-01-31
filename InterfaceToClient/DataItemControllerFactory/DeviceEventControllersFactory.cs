@@ -17,11 +17,9 @@ namespace InterfaceToClient
             return new DeviceEventController((DeviceEvent)dataItem, this);
         }
 
-        protected override Grid GetTabItemContent()
+        protected override DataItemsInfoGrid GetDataItemsInfoGrid()
         {
-            var dataGrid = new TabItemGrid();
-            dataGrid.ContentGrid = new DeviceEventGrid();
-            return dataGrid;
+            return new DeviceEventGrid();
         }
 
         protected override DataItemsFactory GetFactory()

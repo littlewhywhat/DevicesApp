@@ -10,14 +10,6 @@ namespace InterfaceToDataBase
 {
     public static class Extensions
     {
-        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
-        {
-            var list = new List<T>(enumerable);
-            foreach(T item in list)
-            {
-                action(item);
-            }
-        }
 
         public static string ToString(this DateTime time)
         {
@@ -28,7 +20,7 @@ namespace InterfaceToDataBase
         public static Dictionary<string, string> GetPropertyValueDic(this DataItem dataItem)
         {
             var dictionary = new Dictionary<string, string>();
-            dataItem.GetType().GetProperties().ForEach(dataItemProperty =>
+            dataItem.GetType().GetProperties().ToList().ForEach(dataItemProperty =>
                 {
                     if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory") && (dataItemProperty.Name != "Marker"))
                     {
@@ -47,7 +39,16 @@ namespace InterfaceToDataBase
                 });
             return dictionary;
         }
-
+        public static DataItem Clone(this DataItem dataItem)
+        {
+            var dataItemClone = dataItem.Factory.GetEmptyDataItem();
+            dataItem.GetType().GetProperties().ToList().ForEach(propertyInfo =>
+            {
+                if ((propertyInfo.Name != "Factory") && (propertyInfo.Name != "Marker"))
+                    dataItemClone.GetType().GetProperty(propertyInfo.Name).SetValue(dataItemClone, Convert.ChangeType(propertyInfo.GetValue(dataItem, null), propertyInfo.PropertyType), null);
+            });
+            return dataItemClone;
+        }
         
 
         public static void ChangeInDb(this DataItem dataItem)
@@ -67,21 +68,15 @@ namespace InterfaceToDataBase
         }
         public static void Insert(this DataItem dataItem)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new InsertDataItem(dataItem));
+            try
+            {
+                DBHelper.PerformDBAction(Connection.GetConnection(), new InsertDataItem(dataItem));
+            }
+            catch (DBActionException exception) { dataItem.Id = 0; throw exception; }
         }
         public static void Fill(this DataItem dataItem, List<string> tableFields)
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataItem(dataItem, tableFields));
-        }
-        public static DataItem Clone(this DataItem dataItem)
-        {
-            var dataItemClone = dataItem.Factory.GetEmptyDataItem();
-            dataItem.GetType().GetProperties().ForEach(propertyInfo =>
-                {
-                    if ((propertyInfo.Name != "Factory") && (propertyInfo.Name != "Marker"))
-                        dataItemClone.GetType().GetProperty(propertyInfo.Name).SetValue(dataItemClone, Convert.ChangeType(propertyInfo.GetValue(dataItem, null), propertyInfo.PropertyType),null);
-                });
-            return dataItemClone;
         }
 
 

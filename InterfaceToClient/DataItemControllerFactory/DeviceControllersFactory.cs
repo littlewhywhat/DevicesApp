@@ -33,5 +33,10 @@ namespace InterfaceToClient
             FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { TableNames.DeviceTypes });
             return tabItem;
         }
+
+        protected override DataItemsInfoGrid GetDataItemsInfoGrid()
+        {
+            return new DevicesInfoGrid();
+        }
     }
 }

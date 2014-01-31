@@ -8,7 +8,7 @@ namespace InterfaceToClient
 {
     public abstract class DeviceExtraComboBox : DataItemsComboBox, Observer
     {
-        protected DeviceController DeviceControllerDataContext { get { return (DeviceController)CurrentDataContext; } }
+        protected DeviceController DeviceControllerDataContext { get { return (DeviceController)DataContext; } }
         public DeviceExtraComboBox(string TableName) : base()
         {
             FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableName });
@@ -16,14 +16,14 @@ namespace InterfaceToClient
 
         public void Update(DataItemControllerChangedEventArgs change)
         {
-            try { this.RefreshDataContext(DataContext); }
+            try { DeviceControllerDataContext.Refresh(); }
             catch (Exception) { }
         }
 
         public void Dispose()
         {
             FactoriesVault.ChangesGetter.RemoveObserver(this);
-            this.DisposeChildren();
+            this.DisposeChildrenObservers();
         }
     }
 }

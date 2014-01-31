@@ -7,44 +7,47 @@ using InterfaceToDataBase;
 using System.Windows;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Data;
 
 namespace InterfaceToClient
 {
     public abstract class ControlManager : Grid
     {
 #region
-        //public static readonly DependencyProperty DataItemControllerContextProperty = DependencyProperty.Register("DataItemControllerContext", typeof(DataItemController),
+        //public static readonly DependencyProperty DataItemControllerContextProperty = 
+        //    DependencyProperty.Register("InsertMode", typeof(bool),
         //                        typeof(ControlManager),
         //                        new FrameworkPropertyMetadata(null,
         //                                FrameworkPropertyMetadataOptions.Inherits,
-        //                                new PropertyChangedCallback(OnDataItemControllerContextChanged)));
+        //                                new PropertyChangedCallback(OnInsertModeChanged)));
 
-        //internal static readonly EventPrivateKey DataItemControllerContextChangedKey = new EventPrivateKey();
-
-
-        //public event DependencyPropertyChangedEventHandler DataItemControllerContextChanged
+        //private static void OnInsertModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //{
-        //    add { EventHandlersStoreAdd(DataItemControllerContextChangedKey, value); }
-        //    remove { EventHandlersStoreRemove(DataItemControllerContextChangedKey, value); }
+        //    ((ControlManager)d).RaiseDependencyPropertyChanged(InsertModeChangedKey, e);
         //}
 
-        ///// 
+        //internal static readonly EventPrivateKey InsertModeChangedKey = new EventPrivateKey();
 
-        /////     DataContext Property
-        ///// 
 
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        //[Localizability(LocalizationCategory.NeverLocalize)]
-        //public object DataItemControllerContext
-        //{
-        //    get { return GetValue(DataItemControllerContextProperty); }
-        //    set { SetValue(DataItemControllerContextProperty, value); }
-        //}
+        ////public event DependencyPropertyChangedEventHandler DataItemControllerContextChanged
+        ////{
+        ////    add { EventHandlersStoreAdd(DataItemControllerContextChangedKey, value); }
+        ////    remove { EventHandlersStoreRemove(DataItemControllerContextChangedKey, value); }
+        ////}
 
-        //private static void OnDataItemControllerContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    ((ControlManager)d).RaiseDependencyPropertyChanged(DataContextChangedKey, e);
-        //}
+        /////// 
+
+        ///////     DataContext Property
+        /////// 
+
+        ////[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        ////[Localizability(LocalizationCategory.NeverLocalize)]
+        ////public object DataItemControllerContext
+        ////{
+        ////    get { return GetValue(DataItemControllerContextProperty); }
+        ////    set { SetValue(DataItemControllerContextProperty, value); }
+        ////}
+
         //private void RaiseDependencyPropertyChanged(EventPrivateKey key, DependencyPropertyChangedEventArgs args)
         //{
         //    var store = EventHandlersStore;
@@ -57,6 +60,33 @@ namespace InterfaceToClient
         //        }
         //    }
         //}
+        public static readonly DependencyProperty InsertModeProperty =
+            DependencyProperty.Register("InsertMode", typeof(bool), typeof(ControlManager), 
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, 
+                new PropertyChangedCallback(InsertMode_PropertyChanged)));
+
+        private static void InsertMode_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.Dispatcher.BeginInvoke((Action)(() => 
+                {
+                    if (((ControlManager)d).InsertMode)
+                        ((ControlManager)d).EnableInsertMode();
+                }));
+        }
+
+        public bool InsertMode
+        {
+            get
+            {
+                return (bool)this.GetValue(InsertModeProperty);
+            }
+            set
+            {
+                this.SetValue(InsertModeProperty, value);
+            }
+        }
+
+        
 #endregion
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -82,18 +112,30 @@ namespace InterfaceToClient
                 closer.Close(this);
         }
 
+        private void PerformDBAction(Action action)
+        {
+            try { action.Invoke(); }
+            catch (DBActionException exception) { exception.ShowMessageBox(); }
+        }
+        private void Delete()
+        {
+            CurrentDataItemController.Delete();
+            Close();
+        }
         protected void DeleteClick(RoutedEventArgs e)
         {
-            var dataItemController = CurrentDataItemController;
-            Close();
-            dataItemController.Delete();
+            PerformDBAction(Delete);
             e.Handled = true;
         }
 
         protected void UpdateClick()
         {
-            SwitchChangeMode(false);
+            PerformDBAction(Update);
+        }
+        private void Update()
+        {
             CurrentDataItemController.ChangeInDb();
+            SwitchChangeMode(false);
         }
 
         protected void ChangeClick()
@@ -117,8 +159,7 @@ namespace InterfaceToClient
             CancelButton.IsEnabled = position;
             SocketGrid.IsEnabled = position;
         }
-
-        public virtual void EnableInsertMode()
+        protected virtual void EnableInsertMode()
         {
             SwitchChangeMode(true);
             CancelButton.IsEnabled = false;

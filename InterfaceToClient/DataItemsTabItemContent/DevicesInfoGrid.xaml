@@ -13,21 +13,26 @@
         </Style>
     </Grid.Resources>
     <StackPanel Style="{StaticResource Default}" >
-        <y:DeviceTypesInfoGridShort DataContext="{Binding Path=Element.Type}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
+        <y:DeviceTypesInfoGridShort DataContext="{Binding Path=Type}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
         
         <TextBlock>Заводской номер:</TextBlock>
-        <y:EnableTextBox x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Element.Name}"></y:EnableTextBox>
+        <y:EnableTextBox x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Name}"></y:EnableTextBox>
         
         <TextBlock>Компания:</TextBlock>
-        <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox" DataContext="{Binding Path=Element}"></y:CompanyIdComboBox>
+        <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox" ItemsSource="{Binding Path=Companies, Mode=OneWay}" 
+                               SelectedValue="{Binding Path=CompanyOrDefault}"></y:CompanyIdComboBox>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Тип изделия:</TextBlock>
             <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=DevicesTypeIdComboBox, Path=SelectedValue.Marker}"></TextBlock>
         </StackPanel>
 
-        <y:TypeIdComboBox x:Name="DevicesTypeIdComboBox" DataContext="{Binding Path=Element}" SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"></y:TypeIdComboBox>
+        <y:TypeIdComboBox x:Name="DevicesTypeIdComboBox"  SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"
+                          ItemsSource="{Binding Path=Types, Mode=OneWay}" 
+                          SelectedValue="{Binding Path=TypeOrDefault}"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
-        <y:ParentComboBox x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" DataContext="{Binding Path=Element}" ></y:ParentComboBox>
+        <y:ParentComboBox x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" 
+                          ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
+                          SelectedValue="{Binding Path=ParentOrDefault}" ></y:ParentComboBox>
 
     </StackPanel>
 </y:DataItemsInfoGrid>

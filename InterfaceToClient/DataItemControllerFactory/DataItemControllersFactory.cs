@@ -10,6 +10,7 @@ namespace InterfaceToClient
 {
     public abstract class DataItemControllersFactory
     {
+
         protected DataItemsFactory Factory;
         public DataItemControllersFactory()
         {
@@ -35,26 +36,29 @@ namespace InterfaceToClient
             return GetController(Factory.GetDataItemDefault());
         }
 
-        protected abstract Grid GetTabItemContent();
+        protected virtual Grid GetTabItemContent()
+        {
+            var dataGrid = new TabItemGrid();
+            dataGrid.ContentGrid = GetDataItemsInfoGrid();
+            return dataGrid;
+        }
+        protected abstract DataItemsInfoGrid GetDataItemsInfoGrid();
 
         public virtual DataItemsTabItem GetTabItem(DataItemController dataItemController)
         {
-            var dataContext = new DataContextControl<DataItemController>();
-            dataContext.SetElement(dataItemController);
-
-            var tabItem = new DataItemsTabItem() { DataContext =  dataContext , Content = GetTabItemContent() };
+            var tabItem = new DataItemsTabItem() { DataContext =  dataItemController , Content = GetTabItemContent() };
             FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { TableName });
             return tabItem;
         }
 
         public DataItemsTabItem GetInsertTabItem()
         {
-
-            //var managerGrid = tabItem.Content as ManagerGrid;
-            //managerGrid.DataContext = new DataItemsChange() { NewDataItem = dataItem };
-
-            //managerGrid.EnableInsertMode();
             return GetTabItem(GetControllerDefault());
+        }
+
+        public ListBoxItemGrid GetListBoxItemGrid(DataItemController dataItemController)
+        {
+            return new ListBoxItemGrid() { ContentGrid = GetDataItemsInfoGrid(), DataContext = dataItemController };
         }
 
         

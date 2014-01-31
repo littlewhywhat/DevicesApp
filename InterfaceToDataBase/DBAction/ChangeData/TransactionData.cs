@@ -9,21 +9,24 @@ namespace InterfaceToDataBase
     public abstract class TransactionData : DBAction
     {
 
-        public abstract void PerformTransaction(DbTransaction Transaction);
+        public abstract object PerformTransaction(DbTransaction Transaction);
         public object Act(DbConnection connection)
         {
             Connection.GetCommand(DBHelper.GetPreActionText(), connection).ExecuteNonQuery();
-            var Transaction = Connection.GetTransaction(connection);
+            var Transaction = connection.BeginTransaction();
+            object result = null;
             try
             {
-                PerformTransaction(Transaction); 
-                Connection.TransactionCommit(Transaction);
+                result = PerformTransaction(Transaction);
+                Transaction.Commit();
+                return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Connection.TransactionRollBack(Transaction);
+                Transaction.Rollback();
+                throw new DBActionException(e);
             }
-            return null;
+            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace InterfaceToDataBase
         {}
         protected override int ExecMainCommand(DbTransaction transaction)
         {
-            new GetNewDataItemId(dataItem).Act(transaction.Connection);
+            new GetNewDataItemId(dataItem).PerformTransaction(transaction);
             return base.ExecMainCommand(transaction);
         }
 

@@ -25,7 +25,7 @@ namespace InterfaceToDataBase
             while(reader.Read())
             {
                 var logRow = new LogRow();
-                logRow.GetType().GetProperties().ForEach(property => property.SetValue(logRow, Convert.ChangeType(reader[property.Name], property.PropertyType),null));
+                logRow.GetType().GetProperties().ToList().ForEach(property => property.SetValue(logRow, Convert.ChangeType(reader[property.Name], property.PropertyType),null));
                 list.Add(logRow);
             }
             return list;

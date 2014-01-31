@@ -29,13 +29,10 @@ namespace InterfaceToClient
 
         private void DevicesTypeIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DevicesTypeIdComboBox.IsEnabled)
-            {
-                var deviceController = (DeviceController)DevicesTypeIdComboBox.DataContext;
-                var selectedItem = ((DeviceTypeController)DevicesTypeIdComboBox.SelectedItem);
-                if ((deviceController != null) && (selectedItem != null))
-                    ((DeviceController)DevicesTypeParentComboBox.DataContext).Refresh();
-            }
+            //if (DevicesTypeIdComboBox.IsEnabled)
+            //{
+            //    ((DataContextControl<DataItemController>)DevicesTypeParentComboBox.DataContext).Refresh();
+            //}
         }
 
         private void DevicesTypeParentComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

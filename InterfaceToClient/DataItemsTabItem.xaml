@@ -155,7 +155,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="18"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Name="Title" FontSize="15" Margin="5" Text="{Binding Path=Element.Name}" ></TextBlock>
+            <TextBlock Name="Title" FontSize="15" Margin="5" Text="{Binding Path=Name}" ></TextBlock>
             <Button Grid.Column="1" Name="Close" Click="Close_Click" >
                 <Button.Template>
                     <ControlTemplate

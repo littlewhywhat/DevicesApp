@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="TabItemGrid_DataContextChanged">
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="TabItemGrid_DataContextChanged" 
+                  InsertMode="{Binding Path=InsertMode, Mode=OneWay}">
     <Grid.RowDefinitions>
         <RowDefinition Height="35"></RowDefinition>
         <RowDefinition ></RowDefinition>
@@ -17,7 +18,7 @@
         <Button Background="#FFF9F9F9" Margin="5" Name="Cancel" Click="Cancel_Click" IsEnabled="False">Cancel</Button>
 
     </StackPanel>
-    <Grid Name="socketGrid" Grid.Row="1" IsEnabled="False" DataContext="{Binding}">
+    <Grid Name="socketGrid" Grid.Row="1" IsEnabled="False" DataContext="{Binding}" >
 
     </Grid>
 </y:ControlManager>

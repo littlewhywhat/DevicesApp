@@ -24,7 +24,7 @@ namespace InterfaceToClient
             Dispose();
             Dictionary = dictionary;
             FactoriesVault.ChangesGetter.AddObserver(this, new string[] { Dictionary.Factory.TableName });
-            Dictionary.GetDevicesWithoutParents().ForEach(dataItemController =>
+            Dictionary.GetDevicesWithoutParents().ToList().ForEach(dataItemController =>
                 {
                     AddTreeViewItemByDataItemController(dataItemController);
                 });

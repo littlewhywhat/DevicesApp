@@ -14,9 +14,10 @@ namespace InterfaceToDataBase
             Actions = actions;
         }
 
-        public override void PerformTransaction(DbTransaction Transaction)
+        public override object PerformTransaction(DbTransaction Transaction)
         {
             Actions.ForEach(action => action.PerformTransaction(Transaction));
+            return null;
         }
     }
 }

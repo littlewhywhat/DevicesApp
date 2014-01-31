@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
           xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="35" d:DesignWidth="300" DataContextChanged="ComboBox_DataContextChanged" 
-          SelectionChanged="ComboBox_SelectionChanged">
+             d:DesignHeight="35" d:DesignWidth="300"
+          >
     <ComboBox.ItemTemplate>
         <DataTemplate>
             <TextBlock Text="{Binding Path=Name, BindsDirectlyToSource=True}"></TextBlock>

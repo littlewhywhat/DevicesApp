@@ -21,13 +21,13 @@ namespace InterfaceToClient
             OnPropertyChanged(_Info);
         }
 
-        public DevicesDictionary Dictionary { get { return (DevicesDictionary)GetDictionary(); } }
+        public DevicesDictionary DevicesDic { get { return (DevicesDictionary)FactoriesVault.Dic[TableNames.Devices]; } }
         private Company Company { get { return (Company)DataItem; } }
         public string Info { get { return Company.Info; } set { Company.Info = value; OnPropertyChanged(); } }
         protected override List<TransactionData> GetDeleteReferencesActions()
         {
             var actions = base.GetDeleteReferencesActions();
-            actions.AddRange(Dictionary.GetDevicesWithCompanyId(Company.Id).Select(deviceController =>
+            actions.AddRange(DevicesDic.GetDevicesWithCompanyId(Company.Id).Select(deviceController =>
                 (TransactionData)((DeviceController)deviceController).DeleteCompanyTransaction()).ToList());
             return actions;
         }

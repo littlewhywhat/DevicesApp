@@ -26,7 +26,7 @@ namespace InterfaceToClient
 
         public void AddObserver(Observer observer, IEnumerable<string> listOfDics)
         {
-            listOfDics.ForEach(dicName => ListsDic[dicName].Add(observer));
+            listOfDics.ToList().ForEach(dicName => ListsDic[dicName].Add(observer));
         }
 
 

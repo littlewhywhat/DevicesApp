@@ -22,7 +22,7 @@ namespace InterfaceToDataBase
         }
         protected virtual void Fill(DbDataReader reader, DataItem dataItem)
         {
-            Enumerable.Range(0, reader.FieldCount).ForEach(index =>
+            Enumerable.Range(0, reader.FieldCount).ToList().ForEach(index =>
             {
                 var fieldName = reader.GetName(index);
                 var deviceProperty = dataItem.GetType().GetProperty(fieldName);

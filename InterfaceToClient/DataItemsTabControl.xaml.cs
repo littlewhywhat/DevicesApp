@@ -44,15 +44,15 @@ namespace InterfaceToClient
             {
                 if (item is DataItemsTabItem)
                 {
-                    DataContextControl<DataItemController> dataContext = null;
+                    DataItemController dataContext = null;
                     if (item.Dispatcher.CheckAccess())
-                        dataContext = (DataContextControl<DataItemController>)item.DataContext;
+                        dataContext = (DataItemController)item.DataContext;
                     else
                     {
-                        item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataContextControl<DataItemController>)item.DataContext));
+                        item.Dispatcher.BeginInvoke(new ThreadStart(() => dataContext = (DataItemController)item.DataContext));
                         while (dataContext == null) ;
                     }
-                    if (dataContext.Element == dataItemController)
+                    if (dataContext == dataItemController)
                         return item;
                 }
             }

@@ -10,6 +10,7 @@ namespace InterfaceToClient
 {
     public abstract class DataItemControllersDictionary : IDataItemDic
     {
+        public DataItemController WithoutParentController;
         public DataItemControllersFactory Factory;
         public ObservableDictionary<int, DataItemController> DataItemControllersDic = new ObservableDictionary<int, DataItemController>();
         public DataItemControllersDictionary()
@@ -42,21 +43,27 @@ namespace InterfaceToClient
         public virtual List<DataItemController> GetPossibleParents(DataItemController dataItemController)
         {
             var result = DataItemControllersDic.Values.Where(controller => controller.Id != dataItemController.Id).ToList();
-            if (!dataItemController.HasParents)
+            if (dataItemController.InsertMode)
                 return result;
             return FilterPossibleRecursion(result, dataItemController.Id);
         }
 
         private List<DataItemController> FilterPossibleRecursion(List<DataItemController> parentsList, int id)
         {
-            for (int i = 0; i < parentsList.Count; i++)
+            var filterStack = new Stack<int>();
+            filterStack.Push(id);
+            while (filterStack.Count != 0)
             {
-                var item = parentsList[i];
-                if (item.HasTheSameParentId(id))
+                var parentId = filterStack.Pop();
+                for (var i = 0; i < parentsList.Count; i++)
                 {
-                    FilterPossibleRecursion(parentsList, item.Id);
-                    i = parentsList.IndexOf(item) - 1;
-                    parentsList.Remove(item);
+                    var item = parentsList[i];
+                    if (item.IsChildOf(parentId))
+                    {
+                        parentsList.Remove(item);
+                        filterStack.Push(item.Id);
+                        i--;
+                    }
                 }
             }
             return parentsList;
@@ -75,6 +82,21 @@ namespace InterfaceToClient
         public IEnumerable<SearchResult> Search(List<string> searchList)
         {
             return DataItemControllersDic.Values.Select(dataItemController => new SearchResult(dataItemController.Search(searchList), dataItemController));
+        }
+
+        const string _WithoutParent = "Без родителя";
+        private DataItemController InitWithoutParentController()
+        {
+            var controller = Factory.GetControllerEmpty();
+            controller.Name = _WithoutParent;
+            return controller;
+        }
+
+        public DataItemController GetWithoutParentController()
+        {
+            if (WithoutParentController == null)
+                WithoutParentController = InitWithoutParentController();
+            return WithoutParentController;
         }
 
     }

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d"  
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="ListBoxItemGrid_DataContextChanged">
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="ListBoxItemGrid_DataContextChanged"
+                  InsertMode="{Binding Path=InsertMode}">
     <Grid.RowDefinitions>
         <RowDefinition Height="35"></RowDefinition>
         <RowDefinition ></RowDefinition>

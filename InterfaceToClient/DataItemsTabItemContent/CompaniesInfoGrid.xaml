@@ -5,16 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{x:Null}" >
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" >
     <StackPanel Name="Main" DataContext="{Binding}" >
-        <StackPanel.Resources>
-            <Style BasedOn="{StaticResource DefaultTextBox}"  TargetType="{x:Type TextBox}"></Style>
-        </StackPanel.Resources>
         <TextBlock>Название компании:</TextBlock>
-        <TextBox Name="CompanyName" Text="{Binding Path=Name}"></TextBox>
+        <y:EnableTextBox x:Name="CompanyName" Text="{Binding Path=Name}"></y:EnableTextBox>
         <TextBlock>Информация о компании:</TextBlock>
-        <TextBox Name="CompanyInfo" Text="{Binding Path=Info}"></TextBox>
+        <y:EnableTextBox x:Name="CompanyInfo" Text="{Binding Path=Info}"></y:EnableTextBox>
         <TextBlock>Родительская компания:</TextBlock>
-        <y:OldParentComboBox x:Name="CompanyParentComboBox" ></y:OldParentComboBox>
+        <y:ParentComboBox x:Name="CompanyParentComboBox" ItemsSource="{Binding Path=Parents}" SelectedValue="{Binding Path=ParentOrDefault}"></y:ParentComboBox>
     </StackPanel>
 </y:DataItemsInfoGrid>

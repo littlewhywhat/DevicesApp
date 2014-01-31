@@ -38,7 +38,7 @@ namespace InterfaceToClient
             return null;
         }
 
-        public static void DisposeChildren(this FrameworkElement depObjParent)
+        public static void DisposeChildrenObservers(this FrameworkElement depObjParent)
         {    
             foreach (var depObjChild in LogicalTreeHelper.GetChildren(depObjParent))
             {
@@ -46,7 +46,7 @@ namespace InterfaceToClient
                     if (depObjChild is Observer)
                         ((Observer)depObjChild).Dispose();
                     else
-                        DisposeChildren((FrameworkElement)depObjChild);
+                        DisposeChildrenObservers((FrameworkElement)depObjChild);
             }
         }
 
@@ -68,29 +68,16 @@ namespace InterfaceToClient
 
         public static FrameworkElement FindParentByType<T>(this FrameworkElement depObj)
         {
-            if (depObj.Parent != null)
+            var parent = VisualTreeHelper.GetParent(depObj);
+            if (parent != null)
             {
-                
-                if (depObj.Parent is T)
-                    return (FrameworkElement)depObj.Parent;
+                if (parent is T)
+                    return (FrameworkElement)parent;
                 else
-                    return FindParentByType<T>((FrameworkElement)depObj.Parent);
+                    return FindParentByType<T>((FrameworkElement)parent);
             }
             else return null;
         }
 
-        public static void RefreshDataContext(this FrameworkElement element, object DataContext)
-        {
-            element.DataContext = null;
-            element.DataContext = DataContext;
-        }
-        
-        public static void ForEach(this ItemCollection enumerable, Action<ItemsControl> action)
-        {
-            foreach (ItemsControl item in enumerable)
-            {
-                action(item);
-            }
-        }
     }
 }

@@ -20,13 +20,14 @@ namespace InterfaceToClient
     /// </summary>
     public partial class ListBoxItemGrid : ControlManager
     {
-        private IClose closer;
+        
         public ListBoxItemGrid()
         {
+            
             InitializeComponent();
         }
 
-        public override IClose Closer { get { return closer; } set { closer = value; } }
+        public override IClose Closer { get { return (IClose)this.FindParentByType<IClose>(); } set { } }
 
         protected override Grid SocketGrid { get { return socketGrid; } }
 
@@ -50,7 +51,7 @@ namespace InterfaceToClient
 
         private void Undo_Click(object sender, RoutedEventArgs e) { Closer.Close(this); }
 
-        public override void EnableInsertMode()
+        protected override void EnableInsertMode()
         {
             base.EnableInsertMode();
             Cancel.Visibility = System.Windows.Visibility.Hidden;

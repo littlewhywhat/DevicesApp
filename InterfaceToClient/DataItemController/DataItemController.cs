@@ -31,17 +31,48 @@ namespace InterfaceToClient
         protected abstract DataItemControllersDictionary GetDictionary();
 
         #region propertychanged implementation
-        const string _Name = "Name";
-        const string _Parent = "Parent";
+        protected const string _Name = "Name";
+        protected const string _ParentOrDefault = "ParentOrDefault";
+        protected const string _Parents = "Parents";
+        protected const string _NotInsertMode = "NotInsertMode";
+        protected const string _InsertMode = "InsertMode";
         protected virtual void OnPropertyChanged()
         {
             OnPropertyChanged(_Name);
-            OnPropertyChanged(_Parent);
+            OnPropertyChanged(_ParentOrDefault);
+            OnPropertyChanged(_Parents);
+            OnPropertyChanged(_NotInsertMode);
+            OnPropertyChanged(_InsertMode);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void Refresh()
         {
+            if (ChangeMode)
+                CheckIds();
             OnPropertyChanged();
+        }
+        public virtual void CheckIds()
+        {
+            if (!ParentExist)
+                DataItem.ParentId = 0;
+        }
+        public bool ParentExist 
+        { 
+            get 
+            {
+                try { return GetPossibleParents().ToDictionary(dataItemController => dataItemController.Id).ContainsKey(DataItem.ParentId); }
+                catch { return false; }
+            } 
+        }
+        public void RefreshAndCheckIdsAfterDelete(DataItemController OldDataItemController)
+        {
+            if (ChangeMode)
+            {
+                if (OldDataItemController.Factory == Factory)
+                    if (DataItem.ParentId == OldDataItemController.Id)
+                        Parent = GetDictionary().GetWithoutParentController();
+            }
+            
         }
         protected void OnPropertyChanged(string propertyName)
         {
@@ -55,11 +86,31 @@ namespace InterfaceToClient
             get { return DataItem.Name; }
             set { DataItem.Name = value; }
         }
+        public bool HasParents { get { return DataItem.ParentId != 0; } }
+        
         public virtual DataItemController Parent
         {
             get { return HasParents ? GetDictionary().DataItemControllersDic[DataItem.ParentId] : null; }
-            set { DataItem.ParentId = value.DataItem.Id; }
+            set { DataItem.ParentId = value.Id; }
         }
+        public DataItemController ParentOrDefault
+        {
+            get { return HasParents ? Parent : GetDictionary().GetWithoutParentController(); }
+            set { Parent = value; }
+        }
+
+        public List<DataItemController> Parents
+        {
+            get 
+            { 
+                var result = GetPossibleParents().ToList();
+                result.Insert(0, GetDictionary().GetWithoutParentController());
+                if (!result.Contains(ParentOrDefault))
+                    result.Add(ParentOrDefault);
+                return result;
+            }
+        }
+
         #endregion
         bool changeMode = false;
         private DataItem dataItem;
@@ -81,12 +132,18 @@ namespace InterfaceToClient
                 dataItem = clone;
             ChangeMode = false;
             DataItem.Id = 0;
+            OnPropertyChanged(_NotInsertMode);
+            OnPropertyChanged(_InsertMode);
         }
-        public bool InsertMode { get { return DataItem.Id == 0; } }
-        public bool HasParents { get { return DataItem.ParentId != 0; } }
-        public bool HasTheSameParentId(int id) { return DataItem.ParentId == id; }
+        public bool InsertMode { get { return DataItem.Id == 0; } set { } }
+        public bool NotInsertMode { get { return !InsertMode; } }
         
-        public IEnumerable<DataItemController> GetPossibleParents()
+        public bool HasTheSameParentId(int id) { return DataItem.ParentId == id; }
+
+        public bool IsChildOf(int id) { return DataItem.ParentId == id; }
+        public bool IsChildOf(DataItemController controller) { return IsChildOf(controller.Id); }
+
+        private IEnumerable<DataItemController> GetPossibleParents()
         {
             return GetDictionary().GetPossibleParents(this);
         }
@@ -99,7 +156,7 @@ namespace InterfaceToClient
         public virtual Dictionary<string, string> GetSearchPropertyValueDic()
         {
             var dictionary = new Dictionary<string, string>();
-            GetType().GetProperties().ForEach(dataItemProperty =>
+            GetType().GetProperties().ToList().ForEach(dataItemProperty =>
             {
                 if ((DataItem.Factory.SearchTableFields.Contains(dataItemProperty.Name)))
                     dictionary.Add(dataItemProperty.Name, dataItemProperty.GetValue(this, null).ToString());
@@ -150,7 +207,17 @@ namespace InterfaceToClient
             return Factory.GetTabItem(this);
         }
 
+        public ListBoxItemGrid GetListBoxItemGrid()
+        {
+            DataItem.Fill(DataItem.Factory.OtherTableFields);
+            return Factory.GetListBoxItemGrid(this);
+        }
 
+        public void RefreshDataItemByController(DataItemController controller)
+        {
+            dataItem = controller.dataItem;
+            OnPropertyChanged();
+        }
         
     }
 }

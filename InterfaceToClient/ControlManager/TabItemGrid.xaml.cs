@@ -39,7 +39,7 @@ namespace InterfaceToClient
 
         protected override Grid SocketGrid { get { return socketGrid; } }
 
-        public override DataItemController CurrentDataItemController { get { return ((DataContextControl<DataItemController>)DataContext).Element; } }
+        public override DataItemController CurrentDataItemController { get { return (DataItemController)DataContext; } }
 
         protected override Button UpdateButton { get { return Update; } }
 
@@ -61,8 +61,8 @@ namespace InterfaceToClient
         {
             if (DataContext != null)
             {
-                if (CurrentDataItemController.InsertMode)
-                    EnableInsertMode();
+                //if (CurrentDataItemController.InsertMode)
+                //    EnableInsertMode();
                 
             }
         }

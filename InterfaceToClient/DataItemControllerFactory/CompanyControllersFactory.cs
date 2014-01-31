@@ -16,12 +16,10 @@ namespace InterfaceToClient
         {
             return new CompanyController((Company)dataItem, this);
         }
-
-        protected override Grid GetTabItemContent()
+        
+        protected override DataItemsInfoGrid GetDataItemsInfoGrid()
         {
-            var dataGrid = new TabItemGrid();
-            dataGrid.ContentGrid = new CompaniesInfoGrid();
-            return dataGrid;
+            return new CompaniesInfoGrid();
         }
 
         protected override DataItemsFactory GetFactory()
