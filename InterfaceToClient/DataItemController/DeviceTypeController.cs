@@ -100,5 +100,11 @@ namespace InterfaceToClient
             return controller is DeviceTypeController;
         }
 
+        internal override void ChangeInDb()
+        {
+            if (dataItem.ParentId != clone.ParentId)
+                DeleteReferences();
+            base.ChangeInDb();
+        }
     }
 }

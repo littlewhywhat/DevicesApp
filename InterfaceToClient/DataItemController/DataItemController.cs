@@ -122,7 +122,7 @@ namespace InterfaceToClient
 
         #endregion
         bool changeMode = false;
-        private DataItem dataItem;
+        protected DataItem dataItem;
         protected DataItem clone;
         protected DataItem DataItem { get { return ChangeMode ? clone : dataItem; } }
         public bool ChangeMode
@@ -173,7 +173,7 @@ namespace InterfaceToClient
             return dictionary;
         }
 
-        internal void ChangeInDb()
+        internal virtual void ChangeInDb()
         {
             DataItem.ChangeInDb();
             ChangeMode = false;
