@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="500" DataContext="{Binding}">
+             d:DesignHeight="400" d:DesignWidth="500" MaxWidth="600" DataContext="{Binding}">
     <Grid.ColumnDefinitions>
-        <ColumnDefinition></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
+        <ColumnDefinition MaxWidth="220"></ColumnDefinition>
+        <ColumnDefinition MaxWidth="380"></ColumnDefinition>
     </Grid.ColumnDefinitions>
     <y:TabItemGrid x:Name="ManagerGrid" DataContext="{Binding}">
         <y:TabItemGrid.ContentGrid>

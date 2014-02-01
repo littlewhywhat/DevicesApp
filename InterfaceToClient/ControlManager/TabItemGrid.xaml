@@ -11,14 +11,20 @@
         <RowDefinition Height="35"></RowDefinition>
         <RowDefinition ></RowDefinition>
     </Grid.RowDefinitions>
-    <StackPanel Orientation="Horizontal">
-        <Button Background="#FFF9F9F9" Margin="5" Name="Change" Click="Change_Click">Change</Button>
-        <Button Background="#FFF9F9F9" Margin="5" Name="Update" Click="Update_Click" IsEnabled="False">Update</Button>
-        <Button Background="#FFF9F9F9" Margin="5" Name="Delete" Click="Delete_Click" IsEnabled="False">Delete</Button>
-        <Button Background="#FFF9F9F9" Margin="5" Name="Cancel" Click="Cancel_Click" IsEnabled="False">Cancel</Button>
-
+    <StackPanel Orientation="Horizontal"  Margin="5,5">
+        <Canvas Width="25" >
+            <y:UpdateButton  x:Name="Update" Click="Update_Click" Visibility="Hidden"  Content="U"/>
+            <y:UpdateButton x:Name="Change" Click="Change_Click" Content="C"/>
+        </Canvas>
+        <Canvas Width="25" >
+            <y:DeleteButton x:Name="Delete" Click="Delete_Click" IsEnabled="False" >D</y:DeleteButton>
+        </Canvas>
+        <Canvas Width="35" >
+            <y:CancelButton x:Name="Cancel" Click="Cancel_Click" IsEnabled="False" >C</y:CancelButton>
+            
+        </Canvas>
     </StackPanel>
-    <Grid Name="socketGrid" Grid.Row="1" IsEnabled="False" DataContext="{Binding}" >
+    <Grid Name="socketGrid" Margin="5" Grid.Row="1" IsEnabled="False" DataContext="{Binding}" >
 
     </Grid>
 </y:ControlManager>

@@ -6,12 +6,21 @@
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" >
+    <Grid.Resources>
+        <Style x:Key="TextBoxMargin" TargetType="y:EnableTextBox">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </Grid.Resources>
     <StackPanel Name="Main" DataContext="{Binding}" >
+        <StackPanel.Resources>
+            <Style BasedOn="{StaticResource TextBoxMargin}" TargetType="y:EnableTextBox" >
+            </Style>
+        </StackPanel.Resources>
         <TextBlock>Название компании:</TextBlock>
-        <y:EnableTextBox x:Name="CompanyName" Text="{Binding Path=Name}"></y:EnableTextBox>
+        <y:EnableTextBox Margin="5" x:Name="CompanyName" Text="{Binding Path=Name}"></y:EnableTextBox>
         <TextBlock>Информация о компании:</TextBlock>
-        <y:EnableTextBox x:Name="CompanyInfo" Text="{Binding Path=Info}"></y:EnableTextBox>
+        <y:EnableTextBox  Margin="5" x:Name="CompanyInfo" Text="{Binding Path=Info}"></y:EnableTextBox>
         <TextBlock>Родительская компания:</TextBlock>
-        <y:ParentComboBox x:Name="CompanyParentComboBox" ItemsSource="{Binding Path=Parents}" SelectedValue="{Binding Path=ParentOrDefault}"></y:ParentComboBox>
+        <y:ParentComboBox Margin="5" x:Name="CompanyParentComboBox" ItemsSource="{Binding Path=Parents}" SelectedValue="{Binding Path=ParentOrDefault}"></y:ParentComboBox>
     </StackPanel>
 </y:DataItemsInfoGrid>

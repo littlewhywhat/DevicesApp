@@ -14,14 +14,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Border Focusable="False"     
-                                     BorderThickness="1" Margin="5" Padding="2" Background="White">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0,2" StartPoint="0,0">
-                                    <GradientStop Color="#FFABADB3" Offset="0.05"/>
-                                    <GradientStop Color="#FFE2E3EA" Offset="0.07"/>
-                                    <GradientStop Color="#FFE3E9EF" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
+                                     BorderThickness="1"  Padding="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                            
                             <ScrollViewer x:Name="PART_ContentHost"/>
                         </Border>
                     </ControlTemplate>

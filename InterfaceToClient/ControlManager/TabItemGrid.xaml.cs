@@ -57,6 +57,9 @@ namespace InterfaceToClient
 
         private void Cancel_Click(object sender, RoutedEventArgs e) { CancelClick(); }
 
+
+        
+
         private void TabItemGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext != null)

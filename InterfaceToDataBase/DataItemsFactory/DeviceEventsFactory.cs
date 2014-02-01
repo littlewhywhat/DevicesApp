@@ -27,6 +27,7 @@ namespace InterfaceToDataBase
             var dataItem = (DeviceEvent)GetEmptyDataItem();
             dataItem.Name = "Новое событие";
             dataItem.Date = DateTime.Now;
+            dataItem.Type = "Тип неопределен";
             return dataItem;
         }
     }

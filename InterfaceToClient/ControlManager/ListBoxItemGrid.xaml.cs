@@ -54,22 +54,15 @@ namespace InterfaceToClient
         protected override void EnableInsertMode()
         {
             base.EnableInsertMode();
-            Cancel.Visibility = System.Windows.Visibility.Hidden;
-            Undo.Visibility = System.Windows.Visibility.Visible;
+            HideFrameworkElement(true, CancelButton);
+            HideFrameworkElement(false, Undo);
         }
 
         public override void SwitchChangeMode(bool position)
         {
             base.SwitchChangeMode(position);
-            HideFrameworkElement(position, Change);
-            HideFrameworkElement(!position, Update);
-            Cancel.Visibility = System.Windows.Visibility.Visible;
-            Undo.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void HideFrameworkElement(bool position, FrameworkElement element)
-        {
-            element.Visibility = position ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            HideFrameworkElement(false, CancelButton);
+            HideFrameworkElement(true, Undo);
         }
 
         private void ListBoxItemGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

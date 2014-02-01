@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" 
+             d:DesignHeight="300" d:DesignWidth="300" MaxHeight="300" 
               Opened="Popup_Opened" Name="searchPopUp" >
     <Popup.Child>
         <Grid x:Name="PopUpGrid" LostMouseCapture="PopUpGrid_LostMouseCapture" Mouse.PreviewMouseDownOutsideCapturedElement="PopUpGrid_PreviewMouseDownOutsideCapturedElement">

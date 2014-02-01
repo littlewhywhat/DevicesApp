@@ -37,6 +37,7 @@ namespace InterfaceToClient
             border.DataContext = this;
             return border;
         }
+        public FrameworkElement Panel { get { return GetPanel(); } }
 
         #region propertychanged implementation
         protected const string _Name = "Name";

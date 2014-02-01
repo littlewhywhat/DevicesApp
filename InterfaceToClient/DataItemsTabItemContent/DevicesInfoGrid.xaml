@@ -11,26 +11,33 @@
         <Style TargetType="FrameworkElement" x:Key="Default">
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
+        <Style x:Key="TextBoxMargin" TargetType="y:EnableTextBox">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
     </Grid.Resources>
-    <StackPanel Style="{StaticResource Default}" >
+    <StackPanel  >
+        <StackPanel.Resources>
+            <Style BasedOn="{StaticResource TextBoxMargin}" TargetType="y:EnableTextBox" >
+            </Style>
+        </StackPanel.Resources>
         <y:DeviceTypesInfoGridShort DataContext="{Binding Path=Type}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
         
         <TextBlock>Заводской номер:</TextBlock>
-        <y:EnableTextBox x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Name}"></y:EnableTextBox>
+        <y:EnableTextBox  Margin="5" x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Name}"></y:EnableTextBox>
         
         <TextBlock>Компания:</TextBlock>
-        <y:CompanyIdComboBox   x:Name="DevicesCompanyIdComboBox" ItemsSource="{Binding Path=Companies, Mode=OneWay}" 
+        <y:CompanyIdComboBox   Margin="5" x:Name="DevicesCompanyIdComboBox" ItemsSource="{Binding Path=Companies, Mode=OneWay}" 
                                SelectedValue="{Binding Path=CompanyOrDefault}"></y:CompanyIdComboBox>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Тип изделия:</TextBlock>
             <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=DevicesTypeIdComboBox, Path=SelectedValue.Marker}"></TextBlock>
         </StackPanel>
 
-        <y:TypeIdComboBox x:Name="DevicesTypeIdComboBox"  SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"
+        <y:TypeIdComboBox  Margin="5" x:Name="DevicesTypeIdComboBox"  SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"
                           ItemsSource="{Binding Path=Types, Mode=OneWay}" 
                           SelectedValue="{Binding Path=TypeOrDefault}"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
-        <y:ParentComboBox x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" 
+        <y:ParentComboBox  Margin="5" x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" 
                           ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
                           SelectedValue="{Binding Path=ParentOrDefault}" ></y:ParentComboBox>
 

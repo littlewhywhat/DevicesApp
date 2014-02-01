@@ -7,7 +7,7 @@
              mc:Ignorable="d"  
              d:DesignHeight="75" Height="75" d:DesignWidth="350" DataContext="{Binding}" DataContextChanged="ListBoxItemGrid_DataContextChanged"
                   InsertMode="{Binding Path=InsertMode}" >
-    <Border Background="WhiteSmoke"  BorderThickness="1" Padding="0">
+    <Border Background="Transparent"  BorderThickness="1" Padding="0">
         <Border.BorderBrush>
             <LinearGradientBrush EndPoint="0,2" StartPoint="0,0">
                 <GradientStop Color="#FFABADB3" Offset="0.05"/>
@@ -29,8 +29,8 @@
             <y:CancelButton x:Name="Undo" Click="Undo_Click" Visibility="Hidden">U</y:CancelButton>
         </Canvas>
     </StackPanel>
-    <Grid Name="socketGrid" VerticalAlignment="Bottom" IsEnabled="False">
-        
+    <Grid Name="socketGrid" VerticalAlignment="Bottom"  IsEnabled="False">
+                <y:DeviceEventGrid></y:DeviceEventGrid>
     </Grid>
             </Grid>
     </Border>

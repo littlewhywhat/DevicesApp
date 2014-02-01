@@ -60,7 +60,7 @@ namespace InterfaceToClient
 
         private void SearchGrid_KeyUp(object sender, KeyEventArgs e)
         {
-            if (sender is SearchGrid && e.Key == Key.Enter)
+            if (sender is SearchGrid && e.Key == Key.Return)
             {
                 var searchGrid = (SearchGrid)sender;
                 var dataItemController = (DataItemController)((FrameworkElement)searchGrid.searchPopUp.searchListBox.SelectedItem).DataContext;

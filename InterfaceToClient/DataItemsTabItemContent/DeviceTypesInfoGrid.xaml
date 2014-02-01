@@ -6,10 +6,17 @@
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"  >
+    <Grid.Resources>
+        <Style x:Key="TextBoxMargin" TargetType="y:EnableTextBox">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </Grid.Resources>
     <StackPanel Name="Main" DataContext="{Binding}" DataContextChanged="Main_DataContextChanged">
+
         <y:DeviceTypesInfoGridShort DataContext="{Binding}"></y:DeviceTypesInfoGridShort>
         <TextBlock>Родительский тип:</TextBlock>
-        <y:ParentComboBox x:Name="DeviceTypesParentComboBox" ></y:ParentComboBox>
+        <y:ParentComboBox  Margin="5" x:Name="DeviceTypesParentComboBox" ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
+                          SelectedValue="{Binding Path=ParentOrDefault}"></y:ParentComboBox>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="13*"/>

@@ -6,10 +6,15 @@
              xmlns:y="clr-namespace:InterfaceToClient"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel.Resources>
+        <Style x:Key="TextBoxMargin" TargetType="y:EnableTextBox">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </StackPanel.Resources>
     <TextBlock>Короткое название изделия</TextBlock>
-    <y:EnableTextBox x:Name="DeviceName" Text="{Binding Path=Name}"></y:EnableTextBox>
+    <y:EnableTextBox  Margin="5" x:Name="DeviceName" Text="{Binding Path=Name}"></y:EnableTextBox>
     <TextBlock >Полное название изделия:</TextBlock>
-    <y:EnableTextBox x:Name="DeviceFullName" Text="{Binding Path=FullName}"></y:EnableTextBox>
+    <y:EnableTextBox  Margin="5" x:Name="DeviceFullName" Text="{Binding Path=FullName}"></y:EnableTextBox>
     <TextBlock>ИВУК:</TextBlock>
-    <y:EnableTextBox x:Name="DeviceIVUK" Text="{Binding Path=IVUK}"></y:EnableTextBox>
+    <y:EnableTextBox  Margin="5" x:Name="DeviceIVUK" Text="{Binding Path=IVUK}"></y:EnableTextBox>
 </StackPanel>

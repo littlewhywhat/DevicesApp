@@ -30,7 +30,7 @@ namespace InterfaceToClient
 
         internal override System.Windows.FrameworkElement GetPanel()
         {
-            throw new NotImplementedException();
+            return new CompanyPanel();
         }
     }
 }

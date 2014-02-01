@@ -84,7 +84,8 @@
                                   HorizontalAlignment="Left" 
                                   Visibility="Visible" />
 
-                        <ToggleButton Name="Toggle" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                        <ToggleButton Name="Toggle" 
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
             Grid.Column="1">
                             <ToggleButton.Style>
                                 <Style

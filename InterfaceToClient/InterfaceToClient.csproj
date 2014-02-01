@@ -105,6 +105,9 @@
     <Compile Include="DataItemController\DeviceController.cs" />
     <Compile Include="DataItemController\DeviceEventController.cs" />
     <Compile Include="DataItemController\DeviceTypeController.cs" />
+    <Compile Include="DataItemPanels\CompanyPanel.xaml.cs">
+      <DependentUpon>CompanyPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataItemPanels\DevicePanel.xaml.cs">
       <DependentUpon>DevicePanel.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlManager\TypeTabItemGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataItemPanels\CompanyPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

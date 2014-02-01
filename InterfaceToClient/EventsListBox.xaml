@@ -30,12 +30,13 @@
             <ComboBoxItem >Работа</ComboBoxItem>
             <ComboBoxItem >Проверка</ComboBoxItem>
             <ComboBoxItem>Ремонт</ComboBoxItem>
+            <ComboBoxItem>Тип неопределен</ComboBoxItem>
 
         </ComboBox>
     </Grid>
-    
-    
-    <ListBox x:Name="ListBox" Grid.Row="1" HorizontalContentAlignment="Stretch">
+
+
+    <ListBox x:Name="ListBox" Grid.Row="1" HorizontalContentAlignment="Stretch" ScrollViewer.CanContentScroll="False">
         
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
@@ -43,6 +44,55 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                 <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
                 <Setter Property="FontSize" Value="14"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem" xmlns:s="clr-namespace:System;assembly=mscorlib">
+                            <Border  BorderThickness="{TemplateBinding Border.BorderThickness}"
+                                 Padding="{TemplateBinding Control.Padding}"
+                                 BorderBrush="{TemplateBinding Border.BorderBrush}"
+                                 Background="{TemplateBinding Panel.Background}"
+                                 Name="Bd"
+                                 SnapsToDevicePixels="True">
+                                <ContentPresenter 
+                                Content="{TemplateBinding ContentControl.Content}"
+                                ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Selector.IsSelected">
+                                    <Setter Property="Panel.Background" TargetName="Bd" Value="#FF56AEFC"></Setter>
+                                    <Trigger.Value>
+                                        <s:Boolean>True</s:Boolean>
+                                    </Trigger.Value>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition
+                                            Property="Selector.IsSelected">
+                                            <Condition.Value>
+                                                <s:Boolean>True</s:Boolean>
+                                            </Condition.Value>
+                                        </Condition>
+                                        <Condition
+                                            Property="Selector.IsSelectionActive">
+                                            <Condition.Value>
+                                                <s:Boolean>False</s:Boolean>
+                                            </Condition.Value>
+                                        </Condition>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Panel.Background"
+                                            TargetName="Bd" Value="Transparent">
+                                    </Setter>
+                                    
+                                </MultiTrigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </ListBox.ItemContainerStyle>
     </ListBox>

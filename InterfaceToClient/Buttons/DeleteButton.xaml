@@ -28,7 +28,24 @@
                         <s:Boolean>true</s:Boolean>
                     </Trigger.Value>
                 </Trigger>
-
+                <Trigger Property="IsEnabled">
+                    <Setter Property="Fill" TargetName="DeleteButton" Value="#FFF0F0F0"></Setter>
+                    <Trigger.Value>
+                        <s:Boolean>false</s:Boolean>
+                    </Trigger.Value>
+                </Trigger>
+                <Trigger Property="IsEnabled">
+                    <Setter Property="Stroke" TargetName="DeleteButton" Value="#FF777777"></Setter>
+                    <Trigger.Value>
+                        <s:Boolean>false</s:Boolean>
+                    </Trigger.Value>
+                </Trigger>
+                <Trigger  Property="UIElement.IsEnabled">
+                    <Setter Property="TextElement.Foreground" Value="#FFADADAD">  </Setter>
+                    <Trigger.Value>
+                        <s:Boolean>False</s:Boolean>
+                    </Trigger.Value>
+                </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Button.Template>

@@ -32,7 +32,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Selector.IsSelected">
-                                <Setter Property="Panel.Background" TargetName="Bd" Value="AliceBlue"></Setter>
+                                <Setter Property="Panel.Background" TargetName="Bd" Value="#FF56AEFC"></Setter>
                                 <Trigger.Value>
                                     <s:Boolean>True</s:Boolean>
                                 </Trigger.Value>

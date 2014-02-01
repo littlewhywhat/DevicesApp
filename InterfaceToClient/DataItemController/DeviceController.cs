@@ -105,6 +105,8 @@ namespace InterfaceToClient
             {
                 var result = GetTypes().ToList();
                 result.Add(DeviceTypesDic.GetUndefinedType());
+                if (!result.Contains(TypeOrDefault))
+                    result.Add(TypeOrDefault);
                 return result;
             }
         }
@@ -123,7 +125,15 @@ namespace InterfaceToClient
         public IEnumerable<DataItemController> GetTypes()
         {
             if (HasParents && ((DeviceController)Parent).HasType)
-                return DeviceTypesDic.GetChildrenDevicesTypes(((DeviceController)Parent).Type);
+            {
+                var result = DeviceTypesDic.GetChildrenDevicesTypes(((DeviceController)Parent).Type).ToList();
+                GetDictionary().GetChildrenByParentId(Parent.Id).ToList().ForEach(child =>
+                    {
+                        if (result.Contains(((DataItemController)((DeviceController)child).Type)))
+                            result.Remove(((DataItemController)((DeviceController)child).Type));
+                    });
+                return result;
+            }
             return DeviceTypesDic.GetTypesWithoutMarker();
         }
 

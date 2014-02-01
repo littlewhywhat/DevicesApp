@@ -14,52 +14,6 @@ namespace InterfaceToClient
     public abstract class ControlManager : Grid
     {
 #region
-        //public static readonly DependencyProperty DataItemControllerContextProperty = 
-        //    DependencyProperty.Register("InsertMode", typeof(bool),
-        //                        typeof(ControlManager),
-        //                        new FrameworkPropertyMetadata(null,
-        //                                FrameworkPropertyMetadataOptions.Inherits,
-        //                                new PropertyChangedCallback(OnInsertModeChanged)));
-
-        //private static void OnInsertModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    ((ControlManager)d).RaiseDependencyPropertyChanged(InsertModeChangedKey, e);
-        //}
-
-        //internal static readonly EventPrivateKey InsertModeChangedKey = new EventPrivateKey();
-
-
-        ////public event DependencyPropertyChangedEventHandler DataItemControllerContextChanged
-        ////{
-        ////    add { EventHandlersStoreAdd(DataItemControllerContextChangedKey, value); }
-        ////    remove { EventHandlersStoreRemove(DataItemControllerContextChangedKey, value); }
-        ////}
-
-        /////// 
-
-        ///////     DataContext Property
-        /////// 
-
-        ////[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        ////[Localizability(LocalizationCategory.NeverLocalize)]
-        ////public object DataItemControllerContext
-        ////{
-        ////    get { return GetValue(DataItemControllerContextProperty); }
-        ////    set { SetValue(DataItemControllerContextProperty, value); }
-        ////}
-
-        //private void RaiseDependencyPropertyChanged(EventPrivateKey key, DependencyPropertyChangedEventArgs args)
-        //{
-        //    var store = EventHandlersStore;
-        //    if (store != null)
-        //    {
-        //        Delegate handler = store.Get(key);
-        //        if (handler != null)
-        //        {
-        //            ((DependencyPropertyChangedEventHandler)handler)(this, args);
-        //        }
-        //    }
-        //}
         public static readonly DependencyProperty InsertModeProperty =
             DependencyProperty.Register("InsertMode", typeof(bool), typeof(ControlManager), 
             new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, 
@@ -158,7 +112,15 @@ namespace InterfaceToClient
             ChangeButton.IsEnabled = !position;
             CancelButton.IsEnabled = position;
             SocketGrid.IsEnabled = position;
+            HideFrameworkElement(position, ChangeButton);
+            HideFrameworkElement(!position, UpdateButton);
         }
+
+        protected void HideFrameworkElement(bool position, FrameworkElement element)
+        {
+            element.Visibility = position ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+        }
+
         protected virtual void EnableInsertMode()
         {
             SwitchChangeMode(true);
