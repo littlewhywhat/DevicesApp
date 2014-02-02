@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 
-namespace InterfaceToDataBase
+namespace DataItemsLibrary
 {
     public class DeviceEvent : DataItem
     {

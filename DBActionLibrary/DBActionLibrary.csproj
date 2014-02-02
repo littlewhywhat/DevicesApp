@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C926E7D-DE16-4722-A898-5E193E7CFF2E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DBActionLibrary</RootNamespace>
+    <AssemblyName>DBActionLibrary</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DBAction\ChangeData\ChangeData.cs" />
+    <Compile Include="DBAction\ChangeData\DeleteDataItem.cs" />
+    <Compile Include="DBAction\ChangeData\InsertDataItem.cs" />
+    <Compile Include="DBAction\ChangeData\PerformTransactionOnList.cs" />
+    <Compile Include="DBAction\ChangeData\TransactionData.cs" />
+    <Compile Include="DBAction\ChangeData\UpdateDataItem.cs" />
+    <Compile Include="DBAction\DBAction.cs" />
+    <Compile Include="DBAction\FillData\FillDataDic.cs" />
+    <Compile Include="DBAction\FillData\FillDataItem.cs" />
+    <Compile Include="DBAction\FillData\GetData.cs" />
+    <Compile Include="DBAction\GetLoggingReader.cs" />
+    <Compile Include="DBAction\GetNewDataItemId.cs" />
+    <Compile Include="DBAction\GetTimestamp.cs" />
+    <Compile Include="DBHelper\DBHelper.cs" />
+    <Compile Include="Helpers\ObservableDictionary.cs" />
+    <Compile Include="Helpers\TransactionDataConverter.cs" />
+    <Compile Include="Interface\ActionTypeEnum.cs" />
+    <Compile Include="Interface\Connection.cs" />
+    <Compile Include="Interface\DataItemAction.cs" />
+    <Compile Include="Interface\DBActionException.cs" />
+    <Compile Include="Interface\Extensions.cs" />
+    <Compile Include="Interface\IDataItemDic.cs" />
+    <Compile Include="Interface\LogRow.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceToDataBase\DataItemsLibrary.csproj">
+      <Project>{4ddffb31-9bee-4146-bca4-a7b8c331a422}</Project>
+      <Name>DataItemsLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

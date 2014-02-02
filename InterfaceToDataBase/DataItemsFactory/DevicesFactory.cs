@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 
-namespace InterfaceToDataBase
+namespace DataItemsLibrary
 {
     public class DevicesFactory : DataItemsFactory
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Common;
 
-namespace InterfaceToDataBase
+namespace DataItemsLibrary
 {
     public class CompaniesFactory : DataItemsFactory
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace InterfaceToDataBase
+namespace DataItemsLibrary
 {
     public abstract class DataItem
     {

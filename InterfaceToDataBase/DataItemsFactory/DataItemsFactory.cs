@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Data.Common;
 
-namespace InterfaceToDataBase
+namespace DataItemsLibrary
 {
     public abstract class DataItemsFactory
     {
@@ -14,13 +14,7 @@ namespace InterfaceToDataBase
         public abstract string TableName { get; }
         public abstract DataItem GetEmptyDataItem();
         public abstract DataItem GetDataItemDefault();
-        public DataItem GetFirstFilledDataItem(int Id)
-        {
-            var dataItem = GetEmptyDataItem();
-            dataItem.Id = Id;
-            dataItem.Fill(FirstTableFields);
-            return dataItem;
-        }
+        
 
     }
 }

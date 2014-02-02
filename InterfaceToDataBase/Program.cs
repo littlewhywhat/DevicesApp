@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Data.SqlClient;
 
-namespace InterfaceToDataBase
+namespace DataItemsLibrary
 {
     static class Program
     {
