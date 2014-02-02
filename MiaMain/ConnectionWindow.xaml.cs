@@ -12,8 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Common;
-using InterfaceToDataBase;
-namespace InterfaceToClient
+using DBActionLibrary;
+namespace MiaMain
 {
     /// <summary>
     /// Логика взаимодействия для ConnectionWindow.xaml

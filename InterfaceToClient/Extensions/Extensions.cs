@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Media;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 
 namespace InterfaceToClient
 {
@@ -47,8 +47,8 @@ namespace InterfaceToClient
             foreach (var depObjChild in LogicalTreeHelper.GetChildren(depObjParent))
             {
                 if (depObjChild is FrameworkElement)
-                    if (depObjChild is Observer)
-                        ((Observer)depObjChild).Dispose();
+                    if (depObjChild is IObserver)
+                        ((IObserver)depObjChild).Dispose();
                     else
                         DisposeChildrenObservers((FrameworkElement)depObjChild);
             }

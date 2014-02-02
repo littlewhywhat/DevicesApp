@@ -12,10 +12,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Specialized;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 namespace InterfaceToClient
 {
-    public partial class DataItemsTabItem : TabItem, Observer, IClose
+    public partial class DataItemsTabItem : TabItem, IObserver, IClose
     {
         public DataItemController CurrentDataItemController { get { return (DataItemController)DataContext; } }
         

@@ -5,32 +5,32 @@ using System.Text;
 using System.Windows.Threading;
 using System.Collections.Specialized;
 using System.Windows;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 
 namespace InterfaceToClient
 {
     public class DicChangesGetter
     {
-        Dictionary<string, List<Observer>> ListsDic = new Dictionary<string, List<Observer>>();
+        Dictionary<string, List<IObserver>> ListsDic = new Dictionary<string, List<IObserver>>();
         public DicChangesGetter()
         {
             FactoriesVault.Dic[TableNames.Devices].DataItemControllersDic.CollectionChanged += DevicesDicCollectionChanged;
-            ListsDic.Add(TableNames.Devices, new List<Observer>());
+            ListsDic.Add(TableNames.Devices, new List<IObserver>());
             FactoriesVault.Dic[TableNames.DeviceTypes].DataItemControllersDic.CollectionChanged += DeviceTypesDicCollectionChanged;
-            ListsDic.Add(TableNames.DeviceTypes, new List<Observer>());
+            ListsDic.Add(TableNames.DeviceTypes, new List<IObserver>());
             FactoriesVault.Dic[TableNames.DeviceEvents].DataItemControllersDic.CollectionChanged += DeviceEventsDicCollectionChanged;
-            ListsDic.Add(TableNames.DeviceEvents, new List<Observer>());
+            ListsDic.Add(TableNames.DeviceEvents, new List<IObserver>());
             FactoriesVault.Dic[TableNames.Companies].DataItemControllersDic.CollectionChanged += CompaniesDicCollectionChanged;
-            ListsDic.Add(TableNames.Companies, new List<Observer>());
+            ListsDic.Add(TableNames.Companies, new List<IObserver>());
         }
 
-        public void AddObserver(Observer observer, IEnumerable<string> listOfDics)
+        public void AddObserver(IObserver observer, IEnumerable<string> listOfDics)
         {
             listOfDics.ToList().ForEach(dicName => ListsDic[dicName].Add(observer));
         }
 
 
-        public void RemoveObserver(Observer observer)
+        public void RemoveObserver(IObserver observer)
         {
             ListsDic.Select(keyValuePair => keyValuePair.Value).ToList().ForEach(observerList =>
             {
@@ -77,7 +77,7 @@ namespace InterfaceToClient
             });
         }
 
-        private void PerformActionOnObserver(Observer observer, Action action)
+        private void PerformActionOnObserver(IObserver observer, Action action)
         {
             var dispObj = observer as DispatcherObject;
             if (dispObj != null)

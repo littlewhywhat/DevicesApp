@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
-using InterfaceToDataBase;
+using DataItemsLibrary;
+using DBActionLibrary;
 
 namespace InterfaceToClient
 {

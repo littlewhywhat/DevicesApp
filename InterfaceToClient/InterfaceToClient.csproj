@@ -64,35 +64,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buttons\CancelButton.xaml.cs">
+    <Compile Include="CustomElements\Buttons\CancelButton.xaml.cs">
       <DependentUpon>CancelButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Buttons\DeleteButton.xaml.cs">
+    <Compile Include="CustomElements\Buttons\DeleteButton.xaml.cs">
       <DependentUpon>DeleteButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Buttons\UpdateButton.xaml.cs">
+    <Compile Include="CustomElements\Buttons\UpdateButton.xaml.cs">
       <DependentUpon>UpdateButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComboBox\CompanyIdComboBox.cs" />
-    <Compile Include="ComboBox\DataItemsComboBox.xaml.cs">
+    <Compile Include="CustomElements\ComboBox\CompanyIdComboBox.cs" />
+    <Compile Include="CustomElements\ComboBox\DataItemsComboBox.xaml.cs">
       <DependentUpon>DataItemsComboBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComboBox\DeviceExtraComboBox.cs" />
-    <Compile Include="ComboBox\ListBoxChrome.xaml.cs">
+    <Compile Include="CustomElements\ComboBox\DeviceExtraComboBox.cs" />
+    <Compile Include="CustomElements\ComboBox\ListBoxChrome.xaml.cs">
       <DependentUpon>ListBoxChrome.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComboBox\TypeIdComboBox.cs" />
-    <Compile Include="ComboBox\ParentComboBox.cs" />
-    <Compile Include="ConnectionStringBuilder.cs" />
-    <Compile Include="ConnectionWindow.xaml.cs">
-      <DependentUpon>ConnectionWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="CustomElements\ComboBox\TypeIdComboBox.cs" />
     <Compile Include="ControlManager\ControlManager.cs" />
     <Compile Include="ControlManager\ListBoxItemGrid.xaml.cs">
       <DependentUpon>ListBoxItemGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ControlManager\TypeTabItemGrid.xaml.cs">
-      <DependentUpon>TypeTabItemGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemControllerChangedEventArgs.cs" />
     <Compile Include="DataItemControllerFactory\CompanyControllersFactory.cs" />
@@ -121,7 +113,7 @@
     <Compile Include="DataItemsDictionary\DeviceEventsDictionary.cs" />
     <Compile Include="DataItemsDictionary\DevicesDictionary.cs" />
     <Compile Include="DataItemsDictionary\DeviceTypesDictionary.cs" />
-    <Compile Include="DataItemsTabControl.xaml.cs">
+    <Compile Include="CustomElements\DataItemsTabControl.xaml.cs">
       <DependentUpon>DataItemsTabControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemsTabItemContent\DataItemsInfoGrid.xaml.cs">
@@ -139,78 +131,64 @@
     <Compile Include="DataItemsTabItemContent\DeviceTypesInfoGrid.xaml.cs">
       <DependentUpon>DeviceTypesInfoGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataListBoxItemxaml.xaml.cs">
-      <DependentUpon>DataListBoxItemxaml.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DicChangesGetter.cs" />
-    <Compile Include="EnableTextBox.xaml.cs">
+    <Compile Include="CustomElements\EnableTextBox.xaml.cs">
       <DependentUpon>EnableTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EventsListBox.xaml.cs">
+    <Compile Include="CustomElements\EventsListBox.xaml.cs">
       <DependentUpon>EventsListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="FactoriesVault.cs" />
-    <Compile Include="IClose.cs" />
+    <Compile Include="Extensions\IClose.cs" />
     <Compile Include="DataItemsTabItemContent\CompaniesInfoGrid.xaml.cs">
       <DependentUpon>CompaniesInfoGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemsTabItemContent\DevicesInfoGrid.xaml.cs">
       <DependentUpon>DevicesInfoGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataItemsTreeView.xaml.cs">
+    <Compile Include="CustomElements\DataItemsTreeView.xaml.cs">
       <DependentUpon>DataItemsTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataItemsTreeViewItem.xaml.cs">
+    <Compile Include="CustomElements\DataItemsTreeViewItem.xaml.cs">
       <DependentUpon>DataItemsTreeViewItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataItemsTabItem.xaml.cs">
+    <Compile Include="CustomElements\DataItemsTabItem.xaml.cs">
       <DependentUpon>DataItemsTabItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Extensions.cs" />
-    <Compile Include="GoogleSearch\SearchGrid.xaml.cs">
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="CustomElements\GoogleSearch\SearchGrid.xaml.cs">
       <DependentUpon>SearchGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GoogleSearch\SearchListBox.xaml.cs">
+    <Compile Include="CustomElements\GoogleSearch\SearchListBox.xaml.cs">
       <DependentUpon>SearchListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GoogleSearch\SearchPopUp.xaml.cs">
+    <Compile Include="CustomElements\GoogleSearch\SearchPopUp.xaml.cs">
       <DependentUpon>SearchPopUp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Observer.cs" />
-    <Compile Include="Result.cs" />
+    <Compile Include="Extensions\IObserver.cs" />
+    <Compile Include="Extensions\SearchResult.cs" />
     <Compile Include="UpdateClient.cs" />
-    <Compile Include="UpdateDeleteButton.xaml.cs">
-      <DependentUpon>UpdateDeleteButton.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Buttons\CancelButton.xaml">
+    <Page Include="CustomElements\Buttons\CancelButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Buttons\DeleteButton.xaml">
+    <Page Include="CustomElements\Buttons\DeleteButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Buttons\UpdateButton.xaml">
+    <Page Include="CustomElements\Buttons\UpdateButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ComboBox\DataItemsComboBox.xaml">
+    <Page Include="CustomElements\ComboBox\DataItemsComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ComboBox\ListBoxChrome.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ConnectionWindow.xaml">
+    <Page Include="CustomElements\ComboBox\ListBoxChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlManager\ListBoxItemGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ControlManager\TypeTabItemGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,7 +204,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataItemsTabControl.xaml">
+    <Page Include="CustomElements\DataItemsTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -250,15 +228,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataListBoxItemxaml.xaml">
+    <Page Include="CustomElements\EnableTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EnableTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EventsListBox.xaml">
+    <Page Include="CustomElements\EventsListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,23 +244,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataItemsTreeView.xaml">
+    <Page Include="CustomElements\DataItemsTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataItemsTreeViewItem.xaml">
+    <Page Include="CustomElements\DataItemsTreeViewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GoogleSearch\SearchGrid.xaml">
+    <Page Include="CustomElements\GoogleSearch\SearchGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GoogleSearch\SearchListBox.xaml">
+    <Page Include="CustomElements\GoogleSearch\SearchListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GoogleSearch\SearchPopUp.xaml">
+    <Page Include="CustomElements\GoogleSearch\SearchPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,7 +272,7 @@
       <DependentUpon>DataItemsExplorer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="DataItemsTabItem.xaml">
+    <Page Include="CustomElements\DataItemsTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,14 +280,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UpdateDeleteButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Resource Include="themes\generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlManager\TabItemGrid.xaml.cs">
@@ -343,9 +309,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InterfaceToDataBase\InterfaceToDataBase.csproj">
+    <ProjectReference Include="..\DBActionLibrary\DBActionLibrary.csproj">
+      <Project>{0c926e7d-de16-4722-a898-5e193e7cff2e}</Project>
+      <Name>DBActionLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceToDataBase\DataItemsLibrary.csproj">
       <Project>{4ddffb31-9bee-4146-bca4-a7b8c331a422}</Project>
-      <Name>InterfaceToDataBase</Name>
+      <Name>DataItemsLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

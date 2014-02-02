@@ -1,4 +1,4 @@
-﻿using InterfaceToDataBase;
+﻿using DataItemsLibrary;
 using System;
 using System.Linq;
 using System.Windows.Controls;
@@ -11,7 +11,7 @@ namespace InterfaceToClient
     /// <summary>
     /// Логика взаимодействия для DataItemsTreeView.xaml
     /// </summary>
-    public partial class DataItemsTreeView : TreeView, Observer
+    public partial class DataItemsTreeView : TreeView, IObserver
     {
         private DataItemControllersWithParentsDictionary Dictionary;
         public DataItemsTreeView()

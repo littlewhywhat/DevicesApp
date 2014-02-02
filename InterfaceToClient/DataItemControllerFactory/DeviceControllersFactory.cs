@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 
 namespace InterfaceToClient
 {

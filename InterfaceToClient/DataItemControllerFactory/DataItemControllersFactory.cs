@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.Specialized;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 using System.Windows;
+using DBActionLibrary;
 using System.Windows.Controls;
 
 namespace InterfaceToClient

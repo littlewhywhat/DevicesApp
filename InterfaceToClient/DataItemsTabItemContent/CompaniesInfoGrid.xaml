@@ -21,6 +21,6 @@
         <TextBlock>Информация о компании:</TextBlock>
         <y:EnableTextBox  Margin="5" x:Name="CompanyInfo" Text="{Binding Path=Info}"></y:EnableTextBox>
         <TextBlock>Родительская компания:</TextBlock>
-        <y:ParentComboBox Margin="5" x:Name="CompanyParentComboBox" ItemsSource="{Binding Path=Parents}" SelectedValue="{Binding Path=ParentOrDefault}"></y:ParentComboBox>
+        <y:DataItemsComboBox Margin="5" x:Name="CompanyParentComboBox" ItemsSource="{Binding Path=Parents}" SelectedValue="{Binding Path=ParentOrDefault}"></y:DataItemsComboBox>
     </StackPanel>
 </y:DataItemsInfoGrid>

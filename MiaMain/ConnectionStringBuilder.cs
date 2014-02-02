@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 using System.IO;
-using InterfaceToDataBase;
-namespace InterfaceToClient
+using DBActionLibrary;
+
+namespace MiaMain
 {
     public static class ConnectionStringBuilder
     {

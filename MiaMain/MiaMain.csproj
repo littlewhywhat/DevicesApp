@@ -50,7 +50,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="ConnectionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -58,9 +58,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="ConnectionStringBuilder.cs" />
+    <Compile Include="ConnectionWindow.xaml.cs">
+      <DependentUpon>ConnectionWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -92,13 +92,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBActionLibrary\DBActionLibrary.csproj">
+      <Project>{0c926e7d-de16-4722-a898-5e193e7cff2e}</Project>
+      <Name>DBActionLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InterfaceToClient\InterfaceToClient.csproj">
       <Project>{8e7838d1-50cf-4876-98a6-86f955698fd1}</Project>
       <Name>InterfaceToClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InterfaceToDataBase\InterfaceToDataBase.csproj">
-      <Project>{4ddffb31-9bee-4146-bca4-a7b8c331a422}</Project>
-      <Name>InterfaceToDataBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

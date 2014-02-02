@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections;
 using System.Collections.Specialized;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 using System.Collections.ObjectModel;
 
 namespace InterfaceToClient
@@ -21,7 +21,7 @@ namespace InterfaceToClient
     /// <summary>
     /// Логика взаимодействия для EventsListBox.xaml
     /// </summary>
-    public partial class EventsListBox : Grid, Observer, IClose
+    public partial class EventsListBox : Grid, IObserver, IClose
     {
         ObservableCollection<ListBoxItemGrid> EventsCollection = new ObservableCollection<ListBoxItemGrid>();
         const string _AllEventsFilter = "Все события";

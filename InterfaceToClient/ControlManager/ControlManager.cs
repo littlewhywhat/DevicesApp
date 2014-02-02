@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 using System.Windows;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Data;
+using DBActionLibrary;
 
 namespace InterfaceToClient
 {
@@ -56,8 +57,6 @@ namespace InterfaceToClient
         protected abstract FrameworkElement DeleteButton { get; }
         protected abstract FrameworkElement ChangeButton { get; }
         protected abstract FrameworkElement CancelButton { get; }
-
-        //public DataItemController CurrentDataItemController { get { return CurrentChange.NewController; } }
 
         private void Close()
         {

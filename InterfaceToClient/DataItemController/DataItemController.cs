@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 using System.ComponentModel;
 using System.Windows;
+using DBActionLibrary;
 
 namespace InterfaceToClient
 {
@@ -88,8 +89,6 @@ namespace InterfaceToClient
                 OnPropertyChanged();
             }
         }
-        
-
         public void GetInInsertMode()
         {
             if (ChangeMode)

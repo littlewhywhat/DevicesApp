@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using InterfaceToDataBase;
+using DataItemsLibrary;
+using DBActionLibrary;
 
 namespace InterfaceToClient
 {
@@ -58,6 +59,7 @@ namespace InterfaceToClient
         }
 
         public bool HasParents { get { return DataItemWithParents.ParentId != 0; } }
+        public bool HasChildren { get { return GetChildren().Count() > 0; } }
 
         public virtual DataItemControllerWithParents Parent
         {
@@ -83,9 +85,9 @@ namespace InterfaceToClient
             }
         }
 
-        public bool HasTheSameParentId(int id) { return DataItemWithParents.ParentId == id; }
+        
 
-        public bool IsChildOf(int id) { return DataItemWithParents.ParentId == id; }
+        public bool IsChildOf(int id) { return dataItemWithParents.ParentId == id; }
         public bool IsChildOf(DataItemController controller) { return IsChildOf(controller.Id); }
 
         private IEnumerable<DataItemControllerWithParents> GetPossibleParents()
@@ -93,7 +95,7 @@ namespace InterfaceToClient
             return DataItemsWithParentsDic.GetPossibleParents(this);
         }
 
-        private IEnumerable<DataItemControllerWithParents> GetChildren()
+        protected IEnumerable<DataItemControllerWithParents> GetChildren()
         {
             return DataItemsWithParentsDic.GetChildrenByParentId(Id);
         }

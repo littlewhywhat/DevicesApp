@@ -11,17 +11,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataItemsLibrary;
 
 namespace InterfaceToClient
 {
     /// <summary>
-    /// Логика взаимодействия для TypeTabItemGrid.xaml
+    /// Логика взаимодействия для DataItemComboBox.xaml
     /// </summary>
-    public partial class TypeTabItemGrid : UserControl
+    public partial class DataItemsComboBox : ComboBox
     {
-        public TypeTabItemGrid()
+        public DataItemsComboBox()
         {
             InitializeComponent();
+            Items.Clear();
         }
     }
 }

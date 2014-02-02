@@ -37,9 +37,9 @@
                           ItemsSource="{Binding Path=Types, Mode=OneWay}" 
                           SelectedValue="{Binding Path=TypeOrDefault}"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
-        <y:ParentComboBox  Margin="5" x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" 
+        <y:DataItemsComboBox  Margin="5" x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" 
                           ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
-                          SelectedValue="{Binding Path=ParentOrDefault}" ></y:ParentComboBox>
+                          SelectedValue="{Binding Path=ParentOrDefault}" ></y:DataItemsComboBox>
 
     </StackPanel>
 </y:DataItemsInfoGrid>

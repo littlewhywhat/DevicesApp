@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 
 namespace InterfaceToClient
 {
-    public abstract class DeviceExtraComboBox : DataItemsComboBox, Observer
+    public abstract class DeviceExtraComboBox : DataItemsComboBox, IObserver
     {
         protected DeviceController DeviceControllerDataContext { get { return (DeviceController)DataContext; } }
         public DeviceExtraComboBox(string TableName) : base()

@@ -15,8 +15,8 @@
 
         <y:DeviceTypesInfoGridShort DataContext="{Binding}"></y:DeviceTypesInfoGridShort>
         <TextBlock>Родительский тип:</TextBlock>
-        <y:ParentComboBox  Margin="5" x:Name="DeviceTypesParentComboBox" ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
-                          SelectedValue="{Binding Path=ParentOrDefault}"></y:ParentComboBox>
+        <y:DataItemsComboBox  Margin="5" x:Name="DeviceTypesParentComboBox" ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
+                          SelectedValue="{Binding Path=ParentOrDefault}"></y:DataItemsComboBox>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="13*"/>

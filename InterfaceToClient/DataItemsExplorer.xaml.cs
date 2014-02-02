@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Threading;
-using InterfaceToDataBase;
+using DataItemsLibrary;
 using System.Collections.ObjectModel;
 namespace InterfaceToClient
 {

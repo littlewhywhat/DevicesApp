@@ -6,7 +6,7 @@ using System.Windows.Threading;
 
 namespace InterfaceToClient
 {
-    public interface Observer
+    public interface IObserver
     {
         void Update(DataItemControllerChangedEventArgs change);
         void Dispose();

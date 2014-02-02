@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using InterfaceToDataBase;
+using DataItemsLibrary;
+using DBActionLibrary;
 
 namespace InterfaceToClient
 {
@@ -58,7 +59,7 @@ namespace InterfaceToClient
         {
             get
             {
-                try { return GetTypes().ToDictionary(type => type.Id).ContainsKey(Device.TypeId); }
+                try { return DeviceTypesDic.GetTypesWithoutMarker().ToDictionary(type => type.Id).ContainsKey(Device.TypeId); }
                 catch { return false; }
             }
         }
@@ -121,9 +122,18 @@ namespace InterfaceToClient
             }
         }
 
+        public bool HasTypeOrChildrenHasType()
+        {
+            return HasType || AnyChildHasType();
+        }
+        public bool AnyChildHasType()
+        { 
+            return HasChildren && GetChildren().FirstOrDefault(child => ((DeviceController)child).HasTypeOrChildrenHasType() ) != null; 
+        }
         public IEnumerable<DeviceTypeController> GetTypes()
         {
-
+            if (AnyChildHasType())
+                return Enumerable.Empty<DeviceTypeController>();
             if (HasParents && ((DeviceController)Parent).HasType)
             {
                 var result = DeviceTypesDic.GetChildrenDevicesTypes(((DeviceController)Parent).Type).ToList();
