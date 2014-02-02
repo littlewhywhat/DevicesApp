@@ -11,7 +11,7 @@ namespace InterfaceToClient
 {
     public abstract class DataItemControllersDictionary : IDataItemDic
     {
-        public DataItemController WithoutParentController;
+        
         public DataItemControllersFactory Factory;
         public ObservableDictionary<int, DataItemController> DataItemControllersDic = new ObservableDictionary<int, DataItemController>();
         public DataItemControllersDictionary()
@@ -41,44 +41,7 @@ namespace InterfaceToClient
             return DataItemControllersDic.ContainsKey(Id) ? DataItemControllersDic[Id] : null;
         }
 
-        public virtual List<DataItemController> GetPossibleParents(DataItemController dataItemController)
-        {
-            var result = DataItemControllersDic.Values.Where(controller => controller.Id != dataItemController.Id).ToList();
-            if (dataItemController.InsertMode)
-                return result;
-            return FilterPossibleRecursion(result, dataItemController.Id);
-        }
-
-        private List<DataItemController> FilterPossibleRecursion(List<DataItemController> parentsList, int id)
-        {
-            var filterStack = new Stack<int>();
-            filterStack.Push(id);
-            while (filterStack.Count != 0)
-            {
-                var parentId = filterStack.Pop();
-                for (var i = 0; i < parentsList.Count; i++)
-                {
-                    var item = parentsList[i];
-                    if (item.IsChildOf(parentId))
-                    {
-                        parentsList.Remove(item);
-                        filterStack.Push(item.Id);
-                        i--;
-                    }
-                }
-            }
-            return parentsList;
-        }
-
-        public IEnumerable<DataItemController> GetDevicesWithoutParents()
-        {
-            return GetChildrenByParentId(0);
-        }
-
-        public IEnumerable<DataItemController> GetChildrenByParentId(int Id)
-        {
-            return DataItemControllersDic.Values.Where(dataItemController => dataItemController.HasTheSameParentId(Id));
-        }
+       
 
         public IEnumerable<FrameworkElement> Search(List<string> searchList)
         {
@@ -89,21 +52,6 @@ namespace InterfaceToClient
                         panel.Tag = searchResult.Result;
                         return panel;
                     });
-        }
-
-        const string _WithoutParent = "Без родителя";
-        private DataItemController InitWithoutParentController()
-        {
-            var controller = Factory.GetControllerEmpty();
-            controller.Name = _WithoutParent;
-            return controller;
-        }
-
-        public DataItemController GetWithoutParentController()
-        {
-            if (WithoutParentController == null)
-                WithoutParentController = InitWithoutParentController();
-            return WithoutParentController;
         }
 
     }

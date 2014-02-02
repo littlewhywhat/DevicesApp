@@ -102,6 +102,7 @@
     <Compile Include="DataItemController\CompanyController.cs" />
     <Compile Include="DataItemController\DataItemController.cs" />
     <Compile Include="DataItemControllerFactory\DataItemControllersFactory.cs" />
+    <Compile Include="DataItemController\DataItemControllerWithParents.cs" />
     <Compile Include="DataItemController\DeviceController.cs" />
     <Compile Include="DataItemController\DeviceEventController.cs" />
     <Compile Include="DataItemController\DeviceTypeController.cs" />
@@ -116,6 +117,7 @@
     </Compile>
     <Compile Include="DataItemsDictionary\CompaniesDictionary.cs" />
     <Compile Include="DataItemsDictionary\DataItemsDictionary.cs" />
+    <Compile Include="DataItemsDictionary\DataItemsWithParentsDictionary.cs" />
     <Compile Include="DataItemsDictionary\DeviceEventsDictionary.cs" />
     <Compile Include="DataItemsDictionary\DevicesDictionary.cs" />
     <Compile Include="DataItemsDictionary\DeviceTypesDictionary.cs" />

@@ -37,30 +37,10 @@ namespace InterfaceToDataBase
             return new SqlCommand(commandText, (SqlConnection)GetConnection());
         }
 
-        //public static DbTransaction GetTransaction(DbConnection connection)
-        //{
-        //    if (!TransactionsDic.ContainsKey(connection))
-        //        TransactionsDic.Add(connection, connection.BeginTransaction());
-        //    return TransactionsDic[connection];
-        //}
-
-        //public static void TransactionCommit(DbTransaction transaction)
-        //{
-        //    TransactionsDic.Remove(transaction.Connection);
-        //    transaction.Commit();
-        //}
-
-        //public static void TransactionRollBack(DbTransaction transaction)
-        //{
-        //    TransactionsDic.Remove(transaction.Connection);
-        //    transaction.Rollback();
-        //}
-
         public static DbCommand GetCommand(string commandText, DbConnection connection)
         {
             var command = connection.CreateCommand();
             command.CommandText = commandText;
-            
             return command;
         }
         public static DbCommand GetCommand(string commandText, DbTransaction transaction)

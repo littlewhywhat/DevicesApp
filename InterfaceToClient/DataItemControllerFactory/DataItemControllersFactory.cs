@@ -20,7 +20,7 @@ namespace InterfaceToClient
         protected abstract DataItemsFactory GetFactory();
         public void FillDataItemControllersDic(DataItemControllersDictionary dataItemsDic)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(Factory, dataItemsDic));
+            dataItemsDic.Fill(Factory);
         }
         public string TableName { get { return Factory.TableName; } }
         public abstract DataItemController GetController(DataItem dataItem);

@@ -6,7 +6,7 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class CompaniesDictionary : DataItemControllersDictionary
+    public class CompaniesDictionary : DataItemControllersWithParentsDictionary
     {
         private CompanyController UndefinedCompany;
         public CompaniesDictionary()

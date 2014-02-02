@@ -42,9 +42,9 @@ namespace InterfaceToClient
             var mainItem = sender as TreeViewItem;
             foreach (TreeViewItem item in mainItem.Items)
             {
-                var dataItemContoller = (DataItemController)item.DataContext;
+                var dataItemController = (DataItemControllerWithParents)item.DataContext;
                 var parent = RootTree() as DataItemsTreeView;
-                parent.GetNodesFromDicWithParentId(dataItemContoller).ForEach(child => item.Items.Add(child));
+                parent.GetNodesFromDicWithParentId(dataItemController).ForEach(child => item.Items.Add(child));
             }
             e.Handled = true;
         }

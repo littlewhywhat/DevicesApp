@@ -41,9 +41,9 @@ namespace InterfaceToClient
             return controller is DeviceEventController;
         }
 
-        internal DeleteDataItem DeleteDeviceTransaction()
+        internal DataItemAction GetActionForDeleteDeviceReference()
         {
-            return new DeleteDataItem(DataItem);
+            return new DataItemAction(dataItem, ActionType.DELETE);
         }
     }
 }

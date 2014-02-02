@@ -6,14 +6,13 @@ using System.Threading;
 
 namespace InterfaceToDataBase
 {
-    public class Device : DataItem
+    public class Device : DataItemWithParents
     {
         
-        public int CompanyId { get; set; }
-        
-        
-        public int TypeId { get; set; }
         public Device(DevicesFactory Factory) : base(Factory) { }
+
+        public int CompanyId { get; set; }
+        public int TypeId { get; set; }
 
         public override bool IsTheSameType(DataItem dataItem)
         {

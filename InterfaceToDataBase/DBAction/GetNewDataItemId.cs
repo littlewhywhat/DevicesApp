@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public class GetNewDataItemId : TransactionData
+    internal class GetNewDataItemId : TransactionData
     {
         DataItem dataItem;
         public GetNewDataItemId(DataItem DataItem)

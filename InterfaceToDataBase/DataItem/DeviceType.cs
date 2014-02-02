@@ -5,7 +5,7 @@ using System.Text;
 
 namespace InterfaceToDataBase
 {
-    public class DeviceType : DataItem
+    public class DeviceType : DataItemWithParents
     {
         public DeviceType(DeviceTypesFactory Factory):base(Factory)
         { }

@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public abstract class GetData : DBAction
+    internal abstract class GetData : DBAction
     {
         public object Act(DbConnection connection)
         {

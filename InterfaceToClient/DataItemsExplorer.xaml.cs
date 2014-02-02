@@ -31,7 +31,7 @@ namespace InterfaceToClient
         
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            DataItemsTree.BuildTree((DataItemControllersDictionary)DataContext);
+            DataItemsTree.BuildTree((DataItemControllersWithParentsDictionary)DataContext);
         }
 
         private void DataItemsTreeView_DoubleClick (object sender, MouseButtonEventArgs e)

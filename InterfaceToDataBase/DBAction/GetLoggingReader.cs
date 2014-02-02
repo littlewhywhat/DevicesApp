@@ -8,7 +8,7 @@ using System.Data;
 
 namespace InterfaceToDataBase
 {
-    public class GetLoggingReader : DBAction
+    internal class GetLoggingReader : DBAction
     {
         byte[] OldTimestamp;
         public GetLoggingReader(byte[] oldTimestamp)

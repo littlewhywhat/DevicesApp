@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public class DeleteDataItem : ChangeData
+    internal class DeleteDataItem : ChangeData
     {
         public DeleteDataItem(DataItem dataitem): base(dataitem, ActionType.DELETE)
         { }

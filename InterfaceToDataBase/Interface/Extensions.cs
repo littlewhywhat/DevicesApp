@@ -11,18 +11,12 @@ namespace InterfaceToDataBase
     public static class Extensions
     {
 
-        public static string ToString(this DateTime time)
-        {
-            return time.Year + "." + time.Month + "." + time.Day + " " + time.TimeOfDay.ToString();
-        }
-
-
-        public static Dictionary<string, string> GetPropertyValueDic(this DataItem dataItem)
+        internal static Dictionary<string, string> GetPropertyValueDic(this DataItem dataItem)
         {
             var dictionary = new Dictionary<string, string>();
             dataItem.GetType().GetProperties().ToList().ForEach(dataItemProperty =>
                 {
-                    if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory") && (dataItemProperty.Name != "Marker"))
+                    if ((dataItemProperty.Name != "Id") && (dataItemProperty.Name != "Factory"))
                     {
                         var value = dataItemProperty.GetValue(dataItem, null);
                         string result = null;
@@ -39,6 +33,7 @@ namespace InterfaceToDataBase
                 });
             return dictionary;
         }
+
         public static DataItem Clone(this DataItem dataItem)
         {
             var dataItemClone = dataItem.Factory.GetEmptyDataItem();
@@ -49,7 +44,10 @@ namespace InterfaceToDataBase
             });
             return dataItemClone;
         }
-        
+        public static void Fill(this IDataItemDic dataItemsDic, DataItemsFactory factory)
+        {
+            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(factory, dataItemsDic));
+        }
 
         public static void ChangeInDb(this DataItem dataItem)
         {
@@ -62,6 +60,19 @@ namespace InterfaceToDataBase
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new UpdateDataItem(dataItem));
         }
+
+        public static void PerformActions(this List<DataItemAction> ActionsList)
+        {
+            DBHelper.PerformDBAction(Connection.GetConnection(), new PerformTransactionOnList(TransactionDataConverter.Convert(ActionsList)));
+        }
+
+        public static void DeleteWithReferences(this DataItem dataItem, List<DataItemAction> ReferencesList)
+        {
+            var transactionsList = TransactionDataConverter.Convert(ReferencesList);
+            transactionsList.Add(new DeleteDataItem(dataItem));
+            DBHelper.PerformDBAction(Connection.GetConnection(), new PerformTransactionOnList(transactionsList));
+        }
+
         public static void Delete(this DataItem dataItem)
         {
             DBHelper.PerformDBAction(Connection.GetConnection(), new DeleteDataItem(dataItem));         

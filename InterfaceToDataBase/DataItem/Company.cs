@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace InterfaceToDataBase
 {
-    public class Company : DataItem
+    public class Company : DataItemWithParents
     {
         public string Info { get; set; }
         public Company(CompaniesFactory Factory) : base(Factory) { }

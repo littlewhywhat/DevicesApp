@@ -6,7 +6,7 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class DeviceController : DataItemController
+    public class DeviceController : DataItemControllerWithParents
     {
         public DeviceController(DataItem dataItem, DataItemControllersFactory factory) : base(dataItem, factory) { }
         protected override DataItemControllersDictionary GetDictionary()
@@ -99,7 +99,7 @@ namespace InterfaceToClient
         public bool HasTheSameCompanyId(int Id) { return Device.CompanyId == Id; }
         public bool HasTheSameTypeId(int Id) { return Device.TypeId == Id; }
 
-        public List<DataItemController> Types
+        public List<DeviceTypeController> Types
         {
             get
             {
@@ -121,18 +121,18 @@ namespace InterfaceToClient
             }
         }
 
-
-        public IEnumerable<DataItemController> GetTypes()
+        public IEnumerable<DeviceTypeController> GetTypes()
         {
+
             if (HasParents && ((DeviceController)Parent).HasType)
             {
                 var result = DeviceTypesDic.GetChildrenDevicesTypes(((DeviceController)Parent).Type).ToList();
-                GetDictionary().GetChildrenByParentId(Parent.Id).ToList().ForEach(child =>
+                DataItemsWithParentsDic.GetChildrenByParentId(Parent.Id).ToList().ForEach(child =>
                     {
-                        if (result.Contains(((DataItemController)((DeviceController)child).Type)))
-                            result.Remove(((DataItemController)((DeviceController)child).Type));
+                        if (result.Contains(((DeviceController)child).Type))
+                            result.Remove(((DeviceController)child).Type);
                     });
-                return result;
+                return result.Cast<DeviceTypeController>();
             }
             return DeviceTypesDic.GetTypesWithoutMarker();
         }
@@ -142,33 +142,38 @@ namespace InterfaceToClient
             return CompaniesDic.DataItemControllersDic.Values;
         }
 
-        public IEnumerable<DataItemController> GetEvents()
+        public IEnumerable<DeviceEventController> GetEvents()
         {
             return DeviceEventsDic.GetEventsByDeviceId(Id);
         }
 
-        public UpdateDataItem DeleteCompanyTransaction()
-        {
-            var clone = (Device)DataItem.Clone();
-            clone.CompanyId = 0;
-            return new UpdateDataItem(clone);
-        }
 
-        public UpdateDataItem DeleteTypeTransaction()
+        internal DataItemAction GetActionForDeleteTypeReference()
         {
-            var clone = (Device)DataItem.Clone();
+            var clone = (Device)GetNewClone();
             clone.TypeId = 0;
-            return new UpdateDataItem(clone);
+            return new DataItemAction(clone, ActionType.UPDATE);
         }
 
-        protected override List<TransactionData> GetDeleteReferencesActions()
+        internal DataItemAction GetActionForDeleteCompanyReference()
         {
-            var actions = base.GetDeleteReferencesActions();
-            actions.AddRange(DeviceEventsDic.GetEventsByDeviceId(Device.Id).Select(eventController =>
-                (TransactionData)((DeviceEventController)eventController).DeleteDeviceTransaction()).ToList());
-            return actions;
+            var clone = (Device)GetNewClone();
+            clone.CompanyId = 0;
+            return new DataItemAction(clone, ActionType.UPDATE);
+        }
+
+        protected override List<DataItemAction> GetDeleteReferencesActions()
+        {
+            var referencesList = base.GetDeleteReferencesActions();
+            referencesList.AddRange(GetEventsDeleteReferences());
+            return referencesList;
         }
         
+        protected IEnumerable<DataItemAction> GetEventsDeleteReferences()
+        {
+            return GetEvents().Select(eventController => eventController.GetActionForDeleteDeviceReference());
+        }
+
         public override Dictionary<string, string> GetSearchPropertyValueDic()
         {
             var searchPropertyValueDic = base.GetSearchPropertyValueDic();
@@ -196,5 +201,9 @@ namespace InterfaceToClient
                 return this == dataItemController.Device;
             return false;
         }
+
+
+
+
     }
 }

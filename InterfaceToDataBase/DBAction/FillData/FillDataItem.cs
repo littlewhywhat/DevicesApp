@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace InterfaceToDataBase
 {
-    public class FillDataItem : GetData
+    internal class FillDataItem : GetData
     {
         private DataItem DataItem { get; set; }
         private List<string> TableFields { get; set; }

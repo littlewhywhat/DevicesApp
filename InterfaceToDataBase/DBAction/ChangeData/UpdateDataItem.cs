@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public class UpdateDataItem : ChangeData
+    internal class UpdateDataItem : ChangeData
     {
         public UpdateDataItem(DataItem dataItem)
             : base(dataItem, ActionType.UPDATE)

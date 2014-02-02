@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace InterfaceToDataBase
 {
-    public class InsertDataItem : ChangeData
+    internal class InsertDataItem : ChangeData
     {
         public InsertDataItem(DataItem dataItem)
             : base(dataItem, ActionType.INSERT)

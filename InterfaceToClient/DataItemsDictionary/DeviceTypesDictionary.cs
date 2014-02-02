@@ -6,7 +6,7 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class DeviceTypesDictionary : DataItemControllersDictionary
+    public class DeviceTypesDictionary : DataItemControllersWithParentsDictionary
     {
         private DeviceTypeController UndefinedType;
         public DeviceTypesDictionary()
@@ -18,9 +18,9 @@ namespace InterfaceToClient
             return new DeviceTypeControllersFactory();
         }
 
-        public IEnumerable<DataItemController> GetTypesWithoutMarker()
+        public IEnumerable<DeviceTypeController> GetTypesWithoutMarker()
         {
-            return DataItemControllersDic.Values.Where(dataItemController => !((DeviceTypeController)dataItemController).IsMarker);
+            return DataItemControllersDic.Values.Where(dataItemController => !((DeviceTypeController)dataItemController).IsMarker).Cast<DeviceTypeController>();
         }
 
         const string _UndefinedType = "Тип неопределен";
@@ -38,7 +38,7 @@ namespace InterfaceToClient
             return UndefinedType;
         }
 
-        internal IEnumerable<DataItemController> GetChildrenDevicesTypes(DeviceTypeController deviceTypeController)
+        internal IEnumerable<DataItemControllerWithParents> GetChildrenDevicesTypes(DeviceTypeController deviceTypeController)
         {
             var result = GetChildrenByParentId(deviceTypeController.Id).ToList();
             for (var i = 0; i < result.Count; i++)

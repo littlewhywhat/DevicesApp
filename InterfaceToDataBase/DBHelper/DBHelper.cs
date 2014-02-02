@@ -8,7 +8,7 @@ using System.Data;
 
 namespace InterfaceToDataBase
 {
-    public static class DBHelper
+    internal static class DBHelper
     {
 
         public static object PerformDBAction(DbConnection connection, DBAction action)

@@ -6,7 +6,7 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class DeviceTypeController : DataItemController
+    public class DeviceTypeController : DataItemControllerWithParents
     {
         public DeviceTypeController(DeviceType dataItem, DeviceTypeControllersFactory factory) : base(dataItem, factory)
         { }
@@ -14,6 +14,8 @@ namespace InterfaceToClient
         {
             return FactoriesVault.Dic[Factory.TableName];
         }
+        private DevicesDictionary DevicesDic { get { return (DevicesDictionary)FactoriesVault.Dic[TableNames.Devices]; } }
+
         public DataItemController ParentWithoutMarker
                 {
                     get
@@ -87,12 +89,20 @@ namespace InterfaceToClient
             return "Без маркера";
         }
 
-        protected override List<TransactionData> GetDeleteReferencesActions()
+        protected override List<DataItemAction> GetDeleteReferencesActions()
         {
             var actions = base.GetDeleteReferencesActions();
-            actions.AddRange(((DevicesDictionary)FactoriesVault.Dic[TableNames.Devices]).GetDevicesWithTypeId(DeviceType.Id)
-                .Select(deviceController => (TransactionData)((DeviceController)deviceController).DeleteTypeTransaction()));
+            actions.AddRange(GetDevicesDeleteReferences());
             return actions;
+        }
+        private IEnumerable<DataItemAction> GetDevicesDeleteReferences()
+        {
+            return GetReferencedDevices().Select(deviceController => deviceController.GetActionForDeleteTypeReference());
+        }
+
+        private IEnumerable<DeviceController> GetReferencedDevices()
+        {
+            return DevicesDic.GetDevicesWithTypeId(DeviceType.Id);
         }
 
         public override bool IsTheSameByType(DataItemController controller)
@@ -102,7 +112,7 @@ namespace InterfaceToClient
 
         internal override void ChangeInDb()
         {
-            if (dataItem.ParentId != clone.ParentId)
+            if (ParentWasChanged)
                 DeleteReferences();
             base.ChangeInDb();
         }

@@ -7,7 +7,7 @@ namespace InterfaceToDataBase
 {
     public class DeviceEventsFactory : DataItemsFactory
     {
-        private List<string> firstTableFields = new List<String> { "Id", "Name", "ParentId", "DeviceId", "Type", "Date" };
+        private List<string> firstTableFields = new List<String> { "Id", "Name", "DeviceId", "Type", "Date" };
         private List<string> otherTableFields = new List<String> { "Date" };
         private List<string> searchTableFields = new List<String> {  };
 

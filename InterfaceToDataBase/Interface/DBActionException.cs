@@ -17,7 +17,7 @@ namespace InterfaceToDataBase
         public DBActionException(System.Exception inner) : base(_exceptionMessage, inner) { }
         public void ShowMessageBox()
         {
-            MessageBox.Show("Oшибка", _exceptionMessage , MessageBoxButton.OK);
+            MessageBox.Show( _exceptionMessage, "Oшибка" , MessageBoxButton.OK);
         }
         // A constructor is needed for serialization when an
         // exception propagates from a remoting server to the client. 

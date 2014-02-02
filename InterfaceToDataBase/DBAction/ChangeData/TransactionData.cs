@@ -6,7 +6,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public abstract class TransactionData : DBAction
+    internal abstract class TransactionData : DBAction
     {
 
         public abstract object PerformTransaction(DbTransaction Transaction);

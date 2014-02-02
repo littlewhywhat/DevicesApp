@@ -13,12 +13,12 @@ namespace InterfaceToClient
     /// </summary>
     public partial class DataItemsTreeView : TreeView, Observer
     {
-        private DataItemControllersDictionary Dictionary;
+        private DataItemControllersWithParentsDictionary Dictionary;
         public DataItemsTreeView()
         {
             InitializeComponent();
         }
-        public void BuildTree(DataItemControllersDictionary dictionary)
+        public void BuildTree(DataItemControllersWithParentsDictionary dictionary)
         {
             Items.Clear();
             Dispose();
@@ -30,12 +30,12 @@ namespace InterfaceToClient
                 });
         }
 
-        public List<DataItemsTreeViewItem> GetNodesFromDicWithParentId(DataItemController dataItemController)
+        public List<DataItemsTreeViewItem> GetNodesFromDicWithParentId(DataItemControllerWithParents dataItemController)
         {
             return Dictionary.GetChildrenByParentId(dataItemController.Id).Select(controller => new DataItemsTreeViewItem() { DataContext = controller }).ToList();
         }
 
-        private DataItemsTreeViewItem AddTreeViewItemByDataItemController(DataItemController dataItemController)
+        private DataItemsTreeViewItem AddTreeViewItemByDataItemController(DataItemControllerWithParents dataItemController)
         {
             var treeViewItemParent = FindTreeViewItemById(dataItemController.HasParents? dataItemController.Parent.Id : 0);
             if ((treeViewItemParent != null) && ((treeViewItemParent is TreeView) || ((treeViewItemParent.Parent is TreeView) 
@@ -101,7 +101,7 @@ namespace InterfaceToClient
 
         public void Add(DataItemController dataItemController)
         {
-            AddTreeViewItemByDataItemController(dataItemController);
+            AddTreeViewItemByDataItemController((DataItemControllerWithParents)dataItemController);
         }
 
         public void Remove(DataItemController dataItemController)
@@ -113,11 +113,14 @@ namespace InterfaceToClient
 
         public void Replace(DataItemController dataItemControllerNew, DataItemController dataItemControllerOld)
         {
+            var dataItemControllerWithParentNew = (DataItemControllerWithParents)dataItemControllerNew;
+            var dataItemControllerWithParentOld = (DataItemControllerWithParents)dataItemControllerOld;
+
             var treeViewItem = FindTreeViewItemById(dataItemControllerOld.Id);
-            if (dataItemControllerNew.Parent != dataItemControllerOld.Parent)
+            if (dataItemControllerWithParentNew.Parent != dataItemControllerWithParentOld.Parent)
             {
                 RemoveTreeViewItem(treeViewItem);
-                treeViewItem = AddTreeViewItemByDataItemController(dataItemControllerNew);
+                treeViewItem = AddTreeViewItemByDataItemController(dataItemControllerWithParentNew);
             }
             if (treeViewItem != null)
                 treeViewItem.DataContext = dataItemControllerNew;

@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public interface DBAction
+    internal interface DBAction
     {
         object Act(DbConnection connection);
     }

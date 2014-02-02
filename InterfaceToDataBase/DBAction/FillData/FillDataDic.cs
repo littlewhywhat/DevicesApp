@@ -9,7 +9,7 @@ using System.Collections.Specialized;
 
 namespace InterfaceToDataBase
 {
-    public class FillDataDic : GetData
+    internal class FillDataDic : GetData
     {
         protected DataItemsFactory Factory { get; set; }
         protected IDataItemDic DataItemsDic { get; set; }

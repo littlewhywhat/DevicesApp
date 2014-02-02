@@ -6,7 +6,7 @@ using InterfaceToDataBase;
 
 namespace InterfaceToClient
 {
-    public class DevicesDictionary : DataItemControllersDictionary
+    public class DevicesDictionary : DataItemControllersWithParentsDictionary
     {
         public DevicesDictionary()
         { }
@@ -14,28 +14,30 @@ namespace InterfaceToClient
         {
             return new DeviceControllersFactory();
         }
-        public override List<DataItemController> GetPossibleParents(DataItemController dataItemController)
+        public override IEnumerable<DataItemControllerWithParents> GetPossibleParents(DataItemControllerWithParents dataItemController)
         {
             var deviceController = (DeviceController)dataItemController;
             if (!deviceController.HasType)
                 return base.GetPossibleParents(dataItemController);
             if (!deviceController.Type.HasParentsWithoutMarker)
-                return new List<DataItemController>();
+                return new List<DataItemControllerWithParents>();
             var parentListByParentTypeId = GetDevicesWithTypeId(deviceController.Type.ParentWithoutMarker.Id).ToList();
             GetDevicesWithTypeId(deviceController.Type.Id).Where(controller => controller.HasParents && parentListByParentTypeId.Contains(controller)).ToList()
                 .ForEach(controller => parentListByParentTypeId.Remove(controller)); 
-            return parentListByParentTypeId;
+            return parentListByParentTypeId.Cast<DataItemControllerWithParents>();
         }
 
 
-        public List<DataItemController> GetDevicesWithCompanyId(int CompanyId)
+        public IEnumerable<DeviceController> GetDevicesWithCompanyId(int CompanyId)
         {
-            return DataItemControllersDic.Values.Where(dataItemController => ((DeviceController)dataItemController).HasTheSameCompanyId(CompanyId)).ToList();
+            return DataItemControllersDic.Values.Where(dataItemController => ((DeviceController)dataItemController).HasTheSameCompanyId(CompanyId))
+                .Cast<DeviceController>();
         }
 
-        public IEnumerable<DataItemController> GetDevicesWithTypeId(int TypeId)
+        public IEnumerable<DeviceController> GetDevicesWithTypeId(int TypeId)
         {
-            return DataItemControllersDic.Values.Where(dataItemController => ((DeviceController)dataItemController).HasTheSameTypeId(TypeId)).ToList();
+            return DataItemControllersDic.Values.Where(dataItemController => ((DeviceController)dataItemController).HasTheSameTypeId(TypeId))
+                .Cast<DeviceController>();
         }
 
     }

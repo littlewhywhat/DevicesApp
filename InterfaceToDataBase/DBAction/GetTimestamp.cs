@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public class GetTimestamp : DBAction
+    internal class GetTimestamp : DBAction
     {
         
         public object Act(DbConnection connection)

@@ -7,9 +7,8 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public abstract class ChangeData : TransactionData
+    internal abstract class ChangeData : TransactionData
     {
-        protected DbTransaction Transaction;
         protected DataItem dataItem;
         ActionType ActionType;
         public ChangeData(DataItem dataItem, ActionType actionType)

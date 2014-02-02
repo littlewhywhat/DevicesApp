@@ -6,7 +6,7 @@ using System.Data.Common;
 
 namespace InterfaceToDataBase
 {
-    public class PerformTransactionOnList : TransactionData
+    internal class PerformTransactionOnList : TransactionData
     {
         List<TransactionData> Actions;
         public PerformTransactionOnList(List<TransactionData> actions)
