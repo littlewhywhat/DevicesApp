@@ -6,7 +6,6 @@ using System.Threading;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data;
-
 using DataItemsLibrary;
 
 namespace DBActionLibrary
