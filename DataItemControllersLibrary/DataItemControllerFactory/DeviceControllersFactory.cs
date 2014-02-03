@@ -11,14 +11,14 @@ namespace DataItemControllersLibrary
     {
         public DeviceControllersFactory(DictionariesVault vault) : base(vault)
         { }
-
-        public override DataItemController GetController(DataItem dataItem)
-        {
-            return new DeviceController(dataItem, this);
-        }
         protected override DataItemsFactory GetFactory()
         {
             return new DevicesFactory();
+        }
+
+        internal override DataItemController GetController(DataItem dataItem)
+        {
+            return new DeviceController(dataItem, this);
         }
     }
 }

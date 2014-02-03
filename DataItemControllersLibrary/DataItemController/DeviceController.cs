@@ -135,7 +135,7 @@ namespace DataItemControllersLibrary
             return new DataItemAction(clone, ActionType.UPDATE);
         }
 
-        public override Dictionary<string, string> GetSearchPropertyValueDic()
+        internal override Dictionary<string, string> GetSearchPropertyValueDic()
         {
             var searchPropertyValueDic = base.GetSearchPropertyValueDic();
             if (Device.TypeId != 0)

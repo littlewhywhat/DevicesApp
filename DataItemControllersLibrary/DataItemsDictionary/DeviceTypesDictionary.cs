@@ -8,23 +8,13 @@ namespace DataItemControllersLibrary
 {
     public class DeviceTypesDictionary : DataItemControllersWithParentsDictionary
     {
-        private DeviceTypeController UndefinedType;
         public DeviceTypesDictionary(DictionariesVault vault) : base(vault)
         { }
         public DeviceTypesDictionary(DeviceTypeControllersFactory factory): base(factory)
         { }
 
-        protected override DataItemControllersFactory GetFactory(DictionariesVault vault)
-        {
-            return new DeviceTypeControllersFactory(vault);
-        }
-
-        public IEnumerable<DeviceTypeController> GetTypesWithoutMarker()
-        {
-            return DataItemControllersDic.Values.Where(dataItemController => !((DeviceTypeController)dataItemController).IsMarker).Cast<DeviceTypeController>();
-        }
-
         const string _UndefinedType = "Тип неопределен";
+        private DeviceTypeController UndefinedType;
         private DeviceTypeController InitUndefinedType()
         {
             var controller = (DeviceTypeController)Factory.GetControllerEmpty();
@@ -32,13 +22,17 @@ namespace DataItemControllersLibrary
             return controller;
         }
 
-        public DeviceTypeController GetUndefinedType()
+        protected override DataItemControllersFactory GetFactory(DictionariesVault vault)
+        {
+            return new DeviceTypeControllersFactory(vault);
+        }
+
+        internal DeviceTypeController GetUndefinedType()
         {
             if (UndefinedType == null)
                 UndefinedType = InitUndefinedType();
             return UndefinedType;
         }
-
         internal IEnumerable<DataItemControllerWithParents> GetChildrenDevicesTypes(DeviceTypeController deviceTypeController)
         {
             var result = GetChildrenByParentId(deviceTypeController.Id).ToList();
@@ -53,6 +47,10 @@ namespace DataItemControllersLibrary
                 }
             }
             return result;
+        }
+        internal IEnumerable<DeviceTypeController> GetTypesWithoutMarker()
+        {
+            return DataItemControllersDic.Values.Where(dataItemController => !((DeviceTypeController)dataItemController).IsMarker).Cast<DeviceTypeController>();
         }
     }
 }
