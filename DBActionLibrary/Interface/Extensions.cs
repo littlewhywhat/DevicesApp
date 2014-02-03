@@ -53,7 +53,7 @@ namespace DBActionLibrary
         }
         public static void Fill(this IDataItemDic dataItemsDic, DataItemsFactory factory)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataDic(factory, dataItemsDic));
+            DBHelper.PerformDBAction(new FillDataDic(factory, dataItemsDic));
         }
 
         public static void ChangeInDb(this DataItem dataItem)
@@ -65,36 +65,36 @@ namespace DBActionLibrary
         }
         public static void Update(this DataItem dataItem)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new UpdateDataItem(dataItem));
+            DBHelper.PerformDBAction(new UpdateDataItem(dataItem));
         }
 
         public static void PerformActions(this List<DataItemAction> ActionsList)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new PerformTransactionOnList(TransactionDataConverter.Convert(ActionsList)));
+            DBHelper.PerformDBAction(new PerformTransactionOnList(TransactionDataConverter.Convert(ActionsList)));
         }
 
         public static void DeleteWithReferences(this DataItem dataItem, List<DataItemAction> ReferencesList)
         {
             var transactionsList = TransactionDataConverter.Convert(ReferencesList);
             transactionsList.Add(new DeleteDataItem(dataItem));
-            DBHelper.PerformDBAction(Connection.GetConnection(), new PerformTransactionOnList(transactionsList));
+            DBHelper.PerformDBAction(new PerformTransactionOnList(transactionsList));
         }
 
         public static void Delete(this DataItem dataItem)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new DeleteDataItem(dataItem));         
+            DBHelper.PerformDBAction(new DeleteDataItem(dataItem));         
         }
         public static void Insert(this DataItem dataItem)
         {
             try
             {
-                DBHelper.PerformDBAction(Connection.GetConnection(), new InsertDataItem(dataItem));
+                DBHelper.PerformDBAction(new InsertDataItem(dataItem));
             }
             catch (DBActionException exception) { dataItem.Id = 0; throw exception; }
         }
         public static void Fill(this DataItem dataItem, List<string> tableFields)
         {
-            DBHelper.PerformDBAction(Connection.GetConnection(), new FillDataItem(dataItem, tableFields));
+            DBHelper.PerformDBAction(new FillDataItem(dataItem, tableFields));
         }
 
 

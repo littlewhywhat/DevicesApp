@@ -9,7 +9,6 @@ namespace MiaMain
 {
     public static class PrepareApp
     {
-
         public static void Prepare(Application App)
         {
             if (ConnectionStringBuilder.SetConnectionString())

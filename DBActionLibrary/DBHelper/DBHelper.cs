@@ -12,11 +12,14 @@ namespace DBActionLibrary
     internal static class DBHelper
     {
 
-        public static object PerformDBAction(DbConnection connection, DBAction action)
+        public static object PerformDBAction(DBAction action)
         {
-            connection.Open();
-            var result = action.Act(connection);
-            connection.Close();
+            object result = null;
+            using (var connection = Connection.GetConnection())
+            {
+                connection.Open();
+                result = action.Act(connection);
+            }
             return result;
         }
 
