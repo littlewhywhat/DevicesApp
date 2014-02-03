@@ -14,15 +14,6 @@ namespace DataItemControllersLibrary
     {
         private static byte[] timestamp = new byte[8];
         private static DictionariesVault Vault;
-        public static void SetVault(DictionariesVault vault)
-        {
-            Vault = vault;
-        }
-
-        public static void SetTimestamp(byte[] newTimestamp)
-        {
-            timestamp = newTimestamp;
-        }
         private static void Do()
         {
             var tempTimestamp = Connection.GetLogTimestamp();
@@ -49,6 +40,17 @@ namespace DataItemControllersLibrary
                 SetTimestamp(tempTimestamp);
             }
         }
+        
+        public static void SetVault(DictionariesVault vault)
+        {
+            Vault = vault;
+        }
+        public static void SetTimestamp(byte[] newTimestamp)
+        {
+            timestamp = newTimestamp;
+        }
+
+
         public static void Control()
         {
             var workerThread = new Thread(() =>

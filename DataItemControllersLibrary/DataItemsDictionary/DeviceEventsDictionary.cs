@@ -19,7 +19,7 @@ namespace DataItemControllersLibrary
             return new DeviceEventControllersFactory(vault);
         }
 
-        public IEnumerable<DeviceEventController> GetEventsByDeviceId(int Id)
+        internal IEnumerable<DeviceEventController> GetEventsByDeviceId(int Id)
         {
             return DataItemControllersDic.Values.Where(dataItemController => ((DeviceEventController)dataItemController).Device.Id == Id)
                 .Select(dataItemController => (DeviceEventController)dataItemController);

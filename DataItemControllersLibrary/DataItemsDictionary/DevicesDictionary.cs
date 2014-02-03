@@ -17,7 +17,8 @@ namespace DataItemControllersLibrary
         {
             return new DeviceControllersFactory(vault);
         }
-        public override IEnumerable<DataItemControllerWithParents> GetPossibleParents(DataItemControllerWithParents dataItemController)
+
+        internal override IEnumerable<DataItemControllerWithParents> GetPossibleParents(DataItemControllerWithParents dataItemController)
         {
             var deviceController = (DeviceController)dataItemController;
             if (!deviceController.HasType)
@@ -29,15 +30,12 @@ namespace DataItemControllersLibrary
                 .ForEach(controller => parentListByParentTypeId.Remove(controller)); 
             return parentListByParentTypeId.Cast<DataItemControllerWithParents>();
         }
-
-
-        public IEnumerable<DeviceController> GetDevicesWithCompanyId(int CompanyId)
+        internal IEnumerable<DeviceController> GetDevicesWithCompanyId(int CompanyId)
         {
             return DataItemControllersDic.Values.Where(dataItemController => ((DeviceController)dataItemController).HasTheSameCompanyId(CompanyId))
                 .Cast<DeviceController>();
         }
-
-        public IEnumerable<DeviceController> GetDevicesWithTypeId(int TypeId)
+        internal IEnumerable<DeviceController> GetDevicesWithTypeId(int TypeId)
         {
             return DataItemControllersDic.Values.Where(dataItemController => ((DeviceController)dataItemController).HasTheSameTypeId(TypeId))
                 .Cast<DeviceController>();
