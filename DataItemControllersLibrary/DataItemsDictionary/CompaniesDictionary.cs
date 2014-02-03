@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using DataItemsLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public class CompaniesDictionary : DataItemControllersWithParentsDictionary
     {
         private CompanyController UndefinedCompany;
-        public CompaniesDictionary()
+        public CompaniesDictionary(DictionariesVault vault) : base(vault)
+        { }
+        public CompaniesDictionary(CompanyControllersFactory factory) : base(factory)
         { }
 
-        protected override DataItemControllersFactory GetFactory()
+        protected override DataItemControllersFactory GetFactory(DictionariesVault vault)
         {
-            return new CompanyControllersFactory();
+            return new CompanyControllersFactory(vault);
         }
 
         const string _UndefinedCompany = "Компания неопределена";

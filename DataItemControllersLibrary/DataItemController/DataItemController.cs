@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Controls;
 using DataItemsLibrary;
 using System.ComponentModel;
 using System.Windows;
 using DBActionLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public abstract class DataItemController : INotifyPropertyChanged
     {
@@ -28,7 +27,7 @@ namespace InterfaceToClient
         {
             return (Id == controller.Id) && (IsTheSameByType(controller));
         }
-        public abstract bool IsTheSameByType(DataItemController controller);
+        protected abstract bool IsTheSameByType(DataItemController controller);
 
         public DataItemController(DataItem dataItem, DataItemControllersFactory factory)
         {
@@ -36,7 +35,6 @@ namespace InterfaceToClient
             Factory = factory;
         }
         public DataItemControllersFactory Factory;
-        protected abstract DataItemControllersDictionary GetDictionary();
 
         #region propertychanged implementation
         protected const string _Name = "Name";
@@ -112,7 +110,7 @@ namespace InterfaceToClient
             return dictionary;
         }
 
-        internal virtual void ChangeInDb()
+        public virtual void ChangeInDb()
         {
             DataItem.ChangeInDb();
             ChangeMode = false;
@@ -123,25 +121,54 @@ namespace InterfaceToClient
             DataItem.Delete();
         }
 
-        public DataItemsTabItem GetTabItem()
+        public static bool SearchContains(string value, List<string> searchList)
         {
-            DataItem.Fill(DataItem.Factory.OtherTableFields);
-            return Factory.GetTabItem(this);
+            bool result = false;
+            for (int i = 0; i < searchList.Count; i++)
+            {
+                var listItem = searchList[i];
+                if (value.Contains(listItem))
+                {
+                    result = true;
+                    searchList.Remove(listItem);
+                    i--;
+                }
+            }
+            return result;
         }
 
-        public ListBoxItemGrid GetListBoxItemGrid()
+        public String Search(List<string> searchListParameter)
         {
-            DataItem.Fill(DataItem.Factory.OtherTableFields);
-            return Factory.GetListBoxItemGrid(this);
+            if (searchListParameter.Count != 0)
+            {
+                var searchList = new List<string>(searchListParameter);
+                var resultCollection = GetSearchPropertyValueDic().Values.Where(value => SearchContains(value.ToLower(), searchList)).ToArray();
+                if (searchList.ToList().Count == 0)
+                    return String.Join(" ", resultCollection);
+            }
+            return null;
         }
 
-        public FrameworkElement GetPanel()
-        {
-            var border = Factory.GetPanel();
-            border.DataContext = this;
-            return border;
-        }
-        public FrameworkElement Panel { get { return GetPanel(); } }
+
+        //public DataItemsTabItem GetTabItem()
+        //{
+        //    DataItem.Fill(DataItem.Factory.OtherTableFields);
+        //    return Factory.GetTabItem(this);
+        //}
+
+        //public ListBoxItemGrid GetListBoxItemGrid()
+        //{
+        //    DataItem.Fill(DataItem.Factory.OtherTableFields);
+        //    return Factory.GetListBoxItemGrid(this);
+        //}
+
+        //public FrameworkElement GetPanel()
+        //{
+        //    var border = Factory.GetPanel();
+        //    border.DataContext = this;
+        //    return border;
+        //}
+        //public FrameworkElement Panel { get { return GetPanel(); } }
         
     }
 }

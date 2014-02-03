@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using DataItemsLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public class DevicesDictionary : DataItemControllersWithParentsDictionary
     {
-        public DevicesDictionary()
+        public DevicesDictionary(DictionariesVault vault) : base(vault)
         { }
-        protected override DataItemControllersFactory GetFactory()
+        public DevicesDictionary(DeviceControllersFactory factory) : base(factory)
+        { }
+
+        protected override DataItemControllersFactory GetFactory(DictionariesVault vault)
         {
-            return new DeviceControllersFactory();
+            return new DeviceControllersFactory(vault);
         }
         public override IEnumerable<DataItemControllerWithParents> GetPossibleParents(DataItemControllerWithParents dataItemController)
         {

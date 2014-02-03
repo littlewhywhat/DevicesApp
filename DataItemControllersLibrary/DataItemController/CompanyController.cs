@@ -5,16 +5,12 @@ using System.Text;
 using DataItemsLibrary;
 using DBActionLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public class CompanyController : DataItemControllerWithParents
     {
         public CompanyController(Company company, CompanyControllersFactory factory) : base(company, factory)
         { }
-        protected override DataItemControllersDictionary GetDictionary()
-        {
-            return FactoriesVault.Dic[Factory.TableName];
-        }
         const string _Info = "Info";
         protected override void OnPropertyChanged()
         {
@@ -22,7 +18,7 @@ namespace InterfaceToClient
             OnPropertyChanged(_Info);
         }
 
-        public DevicesDictionary DevicesDic { get { return (DevicesDictionary)FactoriesVault.Dic[TableNames.Devices]; } }
+        public DevicesDictionary DevicesDic { get { return Factory.Vault.DevicesDic; } }
         private Company Company { get { return (Company)DataItem; } }
         public string Info { get { return Company.Info; } set { Company.Info = value; OnPropertyChanged(); } }
         protected override List<DataItemAction> GetDeleteReferencesActions()
@@ -41,7 +37,7 @@ namespace InterfaceToClient
             return GetReferencedDevices().Select(deviceController => deviceController.GetActionForDeleteCompanyReference());
         }
 
-        public override bool IsTheSameByType(DataItemController controller)
+        protected override bool IsTheSameByType(DataItemController controller)
         {
             return controller is CompanyController;
         }

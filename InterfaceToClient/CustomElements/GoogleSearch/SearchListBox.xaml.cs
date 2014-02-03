@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataItemsLibrary;
+using DataItemControllersLibrary;
 namespace InterfaceToClient
 {
     /// <summary>
@@ -39,7 +40,7 @@ namespace InterfaceToClient
                 else
                 {
                     Items.Filter = null;
-                    var result = SearchDictionary.Search(searchList);
+                    var result = SearchDictionary.Search(searchList).Select(searchResult => searchResult.Reference.GetPanel(searchResult.Result));
                     ItemsSource = result;
                     
                 }

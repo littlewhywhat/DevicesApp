@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using DataItemControllersLibrary;
 
 namespace InterfaceToClient
 {
@@ -23,7 +24,7 @@ namespace InterfaceToClient
             Items.Clear();
             Dispose();
             Dictionary = dictionary;
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { Dictionary.Factory.TableName });
+            Vault.ChangesGetter.AddObserver(this, new string[] { Dictionary.Factory.TableName });
             Dictionary.GetDevicesWithoutParents().ToList().ForEach(dataItemController =>
                 {
                     AddTreeViewItemByDataItemController(dataItemController);
@@ -129,7 +130,7 @@ namespace InterfaceToClient
 
         public void Dispose()
         {
-            FactoriesVault.ChangesGetter.RemoveObserver(this);
+            Vault.ChangesGetter.RemoveObserver(this);
         }
     }
 }

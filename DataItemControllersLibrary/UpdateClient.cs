@@ -8,11 +8,17 @@ using System.Data.SqlClient;
 using DataItemsLibrary;
 using DBActionLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public static class UpdateClient
     {
         private static byte[] timestamp = new byte[8];
+        private static DictionariesVault Vault;
+        public static void SetVault(DictionariesVault vault)
+        {
+            Vault = vault;
+        }
+
         public static void SetTimestamp(byte[] newTimestamp)
         {
             timestamp = newTimestamp;
@@ -25,8 +31,8 @@ namespace InterfaceToClient
                 var LogRowList = Connection.GetLogRowList(timestamp);
                 LogRowList.ForEach(change =>
                 {
-                    
-                    var controllerDic = FactoriesVault.Dic[change.TableName];
+
+                    var controllerDic = Vault.GetDicByTableName(change.TableName);
                     switch (change.ActionType)
                     {
                         case "INSERT":

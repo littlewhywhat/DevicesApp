@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataItemsLibrary;
+using DataItemControllersLibrary;
 
 namespace InterfaceToClient
 {
@@ -11,7 +12,7 @@ namespace InterfaceToClient
         protected DeviceController DeviceControllerDataContext { get { return (DeviceController)DataContext; } }
         public DeviceExtraComboBox(string TableName) : base()
         {
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableName });
+            Vault.ChangesGetter.AddObserver(this, new string[] { TableName });
         }
 
         public void Update(DataItemControllerChangedEventArgs change)
@@ -22,7 +23,7 @@ namespace InterfaceToClient
 
         public void Dispose()
         {
-            FactoriesVault.ChangesGetter.RemoveObserver(this);
+            Vault.ChangesGetter.RemoveObserver(this);
             this.DisposeChildrenObservers();
         }
     }

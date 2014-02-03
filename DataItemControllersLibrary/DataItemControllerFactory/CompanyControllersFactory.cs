@@ -2,35 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Controls;
 using DataItemsLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public class CompanyControllersFactory : DataItemControllersFactory
     {
-        public CompanyControllersFactory()
+        public CompanyControllersFactory(DictionariesVault vault) : base(vault)
         { }
 
         public override DataItemController GetController(DataItem dataItem)
         {
             return new CompanyController((Company)dataItem, this);
         }
-        
-        protected override DataItemsInfoGrid GetDataItemsInfoGrid()
-        {
-            return new CompaniesInfoGrid();
-        }
-
         protected override DataItemsFactory GetFactory()
         {
             return new CompaniesFactory();
-        }
-
-
-        internal override System.Windows.FrameworkElement GetPanel()
-        {
-            return new CompanyPanel();
         }
     }
 }

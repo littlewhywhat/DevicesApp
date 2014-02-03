@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using DataItemsLibrary;
+using DataItemControllersLibrary;
 
 namespace InterfaceToClient
 {

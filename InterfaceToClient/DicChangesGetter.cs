@@ -6,21 +6,22 @@ using System.Windows.Threading;
 using System.Collections.Specialized;
 using System.Windows;
 using DataItemsLibrary;
+using DataItemControllersLibrary;
 
 namespace InterfaceToClient
 {
     public class DicChangesGetter
     {
         Dictionary<string, List<IObserver>> ListsDic = new Dictionary<string, List<IObserver>>();
-        public DicChangesGetter()
+        public DicChangesGetter(DictionariesVault DictionariesVault)
         {
-            FactoriesVault.Dic[TableNames.Devices].DataItemControllersDic.CollectionChanged += DevicesDicCollectionChanged;
+            DictionariesVault.Dic[TableNames.Devices].DataItemControllersDic.CollectionChanged += DevicesDicCollectionChanged;
             ListsDic.Add(TableNames.Devices, new List<IObserver>());
-            FactoriesVault.Dic[TableNames.DeviceTypes].DataItemControllersDic.CollectionChanged += DeviceTypesDicCollectionChanged;
+            DictionariesVault.Dic[TableNames.DeviceTypes].DataItemControllersDic.CollectionChanged += DeviceTypesDicCollectionChanged;
             ListsDic.Add(TableNames.DeviceTypes, new List<IObserver>());
-            FactoriesVault.Dic[TableNames.DeviceEvents].DataItemControllersDic.CollectionChanged += DeviceEventsDicCollectionChanged;
+            DictionariesVault.Dic[TableNames.DeviceEvents].DataItemControllersDic.CollectionChanged += DeviceEventsDicCollectionChanged;
             ListsDic.Add(TableNames.DeviceEvents, new List<IObserver>());
-            FactoriesVault.Dic[TableNames.Companies].DataItemControllersDic.CollectionChanged += CompaniesDicCollectionChanged;
+            DictionariesVault.Dic[TableNames.Companies].DataItemControllersDic.CollectionChanged += CompaniesDicCollectionChanged;
             ListsDic.Add(TableNames.Companies, new List<IObserver>());
         }
 

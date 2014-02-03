@@ -14,7 +14,7 @@ namespace MiaMain
         {
             if (ConnectionStringBuilder.SetConnectionString())
             {
-                FactoriesVault.FillFactories();
+                Vault.Init();
                 new DataItemsExplorer().Show();
             }
             else

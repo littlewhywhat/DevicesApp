@@ -8,19 +8,24 @@ using System.Collections.Specialized;
 using System.Windows;
 using DBActionLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public abstract class DataItemControllersDictionary : IDataItemDic
     {
         
         public DataItemControllersFactory Factory;
         public ObservableDictionary<int, DataItemController> DataItemControllersDic = new ObservableDictionary<int, DataItemController>();
-        public DataItemControllersDictionary()
+        public DataItemControllersDictionary(DictionariesVault vault)
         {
-            Factory = GetFactory();
+            Factory = GetFactory(vault);
             Factory.FillDataItemControllersDic(this);
         }
-        protected abstract DataItemControllersFactory GetFactory();
+        public DataItemControllersDictionary(DataItemControllersFactory factory)
+        {
+            Factory = factory;
+            Factory.FillDataItemControllersDic(this);
+        }
+        protected abstract DataItemControllersFactory GetFactory(DictionariesVault vault);
         public void AddDataItem(DataItem dataItem)
         {
  	        DataItemControllersDic.Add(dataItem.Id, Factory.GetController(dataItem));
@@ -44,15 +49,10 @@ namespace InterfaceToClient
 
        
 
-        public IEnumerable<FrameworkElement> Search(List<string> searchList)
+        public IEnumerable<SearchResult> Search(List<string> searchList)
         {
             return DataItemControllersDic.Values.Select(dataItemController =>
-                new SearchResult(dataItemController.Search(searchList), dataItemController)).Where(searchResult => searchResult.Result != null).Select(searchResult =>
-                    {
-                        var panel = searchResult.Reference.GetPanel();
-                        panel.Tag = searchResult.Result;
-                        return panel;
-                    });
+                new SearchResult(dataItemController.Search(searchList), dataItemController)).Where(searchResult => searchResult.Result != null);
         }
 
     }

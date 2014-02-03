@@ -87,17 +87,6 @@
       <DependentUpon>ListBoxItemGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataItemControllerChangedEventArgs.cs" />
-    <Compile Include="DataItemControllerFactory\CompanyControllersFactory.cs" />
-    <Compile Include="DataItemControllerFactory\DeviceControllersFactory.cs" />
-    <Compile Include="DataItemControllerFactory\DeviceEventControllersFactory.cs" />
-    <Compile Include="DataItemControllerFactory\DeviceTypeControllersFactory.cs" />
-    <Compile Include="DataItemController\CompanyController.cs" />
-    <Compile Include="DataItemController\DataItemController.cs" />
-    <Compile Include="DataItemControllerFactory\DataItemControllersFactory.cs" />
-    <Compile Include="DataItemController\DataItemControllerWithParents.cs" />
-    <Compile Include="DataItemController\DeviceController.cs" />
-    <Compile Include="DataItemController\DeviceEventController.cs" />
-    <Compile Include="DataItemController\DeviceTypeController.cs" />
     <Compile Include="DataItemPanels\CompanyPanel.xaml.cs">
       <DependentUpon>CompanyPanel.xaml</DependentUpon>
     </Compile>
@@ -107,12 +96,6 @@
     <Compile Include="DataItemPanels\DeviceTypePanel.xaml.cs">
       <DependentUpon>DeviceTypePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataItemsDictionary\CompaniesDictionary.cs" />
-    <Compile Include="DataItemsDictionary\DataItemsDictionary.cs" />
-    <Compile Include="DataItemsDictionary\DataItemsWithParentsDictionary.cs" />
-    <Compile Include="DataItemsDictionary\DeviceEventsDictionary.cs" />
-    <Compile Include="DataItemsDictionary\DevicesDictionary.cs" />
-    <Compile Include="DataItemsDictionary\DeviceTypesDictionary.cs" />
     <Compile Include="CustomElements\DataItemsTabControl.xaml.cs">
       <DependentUpon>DataItemsTabControl.xaml</DependentUpon>
     </Compile>
@@ -138,7 +121,13 @@
     <Compile Include="CustomElements\EventsListBox.xaml.cs">
       <DependentUpon>EventsListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FactoriesVault.cs" />
+    <Compile Include="ExtendedControllersFactories\ControllersExtensions.cs" />
+    <Compile Include="ExtendedControllersFactories\ExtDeviceControllersFactory.cs" />
+    <Compile Include="ExtendedControllersFactories\ExtCompanyControllersFactory.cs" />
+    <Compile Include="ExtendedControllersFactories\ExtDeviceEventControllersFactory.cs" />
+    <Compile Include="ExtendedControllersFactories\ExtDeviceTypeControllersFactory.cs" />
+    <Compile Include="ExtendedControllersFactories\IExtDataItemControllersFactory.cs" />
+    <Compile Include="DictionariesVault.cs" />
     <Compile Include="Extensions\IClose.cs" />
     <Compile Include="DataItemsTabItemContent\CompaniesInfoGrid.xaml.cs">
       <DependentUpon>CompaniesInfoGrid.xaml</DependentUpon>
@@ -166,8 +155,7 @@
       <DependentUpon>SearchPopUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IObserver.cs" />
-    <Compile Include="Extensions\SearchResult.cs" />
-    <Compile Include="UpdateClient.cs" />
+    <Compile Include="Vault.cs" />
     <Page Include="CustomElements\Buttons\CancelButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -309,13 +297,17 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataItemControllersLibrary\DataItemControllersLibrary.csproj">
+      <Project>{30de232c-85ea-440b-b822-fa89b9e6c51d}</Project>
+      <Name>DataItemControllersLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataItemsLibrary\DataItemsLibrary.csproj">
+      <Project>{4ddffb31-9bee-4146-bca4-a7b8c331a422}</Project>
+      <Name>DataItemsLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBActionLibrary\DBActionLibrary.csproj">
       <Project>{0c926e7d-de16-4722-a898-5e193e7cff2e}</Project>
       <Name>DBActionLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InterfaceToDataBase\DataItemsLibrary.csproj">
-      <Project>{4ddffb31-9bee-4146-bca4-a7b8c331a422}</Project>
-      <Name>DataItemsLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

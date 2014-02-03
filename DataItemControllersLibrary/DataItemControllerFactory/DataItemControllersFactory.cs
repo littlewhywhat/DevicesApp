@@ -6,24 +6,26 @@ using System.Collections.Specialized;
 using DataItemsLibrary;
 using System.Windows;
 using DBActionLibrary;
-using System.Windows.Controls;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public abstract class DataItemControllersFactory
     {
-
+        public DictionariesVault Vault { get; private set; }
         protected DataItemsFactory Factory;
-        public DataItemControllersFactory()
+        public DataItemControllersFactory(DictionariesVault vault)
         {
+            Vault = vault;
             Factory = GetFactory();
         }
         protected abstract DataItemsFactory GetFactory();
+        
         public void FillDataItemControllersDic(DataItemControllersDictionary dataItemsDic)
         {
             dataItemsDic.Fill(Factory);
         }
         public string TableName { get { return Factory.TableName; } }
+        public DataItemControllersDictionary RelatedDic { get { return Vault.GetDicByTableName(TableName); } }
         public abstract DataItemController GetController(DataItem dataItem);
         public DataItemController GetController(int id)
         {
@@ -37,32 +39,5 @@ namespace InterfaceToClient
         {
             return GetController(Factory.GetDataItemDefault());
         }
-
-        protected virtual Grid GetTabItemContent()
-        {
-            var dataGrid = new TabItemGrid();
-            dataGrid.ContentGrid = GetDataItemsInfoGrid();
-            return dataGrid;
-        }
-        protected abstract DataItemsInfoGrid GetDataItemsInfoGrid();
-
-        public virtual DataItemsTabItem GetTabItem(DataItemController dataItemController)
-        {
-            var tabItem = new DataItemsTabItem() { DataContext =  dataItemController , Content = GetTabItemContent() };
-            FactoriesVault.ChangesGetter.AddObserver(tabItem, new string[] { TableName });
-            return tabItem;
-        }
-
-        public DataItemsTabItem GetInsertTabItem()
-        {
-            return GetTabItem(GetControllerDefault());
-        }
-
-        public ListBoxItemGrid GetListBoxItemGrid(DataItemController dataItemController)
-        {
-            return new ListBoxItemGrid() { ContentGrid = GetDataItemsInfoGrid(), DataContext = dataItemController };
-        }
-
-        internal abstract FrameworkElement GetPanel();
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using DataItemsLibrary;
 using DBActionLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public abstract class DataItemControllerWithParents : DataItemController
     {
@@ -16,7 +16,7 @@ namespace InterfaceToClient
 
         protected bool ParentWasChanged { get { return ChangeMode ? dataItemWithParents.ParentId != cloneWithParents.ParentId : false; } }
 
-        public DataItemControllersWithParentsDictionary DataItemsWithParentsDic { get { return (DataItemControllersWithParentsDictionary)GetDictionary(); } }
+        public DataItemControllersWithParentsDictionary DataItemsWithParentsDic { get { return (DataItemControllersWithParentsDictionary)Factory.RelatedDic; } }
 
         public override void Refresh()
         {
@@ -25,7 +25,7 @@ namespace InterfaceToClient
             base.Refresh();
         }
 
-        protected const string _ParentOrDefault = "ParentOrDefault";
+        const string _ParentOrDefault = "ParentOrDefault";
         protected const string _Parents = "Parents";
         protected override void OnPropertyChanged()
         {
@@ -33,29 +33,19 @@ namespace InterfaceToClient
             OnPropertyChanged(_ParentOrDefault);
             OnPropertyChanged(_Parents);
         }
-
-        public virtual void CheckIds()
+        protected virtual void CheckIds()
         {
             if (!ParentExist)
                 DataItemWithParents.ParentId = 0;
         }
-        public bool ParentExist
+
+        private bool ParentExist
         {
             get
             {
                 try { return GetPossibleParents().ToDictionary(dataItemController => dataItemController.Id).ContainsKey(DataItemWithParents.ParentId); }
                 catch { return false; }
             }
-        }
-        public void RefreshAndCheckIdsAfterDelete(DataItemControllerWithParents OldDataItemController)
-        {
-            if (ChangeMode)
-            {
-                if (OldDataItemController.Factory == Factory)
-                    if (DataItemWithParents.ParentId == OldDataItemController.Id)
-                        Parent = DataItemsWithParentsDic.GetWithoutParentController();
-            }
-
         }
 
         public bool HasParents { get { return DataItemWithParents.ParentId != 0; } }
@@ -66,13 +56,11 @@ namespace InterfaceToClient
             get { return HasParents ? DataItemsWithParentsDic.GetParentById(DataItemWithParents.ParentId) : null; }
             set { DataItemWithParents.ParentId = value.Id; }
         }
-
         public DataItemControllerWithParents ParentOrDefault
         {
             get { return HasParents ? Parent : DataItemsWithParentsDic.GetWithoutParentController(); }
             set { Parent = value; }
         }
-
         public List<DataItemControllerWithParents> Parents
         {
             get
@@ -87,8 +75,7 @@ namespace InterfaceToClient
 
         
 
-        public bool IsChildOf(int id) { return dataItemWithParents.ParentId == id; }
-        public bool IsChildOf(DataItemController controller) { return IsChildOf(controller.Id); }
+        internal bool IsChildOf(int id) { return dataItemWithParents.ParentId == id; }
 
         private IEnumerable<DataItemControllerWithParents> GetPossibleParents()
         {

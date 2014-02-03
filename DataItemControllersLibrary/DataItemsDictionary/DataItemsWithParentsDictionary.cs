@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public abstract class DataItemControllersWithParentsDictionary : DataItemControllersDictionary
     {
         public DataItemControllerWithParents WithoutParentController;
-        public DataItemControllersWithParentsDictionary() : base() { }
-        
+        public DataItemControllersWithParentsDictionary(DictionariesVault vault) : base(vault) { }
+        public DataItemControllersWithParentsDictionary(DataItemControllersFactory factory) : base(factory) { }
 
         public virtual IEnumerable<DataItemControllerWithParents> GetPossibleParents(DataItemControllerWithParents dataItemController)
         {

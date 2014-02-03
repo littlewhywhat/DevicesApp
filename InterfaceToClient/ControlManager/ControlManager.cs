@@ -3,46 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
-using DataItemsLibrary;
 using System.Windows;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Data;
+using DataItemsLibrary;
 using DBActionLibrary;
+using DataItemControllersLibrary;
+
 
 namespace InterfaceToClient
 {
     public abstract class ControlManager : Grid
     {
-#region
-        public static readonly DependencyProperty InsertModeProperty =
-            DependencyProperty.Register("InsertMode", typeof(bool), typeof(ControlManager), 
-            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, 
-                new PropertyChangedCallback(InsertMode_PropertyChanged)));
+        #region InsertModeProperty
+                public static readonly DependencyProperty InsertModeProperty =
+                    DependencyProperty.Register("InsertMode", typeof(bool), typeof(ControlManager), 
+                    new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, 
+                        new PropertyChangedCallback(InsertMode_PropertyChanged)));
 
-        private static void InsertMode_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            d.Dispatcher.BeginInvoke((Action)(() => 
+                private static void InsertMode_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
                 {
-                    if (((ControlManager)d).InsertMode)
-                        ((ControlManager)d).EnableInsertMode();
-                }));
-        }
+                    d.Dispatcher.BeginInvoke((Action)(() => 
+                        {
+                            if (((ControlManager)d).InsertMode)
+                                ((ControlManager)d).EnableInsertMode();
+                        }));
+                }
 
-        public bool InsertMode
-        {
-            get
-            {
-                return (bool)this.GetValue(InsertModeProperty);
-            }
-            set
-            {
-                this.SetValue(InsertModeProperty, value);
-            }
-        }
+                public bool InsertMode
+                {
+                    get
+                    {
+                        return (bool)this.GetValue(InsertModeProperty);
+                    }
+                    set
+                    {
+                        this.SetValue(InsertModeProperty, value);
+                    }
+                }
 
         
-#endregion
+        #endregion
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public DataItemsInfoGrid ContentGrid 
@@ -95,7 +97,6 @@ namespace InterfaceToClient
         {
             CurrentDataItemController.ChangeMode = true;
             SwitchChangeMode(true);
-            //ContentGrid.Refresh(dataItemControllerNew);
         }
 
         protected void CancelClick()
@@ -125,21 +126,6 @@ namespace InterfaceToClient
             SwitchChangeMode(true);
             CancelButton.IsEnabled = false;
             DeleteButton.IsEnabled = false;
-        }
-
-        protected void PossessChangeOfCurrentChange()
-        {
-            //if ((CurrentChange.Action == NotifyCollectionChangedAction.Remove) ||
-            //((CurrentChange.Action == NotifyCollectionChangedAction.Add) && (CurrentChange.NewController.InsertMode)))
-            //{
-
-            //        ContentGrid.Refresh(CurrentChange.NewController);
-            //        EnableInsertMode(); 
-            //}
-            //if (!ContentGrid.ChangeMode)
-            //    ContentGrid.Refresh(CurrentChange.NewController);
-            //else
-            //    ContentGrid.RefreshComboBoxes();
         }
 
         

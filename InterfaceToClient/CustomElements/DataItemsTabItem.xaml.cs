@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Specialized;
 using DataItemsLibrary;
+using DataItemControllersLibrary;
 namespace InterfaceToClient
 {
     public partial class DataItemsTabItem : TabItem, IObserver, IClose
@@ -78,7 +79,7 @@ namespace InterfaceToClient
 
         public void Dispose()
         {
-            FactoriesVault.ChangesGetter.RemoveObserver(this);
+            Vault.ChangesGetter.RemoveObserver(this);
             ((FrameworkElement)Content).DisposeChildrenObservers();   
         }
     }

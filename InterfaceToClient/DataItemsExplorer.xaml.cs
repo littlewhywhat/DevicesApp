@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using System.Threading;
 using DataItemsLibrary;
 using System.Collections.ObjectModel;
+using DataItemControllersLibrary;
 namespace InterfaceToClient
 {
     /// <summary>
@@ -28,7 +29,8 @@ namespace InterfaceToClient
             InitializeComponent();
             ControllerComboBox.SelectedIndex = 0;
         }
-        
+        private string SelectedDictionary { get { return ((ComboBoxItem)ControllerComboBox.SelectedItem).Name; } }
+
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             DataItemsTree.BuildTree((DataItemControllersWithParentsDictionary)DataContext);
@@ -55,9 +57,6 @@ namespace InterfaceToClient
             tabItem.IsSelected = true;
         }
 
-
-
-
         private void SearchGrid_KeyUp(object sender, KeyEventArgs e)
         {
             if (sender is SearchGrid && e.Key == Key.Return)
@@ -70,7 +69,7 @@ namespace InterfaceToClient
 
         private void ControllerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataContext = FactoriesVault.Dic[((ComboBoxItem)ControllerComboBox.SelectedItem).Name];
+            DataContext = Vault.DicsVault.GetDicByTableName(SelectedDictionary);
         }
 
         private void Window_Closed(object sender, EventArgs e)

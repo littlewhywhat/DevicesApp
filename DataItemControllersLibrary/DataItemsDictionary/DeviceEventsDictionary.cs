@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using DataItemsLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public class DeviceEventsDictionary : DataItemControllersDictionary
     {
-        public DeviceEventsDictionary()
+        public DeviceEventsDictionary(DictionariesVault vault) : base(vault)
         { }
 
-        protected override DataItemControllersFactory GetFactory()
+        public DeviceEventsDictionary(DeviceEventControllersFactory  factory) : base(factory)
+        { }
+
+        protected override DataItemControllersFactory GetFactory(DictionariesVault vault)
         {
-            return new DeviceEventControllersFactory();
+            return new DeviceEventControllersFactory(vault);
         }
 
         public IEnumerable<DeviceEventController> GetEventsByDeviceId(int Id)

@@ -15,6 +15,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using DataItemsLibrary;
 using System.Collections.ObjectModel;
+using DataItemControllersLibrary;
 
 namespace InterfaceToClient
 {
@@ -32,7 +33,7 @@ namespace InterfaceToClient
         {
             InitializeComponent();
             ItemsSource = EventsCollection;
-            FactoriesVault.ChangesGetter.AddObserver(this, new string[] { TableNames.DeviceEvents });
+            Vault.ChangesGetter.AddObserver(this, new string[] { TableNames.DeviceEvents });
             FilterComboBox.SelectedIndex = 0;
             
         }
@@ -121,7 +122,7 @@ namespace InterfaceToClient
 
         public void Dispose()
         {
-            FactoriesVault.ChangesGetter.RemoveObserver(this);
+            Vault.ChangesGetter.RemoveObserver(this);
             this.DisposeChildrenObservers();
         }
 

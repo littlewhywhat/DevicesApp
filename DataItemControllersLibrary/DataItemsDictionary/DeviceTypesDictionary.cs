@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using DataItemsLibrary;
 
-namespace InterfaceToClient
+namespace DataItemControllersLibrary
 {
     public class DeviceTypesDictionary : DataItemControllersWithParentsDictionary
     {
         private DeviceTypeController UndefinedType;
-        public DeviceTypesDictionary()
+        public DeviceTypesDictionary(DictionariesVault vault) : base(vault)
+        { }
+        public DeviceTypesDictionary(DeviceTypeControllersFactory factory): base(factory)
         { }
 
-
-        protected override DataItemControllersFactory GetFactory()
+        protected override DataItemControllersFactory GetFactory(DictionariesVault vault)
         {
-            return new DeviceTypeControllersFactory();
+            return new DeviceTypeControllersFactory(vault);
         }
 
         public IEnumerable<DeviceTypeController> GetTypesWithoutMarker()
