@@ -38,12 +38,14 @@ namespace DataItemControllersLibrary
         const string _FullName = "FullName";
         const string _IVUK = "IVUK";
         const string _IsMarker = "IsMarker";
+        const string _Marker = "Marker";
         protected override void OnPropertyChanged()
         {
             base.OnPropertyChanged();
             OnPropertyChanged(_FullName);
             OnPropertyChanged(_IsMarker);
             OnPropertyChanged(_IVUK);
+            OnPropertyChanged(_Marker);
         }
         protected override bool IsTheSameByType(DataItemController controller)
         {
@@ -54,6 +56,15 @@ namespace DataItemControllersLibrary
             var actions = base.GetDeleteReferencesActions();
             actions.AddRange(GetDevicesDeleteReferences());
             return actions;
+        }
+        protected override DataItemControllerWithParents Parent
+        {
+            get { return base.Parent; }
+            set
+            {
+                base.Parent = value;
+                OnPropertyChanged(_Marker);
+            }
         }
 
         internal bool HasParentsWithoutMarker { get { return Parent != null; } }

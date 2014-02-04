@@ -34,7 +34,10 @@ namespace InterfaceToClient
         }
         private void Insert_Click(object sender, MouseButtonEventArgs e)
         {
-            var tabItem = ((DataItemControllersDictionary)DataContext).Factory.GetInsertTabItem();
+            var newItem = ((DataItemControllersDictionary)DataContext).Factory.GetControllerDefault();
+            if (Tag != null)
+                ((DataItemControllerWithParents)newItem).ParentOrDefault = (DataItemControllerWithParents)Tag;
+            var tabItem = newItem.GetTabItem();
             Items.Add(tabItem);
             tabItem.IsSelected = true;
         }

@@ -7,7 +7,27 @@
              d:DesignHeight="300" d:DesignWidth="300" Expanded="Node_Expanded" Collapsed="Node_Collapsed" Margin="5" HorizontalContentAlignment="Stretch">
     <TreeViewItem.Header>
         <Border  BorderThickness="1" >
-            <TextBlock Margin="5" Text="{Binding Path=Name}"></TextBlock>
+            <StackPanel>
+                <Label Margin="1" FontSize="10" Tag="{Binding Path=TypeOrDefault}" >
+                    <Label.Template>
+                        <ControlTemplate TargetType="Label">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,5,0" Name="Text" Text="{Binding Path=Tag.Name, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"></TextBlock>
+                                <TextBlock Text="{Binding Path=Tag.Marker, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"></TextBlock>
+                            </StackPanel>
+                            
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="Text" Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Setter Property="Height" Value="2"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Label.Template>
+                    
+                </Label>
+                <TextBlock Margin="5,0,5,5" FontSize="14" Text="{Binding Path=Name}"></TextBlock>
+            </StackPanel>
         </Border>
         
     </TreeViewItem.Header>

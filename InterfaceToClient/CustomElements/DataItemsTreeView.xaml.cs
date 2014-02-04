@@ -38,7 +38,7 @@ namespace InterfaceToClient
 
         private DataItemsTreeViewItem AddTreeViewItemByDataItemController(DataItemControllerWithParents dataItemController)
         {
-            var treeViewItemParent = FindTreeViewItemById(dataItemController.HasParents? dataItemController.Parent.Id : 0);
+            var treeViewItemParent = FindTreeViewItemById(dataItemController.ParentOrDefault.Id);
             if ((treeViewItemParent != null) && ((treeViewItemParent is TreeView) || ((treeViewItemParent.Parent is TreeView) 
                 || (((TreeViewItem)treeViewItemParent.Parent).IsExpanded))))
             {
@@ -118,7 +118,7 @@ namespace InterfaceToClient
             var dataItemControllerWithParentOld = (DataItemControllerWithParents)dataItemControllerOld;
 
             var treeViewItem = FindTreeViewItemById(dataItemControllerOld.Id);
-            if (dataItemControllerWithParentNew.Parent != dataItemControllerWithParentOld.Parent)
+            if (dataItemControllerWithParentNew.ParentOrDefault != dataItemControllerWithParentOld.ParentOrDefault)
             {
                 RemoveTreeViewItem(treeViewItem);
                 treeViewItem = AddTreeViewItemByDataItemController(dataItemControllerWithParentNew);

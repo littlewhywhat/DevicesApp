@@ -63,22 +63,27 @@ namespace DataItemControllersLibrary
         {
             return GetEvents().Select(eventController => eventController.GetActionForDeleteDeviceReference());
         }
-
-        const string _Type = "Type";
+        private void RefreshCompanies()
+        {
+            OnPropertyChanged(_CompanyOrDefault);
+            OnPropertyChanged(_Companies);
+            OnPropertyChanged(_CompanyOrDefault);
+        }
+        private void RefreshTypes()
+        {
+            OnPropertyChanged(_TypeOrDefault);
+            OnPropertyChanged(_Types);
+            OnPropertyChanged(_TypeOrDefault);
+        }
         const string _TypeOrDefault = "TypeOrDefault";
-        const string _Company = "Company";
         const string _CompanyOrDefault = "CompanyOrDefault";
         const string _Companies = "Companies";
         const string _Types = "Types";
         protected override void OnPropertyChanged()
         {
             base.OnPropertyChanged();
-            OnPropertyChanged(_Type);
-            OnPropertyChanged(_TypeOrDefault);
-            OnPropertyChanged(_Company);
-            OnPropertyChanged(_CompanyOrDefault);
-            OnPropertyChanged(_Companies);
-            OnPropertyChanged(_Types);
+            RefreshCompanies();
+            RefreshTypes();
         }
         protected override bool IsTheSameByType(DataItemController controller)
         {
@@ -98,6 +103,15 @@ namespace DataItemControllersLibrary
             referencesList.AddRange(GetEventsDeleteReferences());
             return referencesList;
         }
+        protected override DataItemControllerWithParents Parent
+        {
+            get { return base.Parent; }
+            set
+            {
+                base.Parent = value;
+                OnPropertyChanged(_Types);
+            }
+        }
 
         internal bool HasType { get { return Device.TypeId != 0; } }
         internal bool HasCompany { get { return Device.CompanyId != 0; } }
@@ -107,7 +121,7 @@ namespace DataItemControllersLibrary
             set
             {
                 Device.TypeId = value.Id;
-                OnPropertyChanged(_Type);
+                OnPropertyChanged(_TypeOrDefault);
                 OnPropertyChanged(_Parents);
             }
         }

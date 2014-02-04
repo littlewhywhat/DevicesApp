@@ -51,7 +51,7 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
             </y:DataItemsTreeView>
-            <y:DataItemsTabControl  Style="{StaticResource Default}" x:Name="DataItemsTabControl" Grid.Column="1" />
+            <y:DataItemsTabControl Tag="{Binding ElementName=DataItemsTree,  Path=SelectedItem.DataContext}" Style="{StaticResource Default}" x:Name="DataItemsTabControl" Grid.Column="1" />
         </Grid>
 
 

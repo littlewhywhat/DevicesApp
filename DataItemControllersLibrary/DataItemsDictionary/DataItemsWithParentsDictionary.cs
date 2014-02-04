@@ -60,7 +60,7 @@ namespace DataItemControllersLibrary
 
         public IEnumerable<DataItemControllerWithParents> GetDevicesWithoutParents()
         {
-            return GetChildrenByParentId(0);
+            return DataItemControllersDic.Values.Cast<DataItemControllerWithParents>().Where(dataItemController => !dataItemController.HasParents);
         }
         public IEnumerable<DataItemControllerWithParents> GetChildrenByParentId(int Id)
         {

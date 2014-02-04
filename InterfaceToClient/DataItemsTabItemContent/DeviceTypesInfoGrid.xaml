@@ -11,21 +11,21 @@
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </Grid.Resources>
-    <StackPanel Name="Main" DataContext="{Binding}" DataContextChanged="Main_DataContextChanged">
+    <StackPanel Name="Main" DataContext="{Binding}">
 
         <y:DeviceTypesInfoGridShort DataContext="{Binding}"></y:DeviceTypesInfoGridShort>
-        <TextBlock>Родительский тип:</TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="0,0,5,0">Родительский тип:</TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding Path=Marker}" Name="PreviousMarker"></TextBlock>
+        </StackPanel>
+        
         <y:DataItemsComboBox  Margin="5" x:Name="DeviceTypesParentComboBox" ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
                           SelectedValue="{Binding Path=ParentOrDefault}"></y:DataItemsComboBox>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="13*"/>
-                <ColumnDefinition Width="12*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.ColumnSpan="2">Маркер:</TextBlock>
-            <CheckBox Name="IsMarker" HorizontalAlignment="Center" IsChecked="{Binding Path=IsMarker}" Grid.ColumnSpan="2" Margin="143.6,0"></CheckBox>
-        </Grid>
-        <TextBlock Name="PreviousMarker"></TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Grid.ColumnSpan="2" Margin="0,0,5,0">Является маркером:</TextBlock>
+            <CheckBox Margin="0,2,0,0" Name="IsMarker" HorizontalAlignment="Center" IsChecked="{Binding Path=IsMarker}" IsEnabled="{Binding Path=InsertMode}"
+                      ></CheckBox>
+        </StackPanel>
 
     </StackPanel>
 </y:DataItemsInfoGrid>

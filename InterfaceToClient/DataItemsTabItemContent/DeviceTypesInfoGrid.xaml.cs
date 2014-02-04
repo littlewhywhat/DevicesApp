@@ -27,18 +27,5 @@ namespace InterfaceToClient
             InitializeComponent();
         }
 
-
-        private void Main_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext != null)
-            {
-                var type = (DeviceTypeController)DataContext;
-                if (type.InsertMode)
-                    IsMarker.IsEnabled = true;
-                else
-                    IsMarker.IsEnabled = false;
-                PreviousMarker.Text = ((DeviceTypeController)DataContext).Marker;
-            }
-        }
     }
 }

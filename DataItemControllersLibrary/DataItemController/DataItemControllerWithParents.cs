@@ -60,9 +60,14 @@ namespace DataItemControllersLibrary
         {
             return GetChildren().Select(child => child.GetActionForDeleteParentReference()).ToList();
         }
+        protected virtual DataItemControllerWithParents Parent
+        {
+            get { return HasParents ? DataItemsWithParentsDic.GetParentById(DataItemWithParents.ParentId) : null; }
+            set { DataItemWithParents.ParentId = value.Id; }
+        }
 
         internal bool HasChildren { get { return GetChildren().Count() > 0; } }
-        internal bool IsChildOf(int id) { return dataItemWithParents.ParentId == id; }
+        internal bool IsChildOf(int id) { return HasParents? dataItemWithParents.ParentId == id : false; }
 
         public override void Refresh()
         {
@@ -73,11 +78,6 @@ namespace DataItemControllersLibrary
         public override void Delete()
         {
             DataItem.DeleteWithReferences(GetDeleteReferencesActions());
-        }
-        public virtual DataItemControllerWithParents Parent
-        {
-            get { return HasParents ? DataItemsWithParentsDic.GetParentById(DataItemWithParents.ParentId) : null; }
-            set { DataItemWithParents.ParentId = value.Id; }
         }
         public bool HasParents { get { return DataItemWithParents.ParentId != 0; } }
         public DataItemControllerWithParents ParentOrDefault

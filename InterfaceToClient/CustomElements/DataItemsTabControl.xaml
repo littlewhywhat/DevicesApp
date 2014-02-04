@@ -58,7 +58,6 @@
                 </ControlTemplate.Triggers>
 
             </ControlTemplate>
-
         </TabItem.Template>
 
     </TabItem>
