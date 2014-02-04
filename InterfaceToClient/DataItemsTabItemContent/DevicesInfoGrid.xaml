@@ -20,7 +20,7 @@
             <Style BasedOn="{StaticResource TextBoxMargin}" TargetType="y:EnableTextBox" >
             </Style>
         </StackPanel.Resources>
-        <y:DeviceTypesInfoGridShort DataContext="{Binding Path=Type}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
+        <y:DeviceTypesInfoGridShort DataContext="{Binding Path=TypeOrDefault}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
         
         <TextBlock>Заводской номер:</TextBlock>
         <y:EnableTextBox  Margin="5" x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Name}"></y:EnableTextBox>
