@@ -44,6 +44,7 @@ namespace InterfaceToClient
                 if  (Change.NewController == CurrentDataItemController ||
                     Change.OldController == CurrentDataItemController)
                 {
+                    
                     if ((Change.Action == NotifyCollectionChangedAction.Remove))
                         CurrentDataItemController.GetInInsertMode();
                     else
@@ -55,21 +56,6 @@ namespace InterfaceToClient
             }
             catch (Exception)
             { }
-        }
-
-        public void Remove(DataItemControllerChangedEventArgs Change)
-        {
-            var tabItem = (TabItemGrid)this.FindFirstChild<TabItemGrid>();
-            if (tabItem != null)
-            {
-                tabItem.Update.Focus();
-                var tabItemDataItem = (DataItemController)((FrameworkElement)tabItem.ContentGrid).DataContext;
-                tabItemDataItem.GetInInsertMode();
-                DataContext = new DataItemControllerChangedEventArgs() { 
-                    NewController = tabItemDataItem, 
-                    Action = NotifyCollectionChangedAction.Add };
-
-            }
         }
 
         void IClose.Close(ControlManager manager)

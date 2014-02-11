@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-          xmlns:y="clr-namespace:InterfaceToClient"
-             mc:Ignorable="d" 
-             d:DesignHeight="35" d:DesignWidth="300"
+          xmlns:y="clr-namespace:InterfaceToClient" 
+          mc:Ignorable="d" 
+             d:DesignHeight="35" d:DesignWidth="300" 
           >
     <ComboBox.ItemTemplate>
         <DataTemplate>
@@ -16,9 +16,11 @@
     <ComboBox.Template>
         <ControlTemplate TargetType="ComboBox">
             <Grid Focusable="False">
-                <y:EnableTextBox Focusable="False" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem.Name }" Padding="0" ></y:EnableTextBox>
+                <y:EnableTextBox Background="Transparent" Focusable="False" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem.Name }" Padding="0" ></y:EnableTextBox>
                 <ComboBox  TextSearch.TextPath="Name" 
-                           x:Name="comboBox" ItemTemplate="{TemplateBinding ComboBox.ItemTemplate}" IsEditable="True" ItemsSource="{TemplateBinding ComboBox.ItemsSource}"  SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}">
+                           Name="comboBox" ItemTemplate="{TemplateBinding ComboBox.ItemTemplate}" IsEditable="True" 
+                           ItemsSource="{TemplateBinding ComboBox.ItemsSource}"  
+                           SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}">
                 </ComboBox>
             </Grid>
             <ControlTemplate.Triggers>
@@ -28,6 +30,7 @@
                 <Trigger Value="true" Property="IsEnabled">
                     <Setter TargetName="comboBox" Property="Visibility" Value="Visible"></Setter>
                 </Trigger>
+                
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </ComboBox.Template>

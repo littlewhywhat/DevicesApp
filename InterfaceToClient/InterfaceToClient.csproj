@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientContact.cs" />
     <Compile Include="CustomElements\Buttons\CancelButton.xaml.cs">
       <DependentUpon>CancelButton.xaml</DependentUpon>
     </Compile>
@@ -309,6 +310,13 @@
       <Project>{0c926e7d-de16-4722-a898-5e193e7cff2e}</Project>
       <Name>DBActionLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Back.png" />
+    <Resource Include="Pictures\Delete.png" />
+    <Resource Include="Pictures\Edit.png" />
+    <Resource Include="Pictures\Save.png" />
+    <Resource Include="Pictures\Undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

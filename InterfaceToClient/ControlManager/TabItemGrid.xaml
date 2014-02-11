@@ -8,23 +8,31 @@
              d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding}" DataContextChanged="TabItemGrid_DataContextChanged" 
                   InsertMode="{Binding Path=InsertMode, Mode=OneWay}">
     <Grid.RowDefinitions>
-        <RowDefinition Height="35"></RowDefinition>
         <RowDefinition ></RowDefinition>
+        <RowDefinition Height="35"></RowDefinition>
     </Grid.RowDefinitions>
-    <StackPanel Orientation="Horizontal"  Margin="5,5">
+    <StackPanel Grid.Row="1" Orientation="Horizontal"  Margin="5,5">
         <Canvas Width="25" >
-            <y:UpdateButton  x:Name="Update" Click="Update_Click" Visibility="Hidden"  Content="U"/>
-            <y:UpdateButton x:Name="Change" Click="Change_Click" Content="C"/>
+            <y:UpdateButton  x:Name="Update" Click="Update_Click" Visibility="Hidden">
+                <Image  Source="/InterfaceToClient;component/Pictures/Save.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:UpdateButton>
+            <y:UpdateButton x:Name="Change" Click="Change_Click">
+                <Image  Source="/InterfaceToClient;component/Pictures/Edit.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:UpdateButton>
         </Canvas>
         <Canvas Width="25" >
-            <y:DeleteButton x:Name="Delete" Click="Delete_Click" IsEnabled="False" >D</y:DeleteButton>
+            <y:DeleteButton x:Name="Delete" Click="Delete_Click" IsEnabled="False" >
+                <Image  Source="/InterfaceToClient;component/Pictures/Delete.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:DeleteButton>
         </Canvas>
         <Canvas Width="35" >
-            <y:CancelButton x:Name="Cancel" Click="Cancel_Click" IsEnabled="False" >C</y:CancelButton>
+            <y:CancelButton x:Name="Cancel" Click="Cancel_Click" IsEnabled="False" >
+                <Image  Source="/InterfaceToClient;component/Pictures/Back.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:CancelButton>
             
         </Canvas>
     </StackPanel>
-    <Grid Name="socketGrid" Margin="5" Grid.Row="1" IsEnabled="False" DataContext="{Binding}" >
+    <Grid Name="socketGrid" Margin="5" Grid.Row="0" IsEnabled="False" DataContext="{Binding}" >
 
     </Grid>
 </y:ControlManager>

@@ -18,15 +18,25 @@
         <Grid Background="Transparent">
     <StackPanel Orientation="Horizontal"  Margin="5,5">
         <Canvas Width="25" >
-            <y:UpdateButton  x:Name="Update" Click="Update_Click" Visibility="Hidden"  Content="U"/>
-            <y:UpdateButton x:Name="Change" Click="Change_Click" Content="C"/>
+            <y:UpdateButton  x:Name="Update" Click="Update_Click" Visibility="Hidden" >
+                <Image  Source="/InterfaceToClient;component/Pictures/Save.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:UpdateButton>
+            <y:UpdateButton x:Name="Change" Click="Change_Click">
+                <Image  Source="/InterfaceToClient;component/Pictures/Edit.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:UpdateButton>
         </Canvas>
         <Canvas Width="25" >
-            <y:DeleteButton x:Name="Delete" Click="Delete_Click" IsEnabled="False" >D</y:DeleteButton>
+            <y:DeleteButton x:Name="Delete" Click="Delete_Click" IsEnabled="False" >
+                <Image  Source="/InterfaceToClient;component/Pictures/Delete.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:DeleteButton>
         </Canvas>
         <Canvas Width="35" >
-            <y:CancelButton x:Name="Cancel" Click="Cancel_Click" IsEnabled="False" >C</y:CancelButton>
-            <y:CancelButton x:Name="Undo" Click="Undo_Click" Visibility="Hidden">U</y:CancelButton>
+            <y:CancelButton x:Name="Cancel" Click="Cancel_Click" IsEnabled="False" >
+                <Image  Source="/InterfaceToClient;component/Pictures/Back.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:CancelButton>
+            <y:CancelButton x:Name="Undo" Click="Undo_Click" Visibility="Hidden">
+                <Image  Source="/InterfaceToClient;component/Pictures/Undo.png" Stretch="Fill" Width="20" Height="20"/>
+            </y:CancelButton>
         </Canvas>
     </StackPanel>
     <Grid Name="socketGrid" VerticalAlignment="Bottom"  IsEnabled="False">

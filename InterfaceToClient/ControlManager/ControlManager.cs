@@ -79,7 +79,8 @@ namespace InterfaceToClient
         }
         protected void DeleteClick(RoutedEventArgs e)
         {
-            PerformDBAction(Delete);
+            if (ClientContact.Confirm())
+                PerformDBAction(Delete);
             e.Handled = true;
         }
 
