@@ -298,6 +298,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomElements\CustomElements.csproj">
+      <Project>{9db3ba6b-474a-4eea-98f2-a1a421447256}</Project>
+      <Name>CustomElements</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataItemControllersLibrary\DataItemControllersLibrary.csproj">
       <Project>{30de232c-85ea-440b-b822-fa89b9e6c51d}</Project>
       <Name>DataItemControllersLibrary</Name>

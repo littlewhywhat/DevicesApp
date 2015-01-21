@@ -26,19 +26,19 @@
         <y:EnableTextBox  Margin="5" x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Name}"></y:EnableTextBox>
         
         <TextBlock>Компания:</TextBlock>
-        <y:CompanyIdComboBox   Margin="5" x:Name="DevicesCompanyIdComboBox" ItemsSource="{Binding Path=Companies, Mode=OneWay}" 
-                               SelectedValue="{Binding Path=CompanyOrDefault}"></y:CompanyIdComboBox>
+        <y:CompanyIdComboBox   Margin="5" x:Name="DevicesCompanyIdComboBox" ItemsSource="{Binding Path=Companies, Mode=OneWay,NotifyOnTargetUpdated=True}" 
+                               SelectedValue="{Binding Path=CompanyOrDefault}" ></y:CompanyIdComboBox>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Тип изделия:</TextBlock>
             <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=DevicesTypeIdComboBox, Path=SelectedValue.Marker}"></TextBlock>
         </StackPanel>
 
         <y:TypeIdComboBox  Margin="5" x:Name="DevicesTypeIdComboBox"  SelectionChanged="DevicesTypeIdComboBox_SelectionChanged"
-                          ItemsSource="{Binding Path=Types, Mode=OneWay}" 
+                          ItemsSource="{Binding Path=Types, Mode=OneWay, NotifyOnTargetUpdated=True}" 
                           SelectedValue="{Binding Path=TypeOrDefault}"></y:TypeIdComboBox>
         <TextBlock>Родитель:</TextBlock>
         <y:DataItemsComboBox  Margin="5" x:Name="DevicesTypeParentComboBox" DataContextChanged="DevicesTypeParentComboBox_DataContextChanged" 
-                          ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
+                          ItemsSource="{Binding Path=Parents, Mode=OneWay, NotifyOnTargetUpdated=True}" 
                           SelectedValue="{Binding Path=ParentOrDefault}" ></y:DataItemsComboBox>
 
     </StackPanel>

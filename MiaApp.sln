@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataItemControllersLibrary"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataItemsLibrary", "DataItemsLibrary\DataItemsLibrary.csproj", "{4DDFFB31-9BEE-4146-BCA4-A7B8C331A422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomElements", "CustomElements\CustomElements.csproj", "{9DB3BA6B-474A-4EEA-98F2-A1A421447256}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4DDFFB31-9BEE-4146-BCA4-A7B8C331A422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DDFFB31-9BEE-4146-BCA4-A7B8C331A422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DDFFB31-9BEE-4146-BCA4-A7B8C331A422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB3BA6B-474A-4EEA-98F2-A1A421447256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB3BA6B-474A-4EEA-98F2-A1A421447256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB3BA6B-474A-4EEA-98F2-A1A421447256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB3BA6B-474A-4EEA-98F2-A1A421447256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

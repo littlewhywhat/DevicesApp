@@ -1,0 +1,23 @@
+﻿<Window x:Class="CustomElements.XamlReader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:y="clr-namespace:CustomElements"
+        Title="XamlReader" Height="300" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="listbox" SelectionChanged="listbox_SelectionChanged_1"></ListBox>
+        <Grid Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="15*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Name="grid"></Grid>
+            <TextBox  Grid.Row="1" Name="text"></TextBox>
+        </Grid>
+        
+        
+    </Grid>
+</Window>
