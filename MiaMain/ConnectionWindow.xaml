@@ -9,16 +9,11 @@
             <TextBox Name="DataSource" Text="{Binding Path=DataSource}" Margin="5"></TextBox>
             <TextBlock Margin="5">InitialCatalog</TextBlock>
             <TextBox Name="InitialCatalog" Text="{Binding Path=InitialCatalog}"  Margin="5"></TextBox>
-            <TextBlock Margin="5">Authentication</TextBlock>
-            <ComboBox Name="IntegratedSecurityComboBox" Margin="5" SelectedValuePath="DataContext" SelectedValue="{Binding Path=IntegratedSecurity}">
-                <ComboBoxItem IsSelected="True" DataContext="false">Windows Authentication</ComboBoxItem>
-                <ComboBoxItem DataContext="true">Sql Server Authentication</ComboBoxItem>
-            </ComboBox>
+            <CheckBox Name="IntegratedSecurityCheckBox" Margin="5" IsChecked="{Binding Path=IntegratedSecurity}">Sql Server Authentication</CheckBox>
             <TextBlock Margin="5">UserId</TextBlock>
-            <TextBox Name="UserId" IsEnabled="{Binding ElementName=IntegratedSecurityComboBox,Path=SelectedValue}" Text="{Binding Path=UserId}" Margin="5"></TextBox>
+            <TextBox Name="UserId" IsEnabled="{Binding ElementName=IntegratedSecurityCheckBox,Path=IsChecked}" Text="{Binding Path=UserId}" Margin="5"></TextBox>
             <TextBlock Margin="5">Password</TextBlock>
-            <TextBox Name="Password" IsEnabled="{Binding ElementName=IntegratedSecurityComboBox,Path=SelectedValue}" Text="{Binding Path=Password}"  Margin="5"></TextBox>
-
+            <TextBox Name="Password" IsEnabled="{Binding ElementName=IntegratedSecurityCheckBox,Path=IsChecked}" Text="{Binding Path=Password}"  Margin="5"></TextBox>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
