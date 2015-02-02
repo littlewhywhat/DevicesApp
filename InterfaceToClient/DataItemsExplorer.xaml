@@ -24,13 +24,13 @@
                       VerticalContentAlignment="Center" Style="{StaticResource Default}" Background="White" 
                       SelectionChanged="ControllerComboBox_SelectionChanged" >
                 <ComboBoxItem  Name="Devices"  >
-                    <TextBlock Padding="1"  FontSize="12" Text="Изделия"></TextBlock>
+                    <TextBlock Padding="1"  FontSize="12" Text="Devices"></TextBlock>
                 </ComboBoxItem>
                 <ComboBoxItem Name="Companies">
-                    <TextBlock Padding="1" FontSize="12" Text="Компании"></TextBlock>
+                    <TextBlock Padding="1" FontSize="12" Text="Companies"></TextBlock>
                 </ComboBoxItem>
                 <ComboBoxItem Name="DeviceTypes">
-                    <TextBlock Padding="1" FontSize="12" Text="Типы изделий"></TextBlock>
+                    <TextBlock Padding="1" FontSize="12" Text="Device types"></TextBlock>
                 </ComboBoxItem>
             </ComboBox>
             <y:SearchGrid x:Name="searchGrid" Style="{StaticResource Default}" Grid.Column="1" 

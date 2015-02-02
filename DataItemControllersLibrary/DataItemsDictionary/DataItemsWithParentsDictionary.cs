@@ -10,7 +10,7 @@ namespace DataItemControllersLibrary
         public DataItemControllersWithParentsDictionary(DictionariesVault vault) : base(vault) { }
         public DataItemControllersWithParentsDictionary(DataItemControllersFactory factory) : base(factory) { }
 
-        const string _WithoutParent = "Без родителя";
+        const string _WithoutParent = "Without parent";
         private DataItemControllerWithParents WithoutParentController;
         private DataItemControllerWithParents InitWithoutParentController()
         {

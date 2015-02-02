@@ -25,7 +25,7 @@ namespace InterfaceToClient
     public partial class EventsListBox : Grid, IObserver, IClose
     {
         ObservableCollection<ListBoxItemGrid> EventsCollection = new ObservableCollection<ListBoxItemGrid>();
-        const string _AllEventsFilter = "Все события";
+        const string _AllEventsFilter = "All events";
         private string CurrentFilter { get { return ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString(); } }
         private bool IsCurrentFilterAllEvents { get { return CurrentFilter == _AllEventsFilter; } }
 
@@ -116,7 +116,7 @@ namespace InterfaceToClient
         private void AssignCurrentFilter(DeviceEventController deviceEvent)
         {
             var selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
-            if (selectedFilter != "Все события")
+            if (selectedFilter != "All events")
                 deviceEvent.Type = selectedFilter;
         }
 

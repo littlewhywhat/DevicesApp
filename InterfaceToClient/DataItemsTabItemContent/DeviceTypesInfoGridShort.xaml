@@ -11,10 +11,10 @@
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </StackPanel.Resources>
-    <TextBlock>Короткое название изделия</TextBlock>
+    <TextBlock>Device short name</TextBlock>
     <y:EnableTextBox  Margin="5" x:Name="DeviceName" Text="{Binding Path=Name}"></y:EnableTextBox>
-    <TextBlock >Полное название изделия:</TextBlock>
+    <TextBlock >Device full name:</TextBlock>
     <y:EnableTextBox  Margin="5" x:Name="DeviceFullName" Text="{Binding Path=FullName}"></y:EnableTextBox>
-    <TextBlock>ИВУК:</TextBlock>
+    <TextBlock>Type ID:</TextBlock>
     <y:EnableTextBox  Margin="5" x:Name="DeviceIVUK" Text="{Binding Path=IVUK}"></y:EnableTextBox>
 </StackPanel>

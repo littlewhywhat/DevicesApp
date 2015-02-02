@@ -22,14 +22,14 @@
         </StackPanel.Resources>
         <y:DeviceTypesInfoGridShort DataContext="{Binding Path=TypeOrDefault}" IsEnabled="False"></y:DeviceTypesInfoGridShort>
         
-        <TextBlock>Заводской номер:</TextBlock>
+        <TextBlock>Device number</TextBlock>
         <y:EnableTextBox  Margin="5" x:Name="DeviceProductNumber" TextChanged="DeviceProductNumber_TextChanged" Text="{Binding Path=Name}"></y:EnableTextBox>
         
-        <TextBlock>Компания:</TextBlock>
+        <TextBlock>Company:</TextBlock>
         <y:CompanyIdComboBox   Margin="5" x:Name="DevicesCompanyIdComboBox" ItemsSource="{Binding Path=Companies, Mode=OneWay,NotifyOnTargetUpdated=True}" 
                                SelectedValue="{Binding Path=CompanyOrDefault}" ></y:CompanyIdComboBox>
         <StackPanel Orientation="Horizontal">
-            <TextBlock>Тип изделия:</TextBlock>
+            <TextBlock>Device type:</TextBlock>
             <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=DevicesTypeIdComboBox, Path=SelectedValue.Marker}"></TextBlock>
         </StackPanel>
 

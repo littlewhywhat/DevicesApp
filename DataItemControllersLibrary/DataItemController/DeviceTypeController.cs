@@ -34,7 +34,7 @@ namespace DataItemControllersLibrary
             return DevicesDic.GetDevicesWithTypeId(DeviceType.Id);
         }
 
-        const string _WithoutMarker = "Без маркера";
+        const string _WithoutMarker = "Without marker";
         const string _FullName = "FullName";
         const string _IVUK = "IVUK";
         const string _IsMarker = "IsMarker";

@@ -39,7 +39,7 @@ namespace MiaMain
                 ConnectionStringBuilder.SaveConnectionStringToFile(Connection.ConnectionString);
             }
             else
-                MessageBox.Show("Oшибка подключения", "Oшибка", MessageBoxButton.OK);
+                MessageBox.Show("Connection error", "Error", MessageBoxButton.OK);
         }
         private void CloseDialogWindow(bool result)
         {

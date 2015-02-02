@@ -24,7 +24,7 @@ namespace DataItemsLibrary
         public override DataItem GetDataItemDefault()
         {
             var dataItem = (DeviceType)GetEmptyDataItem();
-            dataItem.Name = "Новый тип";
+            dataItem.Name = "New type";
             return dataItem;
         }
     }

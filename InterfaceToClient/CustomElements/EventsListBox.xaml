@@ -26,11 +26,11 @@
         </Button>
         <ComboBox Grid.Column="1" x:Name="FilterComboBox"    HorizontalAlignment="Stretch" Background="#FFF9F9F9"
               SelectionChanged="ComboBox_SelectionChanged"  FontSize="15" Padding="10,0,0,0" VerticalContentAlignment="Center">
-            <ComboBoxItem>Все события</ComboBoxItem>
-            <ComboBoxItem >Работа</ComboBoxItem>
-            <ComboBoxItem >Проверка</ComboBoxItem>
-            <ComboBoxItem>Ремонт</ComboBoxItem>
-            <ComboBoxItem>Тип неопределен</ComboBoxItem>
+            <ComboBoxItem>All events</ComboBoxItem>
+            <ComboBoxItem >Job</ComboBoxItem>
+            <ComboBoxItem >Test</ComboBoxItem>
+            <ComboBoxItem>Repair</ComboBoxItem>
+            <ComboBoxItem>Type unspecified</ComboBoxItem>
 
         </ComboBox>
     </Grid>

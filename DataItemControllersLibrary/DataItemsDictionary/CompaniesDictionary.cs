@@ -12,7 +12,7 @@ namespace DataItemControllersLibrary
         { }
         public CompaniesDictionary(CompanyControllersFactory factory) : base(factory)
         { }
-        const string _UndefinedCompany = "Компания неопределена";
+        const string _UndefinedCompany = "Company undefined";
         private CompanyController UndefinedCompany;
         private CompanyController InitUndefinedCompany()
         {

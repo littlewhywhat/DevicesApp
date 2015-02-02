@@ -23,7 +23,7 @@ namespace DataItemsLibrary
         public override DataItem GetDataItemDefault()
         {
             var dataItem = (Company)GetEmptyDataItem();
-            dataItem.Name = "Новая компания";
+            dataItem.Name = "New company";
             return dataItem;
         }
     }

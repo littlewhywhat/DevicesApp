@@ -23,11 +23,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ComboBox HorizontalAlignment="Left"  x:Name="FilterComboBox" Margin="5,0,0,5"  Width="140" SelectedValuePath="Content" 
-                      SelectedValue="{Binding Path=Type, FallbackValue='Тип неопределен'}" Background="White" >
-                <ComboBoxItem>Работа</ComboBoxItem>
-                <ComboBoxItem>Проверка</ComboBoxItem>
-                <ComboBoxItem>Ремонт</ComboBoxItem>
-                <ComboBoxItem>Тип неопределен</ComboBoxItem>
+                      SelectedValue="{Binding Path=Type, FallbackValue='Type undefined'}" Background="White" >
+                <ComboBoxItem>Job</ComboBoxItem>
+                <ComboBoxItem>Test</ComboBoxItem>
+                <ComboBoxItem>Repair</ComboBoxItem>
+                <ComboBoxItem>Type undefined</ComboBoxItem>
             </ComboBox>
             <xceed:DateTimePicker   Width="205" TimeFormat="ShortTime" Margin="0,0,5,5" Grid.Column="1" Name="TimePicker" Value="{Binding Path=Date}">
                 <xceed:DateTimePicker.Template>

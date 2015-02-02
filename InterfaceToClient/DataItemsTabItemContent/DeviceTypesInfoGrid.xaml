@@ -15,14 +15,14 @@
 
         <y:DeviceTypesInfoGridShort DataContext="{Binding}"></y:DeviceTypesInfoGridShort>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="0,0,5,0">Родительский тип:</TextBlock>
+            <TextBlock Margin="0,0,5,0">Parent type:</TextBlock>
             <TextBlock Grid.Column="1" Text="{Binding Path=Marker}" Name="PreviousMarker"></TextBlock>
         </StackPanel>
         
         <y:DataItemsComboBox  Margin="5" x:Name="DeviceTypesParentComboBox" ItemsSource="{Binding Path=Parents, Mode=OneWay}" 
                           SelectedValue="{Binding Path=ParentOrDefault}"></y:DataItemsComboBox>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Grid.ColumnSpan="2" Margin="0,0,5,0">Является маркером:</TextBlock>
+            <TextBlock Grid.ColumnSpan="2" Margin="0,0,5,0">Is marker:</TextBlock>
             <CheckBox Margin="0,2,0,0" Name="IsMarker" HorizontalAlignment="Center" IsChecked="{Binding Path=IsMarker}" IsEnabled="{Binding Path=InsertMode}"
                       ></CheckBox>
         </StackPanel>

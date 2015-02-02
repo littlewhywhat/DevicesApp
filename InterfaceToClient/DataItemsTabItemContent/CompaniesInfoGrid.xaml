@@ -16,11 +16,11 @@
             <Style BasedOn="{StaticResource TextBoxMargin}" TargetType="y:EnableTextBox" >
             </Style>
         </StackPanel.Resources>
-        <TextBlock>Название компании:</TextBlock>
+        <TextBlock>Company name:</TextBlock>
         <y:EnableTextBox Margin="5" x:Name="CompanyName" Text="{Binding Path=Name}"></y:EnableTextBox>
-        <TextBlock>Информация о компании:</TextBlock>
+        <TextBlock>Information:</TextBlock>
         <y:EnableTextBox  Margin="5" x:Name="CompanyInfo" Text="{Binding Path=Info}"></y:EnableTextBox>
-        <TextBlock>Родительская компания:</TextBlock>
+        <TextBlock>Parent company:</TextBlock>
         <y:DataItemsComboBox Margin="5" x:Name="CompanyParentComboBox" ItemsSource="{Binding Path=Parents}" SelectedValue="{Binding Path=ParentOrDefault}"></y:DataItemsComboBox>
     </StackPanel>
 </y:DataItemsInfoGrid>

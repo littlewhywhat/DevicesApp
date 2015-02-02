@@ -65,7 +65,6 @@ namespace InterfaceToClient
             e.Handled = true;
             if (searchPopUp.searchListBox.HasItems)
             {
-                // клавиша Down
                 if (e.Key == System.Windows.Input.Key.Down)
                 {
                     if (!searchPopUp.IsOpen)
@@ -82,7 +81,6 @@ namespace InterfaceToClient
                         catch
                         { }
                 }
-                // клавиша Up
                 if (e.Key == System.Windows.Input.Key.Up)
                     try
                     {
@@ -91,7 +89,6 @@ namespace InterfaceToClient
                     }
                     catch
                     { }
-                // клавиша Enter
                 if (e.Key == System.Windows.Input.Key.Enter)
                 {
                     if (searchPopUp.searchListBox.Items.Count == 1)

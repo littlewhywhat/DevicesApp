@@ -25,9 +25,9 @@ namespace DataItemsLibrary
         public override DataItem GetDataItemDefault()
         {
             var dataItem = (DeviceEvent)GetEmptyDataItem();
-            dataItem.Name = "Новое событие";
+            dataItem.Name = "New event";
             dataItem.Date = DateTime.Now;
-            dataItem.Type = "Тип неопределен";
+            dataItem.Type = "Type undefined";
             return dataItem;
         }
     }

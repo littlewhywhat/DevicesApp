@@ -13,7 +13,7 @@ namespace DataItemControllersLibrary
         public DeviceTypesDictionary(DeviceTypeControllersFactory factory): base(factory)
         { }
 
-        const string _UndefinedType = "Тип неопределен";
+        const string _UndefinedType = "Type undefined";
         private DeviceTypeController UndefinedType;
         private DeviceTypeController InitUndefinedType()
         {
