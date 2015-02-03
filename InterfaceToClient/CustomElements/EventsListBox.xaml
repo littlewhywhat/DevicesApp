@@ -30,7 +30,7 @@
             <ComboBoxItem >Job</ComboBoxItem>
             <ComboBoxItem >Test</ComboBoxItem>
             <ComboBoxItem>Repair</ComboBoxItem>
-            <ComboBoxItem>Type unspecified</ComboBoxItem>
+            <ComboBoxItem>Type undefined</ComboBoxItem>
 
         </ComboBox>
     </Grid>
