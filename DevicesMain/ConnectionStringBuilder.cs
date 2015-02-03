@@ -6,7 +6,7 @@ using System.Data.Common;
 using System.IO;
 using DBActionLibrary;
 
-namespace MiaMain
+namespace DevicesMain
 {
     public static class ConnectionStringBuilder
     {

@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Common;
 using DBActionLibrary;
-namespace MiaMain
+namespace DevicesMain
 {
     /// <summary>
     /// Логика взаимодействия для ConnectionWindow.xaml

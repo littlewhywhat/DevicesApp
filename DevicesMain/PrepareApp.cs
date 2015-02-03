@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using InterfaceToClient;
 
-namespace MiaMain
+namespace DevicesMain
 {
     public static class PrepareApp
     {

@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace MiaMain
+namespace DevicesMain
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
